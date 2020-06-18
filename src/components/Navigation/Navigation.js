@@ -1,14 +1,14 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
-import Home from '../Screens/Home/Home';
+import StackNavigation from './StackNavigation';
+import DrawerContent from './DraweContent';
 
 const Drawer = createDrawerNavigator();
 
 const Navigation = () => {
     return (
-        <Drawer.Navigator initialRouteName='Inicio'>
-            <Drawer.Screen name='Inicio' component={Home} options={{ title: 'Inicio' }} />
+        <Drawer.Navigator initialRouteName='App' drawerContent={(props) => <DrawerContent {...props} />}>
+            <Drawer.Screen name='App' component={StackNavigation} />
         </Drawer.Navigator>
     )
 }

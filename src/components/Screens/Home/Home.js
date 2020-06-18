@@ -4,26 +4,9 @@ import { Header, Icon, Left, Right } from "native-base";
 import { FontAwesome, FontAwesome5, Entypo } from "@expo/vector-icons";
 import firebase from '../../../../Firebase/Firebase';
 
-export default Home = (props) => {
+const Home = (props) => {
     return (
         <View style={styles.container}>
-            <Header style={styles.header}>
-                <Left>
-                    <Icon style={styles.icon} name="menu" onPress={() => props.navigation.openDrawer()} />
-                </Left>
-                <Right>
-                    <Image
-                        source={require("../../../../assets/logo_jornadas.png")}
-                        style={{
-                            width: 200,
-                            resizeMode: 'contain',
-                            height: 50,
-                            marginBottom: 10,
-                            marginRight: -20,
-                        }}
-                    />
-                </Right>
-            </Header>
             <Image
                 source={require("../../../../assets/slider_noticia_001.jpg")}
                 style={{
@@ -37,9 +20,9 @@ export default Home = (props) => {
             />
             <View style={styles.body}>
                 <View style={styles.buttons}>
-                    <TouchableHighlight style={styles.buttonYellow}><Text style={styles.textCompany}>Alcancia Digital</Text></TouchableHighlight>
+                    <TouchableHighlight onPress={() => props.navigation.navigate('Alcancia')} style={styles.buttonYellow}><Text style={styles.textCompany}>Alcancia Digital</Text></TouchableHighlight>
                     <TouchableHighlight style={styles.buttonBlue}><Text style={styles.textUsers}>Eventos</Text></TouchableHighlight>
-                    <TouchableHighlight style={styles.buttonYellow}><Text style={styles.textCompany}>Comprar Bono Rifa</Text></TouchableHighlight>
+                    <TouchableHighlight onPress={() => props.navigation.navigate('Bono')} style={styles.buttonYellow}><Text style={styles.textCompany}>Comprar Bono Rifa</Text></TouchableHighlight>
                 </View>
                 <View style={styles.buttons}>
                     <TouchableHighlight style={styles.buttonBlue}><Text style={styles.textUsers}>Mis Donaciones</Text></TouchableHighlight>
@@ -63,9 +46,13 @@ export default Home = (props) => {
     );
 };
 
+export default Home;
+
 const Logout = () => {
     firebase.auth().signOut();
 };
+
+
 
 const styles = StyleSheet.create({
     container: {

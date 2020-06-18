@@ -112,7 +112,7 @@ export default (props) => {
                 </Left>
                 <Right>
                     <Image
-                        source={require("../../../assets/logo_jornadas.png")}
+                        source={require("../../../../assets/logo_jornadas.png")}
                         style={{
                             width: 200,
                             resizeMode: 'contain',
@@ -124,7 +124,7 @@ export default (props) => {
                 </Right>
             </Header>
             <Image
-                source={require("../../../assets/slider_noticia_001.jpg")}
+                source={require("../../../../assets/slider_noticia_001.jpg")}
                 style={{
                     width: null,
                     resizeMode: "contain",

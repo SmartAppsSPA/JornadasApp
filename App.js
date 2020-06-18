@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, StyleSheet, StatusBar, View, TouchableHighlight, ScrollView } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import Auth from './src/components/Auth/Auth';
 import firebase from './Firebase/Firebase';
 import Navigation from './src/components/Navigation/Navigation';
@@ -16,15 +17,38 @@ export default function App() {
 
   if (user === undefined) return null;
 
+  const NavigationMyTheme = {
+    colors: {
+      primary: '#3498db',
+      background: 'white',
+      card: '#03255F',
+      text: '#03255F',
+    },
+  };
+
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#3498db',
+      accent: '#f1c40f',
+      text: '#3498db'
+    },
+  };
+
+
   return (
     <>
       {user ?
-        <NavigationContainer>
-          <Navigation />
-        </NavigationContainer>
+        <PaperProvider theme={theme}  >
+          <NavigationContainer theme={NavigationMyTheme}>
+            <StatusBar />
+            <Navigation />
+          </NavigationContainer>
+        </PaperProvider>
         :
         <>
-          <StatusBar barStyle='light-content' />
+          <StatusBar />
           <SafeAreaView style={styles.background}>
             <ScrollView>
               <Auth />

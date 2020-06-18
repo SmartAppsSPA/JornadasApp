@@ -90,23 +90,6 @@ const styles = StyleSheet.create({
 export default (props) => {
     return (
         <View style={styles.container}>
-            <Header style={styles.header}>
-                <Left>
-                    <Icon style={styles.icon} name="menu" onPress={() => props.navigation.openDrawer()} />
-                </Left>
-                <Right>
-                    <Image
-                        source={require("../../../assets/logo_jornadas.png")}
-                        style={{
-                            width: 200,
-                            resizeMode: 'contain',
-                            height: 50,
-                            marginBottom: 10,
-                            marginRight: -20,
-                        }}
-                    />
-                </Right>
-            </Header>
             <ScrollView>
                 <View style={styles.body}>
                     <View style={styles.title}>

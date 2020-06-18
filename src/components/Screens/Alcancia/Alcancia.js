@@ -2,6 +2,36 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableHighlight } from "react-native";
 import { Header, Left, Right, Icon } from "native-base";
 
+export default (props) => {
+    const { navigation } = props;
+    return (
+        <View style={styles.container}>
+            <Image
+                source={require("../../../../assets/slider_noticia_001.jpg")}
+                style={{
+                    width: null,
+                    resizeMode: "contain",
+                    height: 220,
+                    marginBottom: 5,
+                    marginTop: -15,
+                    zIndex: -2,
+                }}
+            />
+            <View style={styles.body}>
+                <View style={styles.title}>
+                    <Text style={styles.textTitle} >
+                        Alcancia Digital
+                    </Text>
+                </View>
+                <View style={styles.buttons}>
+                    <TouchableHighlight onPress={() => navigation.navigate('DonacionPersonas')} style={styles.buttonUser}><Text style={styles.textUsers}>Donación Personas</Text></TouchableHighlight>
+                    <TouchableHighlight onPress={() => navigation.navigate('DonacionEmpresas')} style={styles.buttonCompany}><Text style={styles.textCompany}>Donación Empresas</Text></TouchableHighlight>
+                </View>
+            </View>
+        </View>
+    );
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 5,
@@ -68,51 +98,3 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
-
-export default (props) => {
-    return (
-        <View style={styles.container}>
-            <Header style={styles.header}>
-                <Left>
-                    <Icon style={styles.icon} name="menu" onPress={() => props.navigation.openDrawer()} />
-                </Left>
-                <Right>
-                    <Image
-                        source={require("../../../assets/logo_jornadas.png")}
-                        style={{
-                            width: 200,
-                            resizeMode: 'contain',
-                            height: 50,
-                            marginBottom: 10,
-                            marginRight: -20,
-                        }}
-                    />
-                </Right>
-            </Header>
-            <Image
-                source={require("../../../assets/slider_noticia_001.jpg")}
-                style={{
-                    width: null,
-                    resizeMode: "contain",
-                    height: 220,
-                    marginBottom: 5,
-                    marginTop: -15,
-                    zIndex: -2,
-                }}
-            />
-            <View style={styles.body}>
-                <View style={styles.title}>
-                    <Text style={styles.textTitle} >
-                        Alcancia Digital
-                    </Text>
-                </View>
-                <View style={styles.buttons}>
-                    <TouchableHighlight onPress={() => props.navigation.navigate('DonacionUsuario')} style={styles.buttonUser}><Text style={styles.textUsers}>Donación Personas</Text></TouchableHighlight>
-                    <TouchableHighlight onPress={() => props.navigation.navigate('DonacionEmpresas')} style={styles.buttonCompany}><Text style={styles.textCompany}>Donación Empresas</Text></TouchableHighlight>
-                </View>
-            </View>
-        </View>
-    );
-};
-
-
