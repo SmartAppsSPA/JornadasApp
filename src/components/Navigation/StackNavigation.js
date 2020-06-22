@@ -7,6 +7,9 @@ import Alcancia from '../Screens/Alcancia/Alcancia';
 import DonacionEmpresas from '../Screens/Alcancia/DonacionEmpresas';
 import DonacionUsuario from '../Screens/Alcancia/DonacionUsuario';
 import Bono from '../Screens/Bono/Bono';
+import Donar from '../Screens/Alcancia/Donar';
+import Auth from '../Auth/Auth';
+import LoginForm from '../Auth/LoginForm';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +28,7 @@ export default function StackNavigation(props) {
             <Image
                 source={require('../../../assets/logo_jornadas.png')}
                 style={{
-                    width: 200,
+                    width: 220,
                     resizeMode: 'contain',
                     height: 50,
                     marginRight: -20,
@@ -59,6 +62,21 @@ export default function StackNavigation(props) {
             <Stack.Screen
                 name="Bono"
                 component={Bono}
+                options={{ headerLeft: () => buttonLeft(), headerRight: buttonRight }}
+            />
+            <Stack.Screen
+                name="Donar"
+                component={Donar}
+                options={{ headerLeft: () => buttonLeft(), headerRight: buttonRight }}
+            />
+            <Stack.Screen
+                name="Auth"
+                component={Auth}
+                options={{ headerLeft: () => buttonLeft(), headerRight: buttonRight }}
+            />
+            <Stack.Screen
+                name="LoginForm"
+                component={LoginForm}
                 options={{ headerLeft: () => buttonLeft(), headerRight: buttonRight }}
             />
         </Stack.Navigator>

@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, TouchableHighlight } from "react-native";
-import { Header, Icon, Left, Right } from "native-base";
 import { FontAwesome, FontAwesome5, Entypo } from "@expo/vector-icons";
 import firebase from '../../../../Firebase/Firebase';
 
 const Home = (props) => {
+    /*const [fbUserData, setFbUserData] = useState(null);
+
+    useEffect(() => {
+        firebase.database().ref(`Users/${response.uid}` || `Company/${response.uid}`).on('value', snapshot => {
+            setFbUserData(snapshot.val());
+        });
+    }, []);*/
+
+
     return (
         <View style={styles.container}>
             <Image

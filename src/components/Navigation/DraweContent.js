@@ -5,6 +5,8 @@ import { Drawer, Switch, TouchableRipple, Text } from 'react-native-paper';
 
 const DrawerContent = (props) => {
     const { navigation } = props;
+    const { fbUserData } = props;
+
     const [active, setActive] = useState("Home");
 
     const onChangeScreen = (screen) => {

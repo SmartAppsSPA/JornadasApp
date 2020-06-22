@@ -5,7 +5,8 @@ import DrawerContent from './DraweContent';
 
 const Drawer = createDrawerNavigator();
 
-const Navigation = () => {
+const Navigation = (props) => {
+
     return (
         <Drawer.Navigator initialRouteName='App' drawerContent={(props) => <DrawerContent {...props} />}>
             <Drawer.Screen name='App' component={StackNavigation} />
