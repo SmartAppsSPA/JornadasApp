@@ -11,7 +11,7 @@ import {
 import Auth from "./src/components/Auth/Auth";
 import firebase from "./Firebase/Firebase";
 import MyDrawer from "./src/MyDrawer";
-
+import MyStack from "./src/components/Auth/MyStack";
 export default function App() {
   const [user, setUser] = useState(undefined);
 
@@ -28,6 +28,7 @@ export default function App() {
       {user ? (
         <MyDrawer />
       ) : (
+        // <MyStack />
         <>
           <StatusBar />
           <SafeAreaView style={styles.background}>

@@ -6,7 +6,6 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import styled from "./Style";
 import HomeScreen from "../MyScreens/HomeScreen";
 import PerfilScreen from "../MyScreens/PerfilScreen";
-import NotificacionScreen from "../MyScreens/NotificacionScreen";
 import BonoScreen from "../MyScreens/BonoScreen";
 import DonarScreen from "../MyScreens/DonarScreen";
 import { navigationRef } from "../MyScreens/RootNavigation";

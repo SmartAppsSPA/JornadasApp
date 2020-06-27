@@ -1,46 +1,19 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Header, Left, Right, Icon } from "native-base";
 import { FontAwesome, FontAwesome5, Entypo } from "@expo/vector-icons";
 import styles from "./Style";
 import firebase from "../../Firebase/Firebase";
-
-import MyButtons from "./MyButtons";
+import HeaderView from "../components/Layouts/Header";
+import MainImage from "../components/Layouts/MainImage";
 
 export default function HomeScreen(props) {
   return (
     <View style={{ flex: 1 }}>
-      <Header style={styles.header}>
-        <Left>
-          <Icon
-            style={styles.icon}
-            name="menu"
-            onPress={() => props.navigation.openDrawer()}
-          />
-        </Left>
-        <Right>
-          <Image
-            source={require("../../assets/logo_jornadas_leones.png")}
-            style={{
-              width: 200,
-              resizeMode: "contain",
-              height: 50,
-              marginRight: -20,
-            }}
-          />
-        </Right>
-      </Header>
-      <View style={{ flex: 1, alignItems: "center" }}>
-        <Image
-          source={require("../../assets/slider_noticia_001.jpg")}
-          style={{
-            resizeMode: "contain",
-            height: 220,
-            marginBottom: 5,
-          }}
-        />
-        <View style={styles.bodyhome}>
-          <View style={styles.buttonshome}>
+      <HeaderView props={props} />
+      <MainImage />
+      <View style={{ flex: 1, alignItems: "center", marginTop: 10 }}>
+        <View style={styles.bodyHome}>
+          <View style={styles.buttonsHome}>
             <TouchableOpacity
               onPress={() => props.navigation.navigate("Donar")}
               style={styles.buttonYellow}
@@ -57,7 +30,7 @@ export default function HomeScreen(props) {
               <Text style={styles.textCompany}>Comprar Bono Rifa</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.buttonshome}>
+          <View style={styles.buttonsHome}>
             <TouchableOpacity style={styles.buttonBlue}>
               <Text style={styles.textUsers}>Mis Donaciones</Text>
             </TouchableOpacity>
@@ -88,7 +61,7 @@ export default function HomeScreen(props) {
               <Text style={styles.textUsers}>Mis Bonos</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.buttonshome}>
+          <View style={styles.buttonsHome}>
             <TouchableOpacity style={styles.buttonYellow}>
               <Text style={styles.textCompany}>
                 <FontAwesome5 name="user-cog" size={25} color="#03255F" />

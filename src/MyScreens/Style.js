@@ -1,30 +1,74 @@
 export default {
-  bodyhome: {
-    flex: 6,
-    alignItems: "center",
-  },
-  buttonshome: {
-    flex: 2,
-    flexDirection: "row",
-  },
+  //Global
   container: {
     flex: 5,
   },
-  header: {
-    backgroundColor: "#03255F",
-    height: 60,
+  buttons: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
   },
-  icon: {
+
+  titles: {
+    fontSize: 40,
+    color: "#03255F",
+    fontWeight: "bold",
+    paddingTop: 30,
+    textAlign: "center",
+  },
+  form: {
+    fontSize: 25,
+    color: "#03255F",
+    fontWeight: "bold",
+    paddingTop: 30,
+    alignItems: "center",
+  },
+  input: {
+    height: 40,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
+    width: 300,
+  },
+  buttonSubmit: {
+    marginTop: 15,
+    width: 350,
+    height: 50,
+    backgroundColor: "#F5C300",
+    marginBottom: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 3,
+  },
+  textSubmit: {
+    fontSize: 20,
     color: "white",
+    fontWeight: "bold",
   },
-  imageContainer: {
-    flex: 3,
+
+  buttonPagar: {
+    width: 200,
+    height: 50,
+    backgroundColor: "#F5C300",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 8,
+    borderWidth: 1,
   },
-  body: {
+  textPagar: {
+    fontSize: 20,
+    color: "#03255F",
+    fontWeight: "bold",
+  },
+
+  //Home
+  bodyHome: {
     flex: 6,
     alignItems: "center",
   },
-  buttons: {
+  buttonsHome: {
     flex: 2,
     flexDirection: "row",
   },
@@ -60,31 +104,16 @@ export default {
     justifyContent: "center",
     textAlign: "center",
   },
-  title: {
-    flex: 1,
-  },
-  textTitle: {
-    fontSize: 40,
-    color: "#03255F",
-    fontWeight: "bold",
-    paddingTop: 30,
-  },
-  buttonPagar: {
-    width: 200,
-    height: 50,
-    backgroundColor: "#F5C300",
+  //Alcancia
+
+  //Bono
+
+  textBoxBono: {
     alignItems: "center",
+    textAlign: "center",
     justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 10,
-    borderRadius: 8,
-    borderWidth: 1,
   },
-  textPagar: {
-    fontSize: 20,
-    color: "#03255F",
-    fontWeight: "bold",
-  },
+
   buttonPlus: {
     width: 25,
     height: 25,
@@ -109,13 +138,10 @@ export default {
   },
   quantity: {
     flexDirection: "row",
+    marginTop: 25,
+    justifyContent: "center",
   },
-  form: {
-    fontSize: 25,
-    color: "#03255F",
-    fontWeight: "bold",
-    paddingTop: 30,
-  },
+
   numero: {
     width: 25,
     height: 25,
@@ -127,32 +153,5 @@ export default {
     marginBottom: 10,
     borderRadius: 8,
     borderWidth: 1,
-  },
-  input: {
-    height: 40,
-    borderBottomColor: "#ccc",
-    borderBottomWidth: 1,
-    width: 300,
-  },
-  buttonSubmit: {
-    marginTop: 15,
-    width: 350,
-    height: 50,
-    backgroundColor: "#F5C300",
-    marginBottom: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 3,
-  },
-  textSubmit: {
-    fontSize: 20,
-    color: "white",
-    fontWeight: "bold",
-  },
-  buttons: {
-    flex: 2,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 15,
   },
 };
