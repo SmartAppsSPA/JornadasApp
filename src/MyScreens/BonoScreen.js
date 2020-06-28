@@ -6,7 +6,7 @@ import MainImage from "../components/Layouts/MainImage";
 
 const BonoScreen = (props) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.mainView}>
       <HeaderView props={props} />
       <MainImage />
       <View></View>

@@ -8,7 +8,7 @@ import MainImage from "../components/Layouts/MainImage";
 
 export default function HomeScreen(props) {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.mainView}>
       <HeaderView props={props} />
       <MainImage />
       <View style={{ flex: 1, alignItems: "center", marginTop: 10 }}>
@@ -20,7 +20,10 @@ export default function HomeScreen(props) {
             >
               <Text style={styles.textCompany}>Alcancia Digital</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonBlue}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Eventos")}
+              style={styles.buttonBlue}
+            >
               <Text style={styles.textUsers}>Eventos</Text>
             </TouchableOpacity>
             <TouchableOpacity

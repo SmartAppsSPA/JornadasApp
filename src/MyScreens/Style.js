@@ -1,5 +1,16 @@
 export default {
+  splashScreen: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#03255F",
+  },
   //Global
+  mainView: {
+    flex: 1,
+    marginTop: 20,
+  },
   container: {
     flex: 5,
   },
@@ -153,5 +164,16 @@ export default {
     marginBottom: 10,
     borderRadius: 8,
     borderWidth: 1,
+  },
+  //statusindicator
+
+  containerStatus: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
   },
 };
