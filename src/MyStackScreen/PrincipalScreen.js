@@ -5,6 +5,8 @@ import firebase from "../../Firebase/Firebase";
 import styles from "./Style";
 import Logo from "./Logo";
 
+//Logredes
+
 const PrincipalScreen = (props) => {
   const [formData, setFormData] = useState(defaultValue());
   const [formError, setFormError] = useState({});
@@ -12,7 +14,6 @@ const PrincipalScreen = (props) => {
   const login = () => {
     let errors = {};
     if (!formData.email || !formData.password) {
-      if (!formData.email) errors.email = true;
       if (!formData.password) errors.password = true;
       console.log("ERROR 1");
     } else if (!validateEmail(formData.email)) {
@@ -62,15 +63,45 @@ const PrincipalScreen = (props) => {
         secureTextEntry={true}
         onChange={(e) => onChange(e, "password")}
       />
-      <TouchableOpacity onPress={login} style={styles.button}>
+      <TouchableOpacity onPress={login} style={styles.buttonLogin}>
         <Text style={styles.text}>Iniciar Sesión</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => props.navigation.navigate("Register")}
-        style={styles.button}
+        style={styles.buttonRegistrarse}
       >
         <Text style={styles.text}>Registrarse</Text>
       </TouchableOpacity>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View
+          style={{
+            flex: 1,
+            height: 1,
+            backgroundColor: "white",
+            marginLeft: 60,
+          }}
+        />
+        <View>
+          <Text style={{ width: 50, textAlign: "center", color: "white" }}>
+            O
+          </Text>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            height: 1,
+            backgroundColor: "white",
+            marginRight: 60,
+          }}
+        />
+      </View>
+      <TouchableOpacity style={styles.buttonGoogle}>
+        <Text style={styles.textRedes}>Iniciar Sesión Con Google</Text>
+      </TouchableOpacity>
+      <TouchableOpacity  style={styles.button}>
+        <Text style={styles.text}>Ingresar como invitado</Text>
+      </TouchableOpacity>
+      <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
     </View>
   );
 };

@@ -126,12 +126,12 @@ const Register = (props) => {
             })
           }
         />
-        <TouchableOpacity onPress={registerUser} style={styles.button}>
+        <TouchableOpacity onPress={registerUser} style={styles.buttonRegistrarse}>
           <Text style={styles.text}>Registrarse</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => props.navigation.navigate("Principal")}
-          style={styles.button}
+          style={styles.buttonLogin}
         >
           <Text style={styles.text}>Volver</Text>
         </TouchableOpacity>

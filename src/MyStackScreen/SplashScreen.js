@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StatusBar, ActivityIndicator } from "react-native";
+import { View, StatusBar, ActivityIndicator, Text } from "react-native";
 import * as Animatable from "react-native-animatable";
 import styles from "./Style";
 
@@ -35,6 +35,7 @@ const SplashScreen = (props) => {
       <View style={[styles.containerStatus, styles.horizontal]}>
         <ActivityIndicator size="large" color="#F5C300" />
       </View>
+      <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
     </View>
   );
 };

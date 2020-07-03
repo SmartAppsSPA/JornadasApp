@@ -1,46 +1,52 @@
 export default {
+
+//splashscreen
+    splashScreen: {
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#03255F",
+    },
+  
+    smartApps: {
+      fontSize: 12,
+      color: "white",
+      fontWeight: "bold",
+      marginBottom: 50,
+     textAlign: 'center',
+    },
+//Globales
   background: {
     backgroundColor: "#03255F",
     height: "100%",
     alignItems: "center",
   },
-  splashScreen: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#03255F",
-  },
   logo: {
     width: 300,
     height: 100,
     resizeMode: "center",
-    marginTop: 100,
-    marginBottom: 50,
-  },
-  button: {
-    width: 300,
-    height: 50,
-    backgroundColor: "#F5C300",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 10,
-    borderRadius: 8,
-    borderWidth: 1,
+    marginTop: 50,
+    marginBottom: 25,
   },
   text: {
-    fontSize: 15,
+    fontSize: 17,
+    color: "white",
+    fontWeight: "bold",
+  },
+  textRedes: {
+    fontSize: 17,
     color: "white",
     fontWeight: "bold",
   },
 
   input: {
     height: 50,
-    color: "#fff",
+    color: "#3b5998",
+    fontWeight: "bold",
     width: 300,
     marginBottom: 25,
-    backgroundColor: "#1e3040",
+    backgroundColor: "#EBEDEF",
     paddingHorizontal: 20,
     borderRadius: 50,
     fontSize: 18,
@@ -73,4 +79,55 @@ export default {
     justifyContent: "space-around",
     padding: 10,
   },
+
+//Botones 
+button: {
+  width: 300,
+  height: 50,
+  backgroundColor: "#F5C300",
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 10,
+  marginBottom: 10,
+  borderRadius: 8,
+  borderWidth: 1,
+},
+
+buttonLogin: {
+  width: 300,
+  height: 50,
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 10,
+  marginBottom: 10,
+  borderColor: '#F5C300',
+  borderRadius: 8,
+  borderWidth: 3,
+},
+
+buttonRegistrarse: {
+  width: 300,
+  height: 50,
+  backgroundColor: "#28a745",
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 10,
+  marginBottom: 10,
+  borderRadius: 8,
+  borderWidth: 1,
+},
+
+buttonGoogle: {
+  width: 300,
+  height: 50,
+  backgroundColor: "#db4a39",
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 10,
+  marginBottom: 10,
+  borderRadius: 8,
+  borderWidth: 1,
+},
 };
+
+

@@ -56,7 +56,7 @@ const Register = (props) => {
           firebase
             .database()
             .ref()
-            .child("Company/" + uid)
+            .child("Users/" + uid)
             .set({
               uid: uid,
               tipo: "Company",
@@ -166,7 +166,7 @@ const Register = (props) => {
             })
           }
         />
-        <TouchableOpacity onPress={registerCompany} style={styles.button}>
+        <TouchableOpacity onPress={registerCompany} style={styles.buttonRegistrarse}>
           <Text style={styles.text}>Registrarse</Text>
         </TouchableOpacity>
         <TouchableOpacity
