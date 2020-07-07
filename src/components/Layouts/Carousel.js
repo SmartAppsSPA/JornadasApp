@@ -1,24 +1,31 @@
-// import Carousel from 'react-native-snap-carousel';
+import React from 'react'
+import Carousel from "react-native-anchor-carousel";
+import { View, Text } from 'react-native';
 
-// export class MyCarousel extends Component {
-
-//     _renderItem = ({item, index}) => {
-//         return (
-//             <View style={styles.slide}>
-//                 <Text style={styles.title}>{ item.title }</Text>
-//             </View>
-//         );
-//     }
-
-//     render () {
-//         return (
-//             <Carousel
-//               ref={(c) => { this._carousel = c; }}
-//               data={this.state.entries}
-//               renderItem={this._renderItem}
-//               sliderWidth={sliderWidth}
-//               itemWidth={itemWidth}
-//             />
-//         );
-//     }
-// }
+const CarouselHome = () => {
+    
+  return (
+    <Carousel
+      showArrows={true}
+      onChange={onChange}
+      onClickItem={onClickItem}
+      onClickThumb={onClickThumb}
+    >
+      <View>
+        <Image src="assets/1.jpeg" />
+        <Text className="legend">Legend 1</Text>
+      </View>
+      <View>
+        <Image
+         src="assets/2.jpeg" />
+        <Text className="legend">Legend 2</Text>
+      </View>
+      <View>
+        <Image
+         src="assets/3.jpeg" />
+        <Text className="legend">Legend 3</Text>
+      </View>
+    </Carousel>
+  );
+};
+export default CarouselHome;
