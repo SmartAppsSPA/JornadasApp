@@ -5,8 +5,6 @@ import firebase from "../../Firebase/Firebase";
 import styles from "./Style";
 import Logo from "./Logo";
 
-//Logredes
-
 const PrincipalScreen = (props) => {
   const [formData, setFormData] = useState(defaultValue());
   const [formError, setFormError] = useState({});

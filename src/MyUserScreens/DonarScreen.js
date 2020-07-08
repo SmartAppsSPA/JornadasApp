@@ -4,9 +4,12 @@ import { ScrollView } from "react-native-gesture-handler";
 import styles from "./Style";
 import HeaderView from "../components/Layouts/Header";
 import MainImage from "../components/Layouts/MainImage";
+import usePreference from '../Hooks/usePreferences'
 
 const Donar = (props) => {
-  
+
+  const {userFbData} = usePreference()
+
   return (
     <View style={styles.mainView}>
       <HeaderView props={props} />
@@ -22,6 +25,7 @@ const Donar = (props) => {
             style={styles.input}
             textContentType="name"
             placeholder="Ingrese Texto..."
+            defaultValue={userFbData.nombre}
           />
           <Text style={styles.form}>Apellido(s)</Text>
           <TextInput
@@ -29,12 +33,14 @@ const Donar = (props) => {
             textContentType="middleName"
             style={styles.input}
             placeholder="Ingrese Texto..."
+            defaultValue={userFbData.apellido}
           />
           <Text style={styles.form}>Su Aporte</Text>
           <TextInput
             name="aporte"
             style={styles.input}
             placeholder="Ingrese Aporte..."
+            defaultValue='0'
           />
         </View>
         <View style={styles.buttons}>

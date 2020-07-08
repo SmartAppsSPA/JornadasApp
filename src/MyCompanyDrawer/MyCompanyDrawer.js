@@ -4,8 +4,6 @@ import firebase from "../../Firebase/Firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { Entypo } from "@expo/vector-icons";
-import { navigationRef } from "../MyUserScreens/RootNavigation";
 import styled from "./Style";
 //Screens
 import HomeScreen from "../MyCompanyScreen/HomeScreen";
@@ -47,8 +45,8 @@ function Menu(props) {
       <ScrollView>
         <DrawerMenu
           iconName="home"
-          titleName="Home"
-          navigation={() => props.navigation.navigate("Home", { props: props })}
+          titleName="Inicio"
+          navigation={() => props.navigation.navigate("Home")}
         />
         <DrawerMenu
           iconName="donate"
@@ -56,7 +54,7 @@ function Menu(props) {
           navigation={() => props.navigation.navigate("Donar")}
         />
         <DrawerMenu
-          iconName="list-ol"
+          iconName="edit"
           titleName="Comprar Bono"
           navigation={() => props.navigation.navigate("Bono")}
         />
@@ -67,21 +65,16 @@ function Menu(props) {
         />
 
         <DrawerMenu
-          iconName="user"
+          iconName="users"
           titleName="Perfil"
           navigation={() => props.navigation.navigate("Perfil")}
         />
+        <DrawerMenu
+          iconName="door-open"
+          titleName="Cerrar Sesión"
+          onPress={() => Logout()}
+        />
       </ScrollView>
-      <TouchableOpacity onPress={Logout}>
-        <View style={styled.menuContainer}>
-          <View style={styled.iconoContainer}>
-            <Entypo size={25} name="log-out" style={{ color: "#03255F" }} />
-          </View>
-          <View style={styled.tituloContainer}>
-            <Text style={styled.tituloTxt}>LogOut</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -90,17 +83,14 @@ const Drawer = createDrawerNavigator();
 
 function MyUserDrawer(props) {
   return (
-    <NavigationContainer ref={navigationRef}>
-      <Drawer.Navigator drawerContent={(props) => <Menu {...props} />} initialRouteName={'Home'} initialParams={props}>
-        <Drawer.Screen
-          name="Home"
-          component={HomeScreen}
-          initialParams={props}
-        />
+    <NavigationContainer>
+      <Drawer.Navigator drawerContent={(props) => <Menu {...props} />}>
+        <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Donar" component={DonarScreen} />
         <Drawer.Screen name="Bono" component={BonoScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
         <Drawer.Screen name="Eventos" component={Eventos} />
+        <Drawer.Screen name="Cerrar Sesión" component={Logout} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

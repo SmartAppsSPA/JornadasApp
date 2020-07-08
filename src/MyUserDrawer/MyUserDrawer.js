@@ -1,9 +1,15 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { Entypo } from "@expo/vector-icons";
 import styled from "./Style";
 //Screens
 import HomeScreen from "../MyUserScreens/HomeScreen";
@@ -14,8 +20,6 @@ import MisBonosScreen from "../MyUserScreens/MisBonosScreen";
 import MisDonacionesScreen from "../MyUserScreens/MisDonacionesScreen";
 import Eventos from "../MyUserScreens/EventosScreen";
 import firebase from "../../Firebase/Firebase";
-import { Paragraph } from "react-native-paper";
-
 
 const Logout = () => {
   firebase.auth().signOut();
@@ -26,11 +30,7 @@ function DrawerMenu(props) {
     <TouchableOpacity onPress={props.navigation} {...props}>
       <View style={styled.menuContainer}>
         <View style={styled.iconoContainer}>
-          {props.iconName? 
           <Icon size={25} name={props.iconName} style={{ color: "#03255F" }} />
-          :
-          <Entypo size={25} name={props.entypoName} style={{ color: "#03255F"}} />
-        }
         </View>
         <View style={styled.tituloContainer}>
           <Text style={styled.tituloTxt}>{props.titleName}</Text>
@@ -54,7 +54,7 @@ function Menu(props) {
       <ScrollView>
         <DrawerMenu
           iconName="home"
-          titleName="Home"
+          titleName="Inicio"
           navigation={() => props.navigation.navigate("Home")}
         />
         <DrawerMenu
@@ -63,7 +63,7 @@ function Menu(props) {
           navigation={() => props.navigation.navigate("Donar")}
         />
         <DrawerMenu
-          iconName="list-ol"
+          iconName="edit"
           titleName="Comprar Bono"
           navigation={() => props.navigation.navigate("Bono")}
         />
@@ -74,22 +74,22 @@ function Menu(props) {
         />
 
         <DrawerMenu
-          iconName="user"
+          iconName="users"
           titleName="Perfil"
           navigation={() => props.navigation.navigate("Perfil")}
         />
         <DrawerMenu
-          iconName="user"
+          iconName="receipt"
           titleName="Mis Bonos"
           navigation={() => props.navigation.navigate("Mis Bonos")}
         />
         <DrawerMenu
-          iconName="user"
+          iconName="hand-holding-usd"
           titleName="Mis Donaciones"
           navigation={() => props.navigation.navigate("Mis Donaciones")}
         />
         <DrawerMenu
-          entypoName="log-out"
+          iconName="door-open"
           titleName="Cerrar Sesión"
           onPress={() => Logout()}
         />
@@ -100,13 +100,12 @@ function Menu(props) {
 
 const Drawer = createDrawerNavigator();
 
-function MyUserDrawer(props) {
-
-  console.log(props)
+function MyUserDrawer() {
   return (
     <NavigationContainer>
+      <StatusBar />
       <Drawer.Navigator drawerContent={(props) => <Menu {...props} />}>
-        <Drawer.Screen name="Home" component={HomeScreen} props={props}/>
+        <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Donar" component={DonarScreen} />
         <Drawer.Screen name="Bono" component={BonoScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
@@ -120,4 +119,3 @@ function MyUserDrawer(props) {
 }
 
 export default MyUserDrawer;
-

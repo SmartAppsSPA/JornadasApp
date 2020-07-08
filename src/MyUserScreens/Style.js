@@ -14,24 +14,28 @@ export default {
   },
 
   titles: {
-    fontSize: 40,
+    fontSize: 30,
     color: "#03255F",
     fontWeight: "bold",
-    paddingTop: 30,
+    paddingTop: 20,
     textAlign: "center",
   },
   form: {
-    fontSize: 25,
+    fontSize: 20,
     color: "#03255F",
     fontWeight: "bold",
-    paddingTop: 30,
+    paddingTop: 10,
     alignItems: "center",
   },
   input: {
-    height: 40,
+    height: 30,
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
     width: 300,
+    fontWeight: 'bold',
+    color: '#03255F',
+    fontSize: 10,
+    textAlign: 'center',
   },
   buttonSubmit: {
     marginTop: 15,
