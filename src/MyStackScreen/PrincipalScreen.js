@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { TextInput, Text, TouchableOpacity, View } from "react-native";
+import { TextInput, Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { validateEmail } from "./validation";
 import firebase from "../../Firebase/Firebase";
 import styles from "./Style";
 import Logo from "./Logo";
+
 
 const PrincipalScreen = (props) => {
   const [formData, setFormData] = useState(defaultValue());
@@ -47,7 +48,8 @@ const PrincipalScreen = (props) => {
 
   return (
     <View style={styles.background}>
-      <Logo />
+      <ScrollView>
+      <Logo />      
       <TextInput
         style={[styles.input, formError.email && styles.error]}
         placeholder="Correo Electronico"
@@ -100,6 +102,7 @@ const PrincipalScreen = (props) => {
         <Text style={styles.text}>Ingresar como invitado</Text>
       </TouchableOpacity>
       <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
+      </ScrollView>
     </View>
   );
 };

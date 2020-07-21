@@ -1,14 +1,22 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableHighlight, TextInput } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import styles from "./Style";
 import HeaderView from "../components/Layouts/Header";
+import MainImage from "../components/Layouts/MainImage";
 
-export default function PerfilScreen({ props }) {
+const PerfilScreen = (props) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.mainView}>
       <HeaderView props={props} />
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 20 }}>perfil Screen Empresa</Text>
-      </View>
+      <MainImage />
+      <ScrollView>
+        <View>
+          <Text style={styles.titles}>Prefil Screen</Text>
+        </View>
+      </ScrollView>
     </View>
   );
-}
+};
+
+export default PerfilScreen;

@@ -62,13 +62,13 @@ const Donar = (props) => {
             placeholder="Ingrese Texto..."
             defaultValue={userFbData.representante}
           />
-          <Text style={styles.form}>Su Aporte</Text>
+          <Text style={styles.form}>Aporte</Text>
           <TextInput
             name="aporte"
             textContentType='telephoneNumber'
             style={styles.input}
             placeholder="Ingrese Aporte..."
-            defaultValue='0'
+            keyboardType='number-pad'
           />
         </View>
         <View style={styles.buttons}>

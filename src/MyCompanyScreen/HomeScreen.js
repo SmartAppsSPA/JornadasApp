@@ -27,13 +27,13 @@ export default function HomeScreen(props) {
                 <Text style={styles.textCompany}>Alcancia Digital</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate("Eventos")}
+                onPress={() => alert('Hola')}
                 style={styles.buttonBlue}
               >
                 <Text style={styles.textUsers}>Eventos</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate("Bono")}
+                onPress={() => alert('Hola')}
                 style={styles.buttonYellow}
               >
                 <Text style={styles.textCompany}>Comprar Bono Rifa</Text>
@@ -82,7 +82,7 @@ export default function HomeScreen(props) {
               <TouchableOpacity onPress={Logout} style={styles.buttonYellow}>
                 <Text style={styles.textCompany}>
                 <Icon name="door-open" size={25} color="#03255F" />
-                  {`\nLogOut`}
+                  {`\nCerrar Sesión`}
                 </Text>
               </TouchableOpacity>
             </View>

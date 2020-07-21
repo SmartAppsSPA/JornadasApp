@@ -8,9 +8,7 @@ import styled from "./Style";
 //Screens
 import HomeScreen from "../MyCompanyScreen/HomeScreen";
 import PerfilScreen from "../MyCompanyScreen/PerfilScreen";
-import BonoScreen from "../MyCompanyScreen/BonoScreen";
 import DonarScreen from "../MyCompanyScreen/DonarScreen";
-import Eventos from "../MyCompanyScreen/EventosScreen";
 
 const Logout = () => {
   firebase.auth().signOut();
@@ -54,17 +52,6 @@ function Menu(props) {
           navigation={() => props.navigation.navigate("Donar")}
         />
         <DrawerMenu
-          iconName="edit"
-          titleName="Comprar Bono"
-          navigation={() => props.navigation.navigate("Bono")}
-        />
-        <DrawerMenu
-          iconName="calendar-alt"
-          titleName="Eventos"
-          navigation={() => props.navigation.navigate("Eventos")}
-        />
-
-        <DrawerMenu
           iconName="users"
           titleName="Perfil"
           navigation={() => props.navigation.navigate("Perfil")}
@@ -87,9 +74,7 @@ function MyUserDrawer(props) {
       <Drawer.Navigator drawerContent={(props) => <Menu {...props} />}>
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Donar" component={DonarScreen} />
-        <Drawer.Screen name="Bono" component={BonoScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
-        <Drawer.Screen name="Eventos" component={Eventos} />
         <Drawer.Screen name="Cerrar Sesión" component={Logout} />
       </Drawer.Navigator>
     </NavigationContainer>

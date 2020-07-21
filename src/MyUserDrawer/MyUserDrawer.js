@@ -18,7 +18,7 @@ import BonoScreen from "../MyUserScreens/BonoScreen";
 import DonarScreen from "../MyUserScreens/DonarScreen";
 import MisBonosScreen from "../MyUserScreens/MisBonosScreen";
 import MisDonacionesScreen from "../MyUserScreens/MisDonacionesScreen";
-import Eventos from "../MyUserScreens/EventosScreen";
+import BingosScreen from "../MyUserScreens/BingosScreen";
 import firebase from "../../Firebase/Firebase";
 
 const Logout = () => {
@@ -68,9 +68,9 @@ function Menu(props) {
           navigation={() => props.navigation.navigate("Bono")}
         />
         <DrawerMenu
-          iconName="calendar-alt"
-          titleName="Eventos"
-          navigation={() => props.navigation.navigate("Eventos")}
+          iconName="delicious"
+          titleName="Bingo"
+          navigation={() => props.navigation.navigate("Bingo")}
         />
 
         <DrawerMenu
@@ -109,7 +109,7 @@ function MyUserDrawer() {
         <Drawer.Screen name="Donar" component={DonarScreen} />
         <Drawer.Screen name="Bono" component={BonoScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
-        <Drawer.Screen name="Eventos" component={Eventos} />
+        <Drawer.Screen name="Bingo" component={BingosScreen} />
         <Drawer.Screen name="Mis Donaciones" component={MisDonacionesScreen} />
         <Drawer.Screen name="Mis Bonos" component={MisBonosScreen} />
         <Drawer.Screen name="Cerrar Sesión" component={Logout} />

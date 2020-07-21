@@ -49,7 +49,7 @@ export default (props) => {
                 }}
             />
             <Text style={styles.exito}>
-                Su aporte de $5000 Clp.
+                Su aporte de $5000 CLP.
             </Text>
             <Text style={styles.exito}>
                 ha sido recibido con exito
@@ -59,9 +59,9 @@ export default (props) => {
                 Gracias por colaborar con
             </Text>
             <Text style={styles.exito}>
-                nuestra noble causa.
+                esta noble causa.
             </Text>
-            <TouchableHighlight onPress={() => props.navigation.navigate('Home')} style={styles.button}><Text style={styles.textButton}>Volver al Home</Text></TouchableHighlight>
+            <TouchableHighlight onPress={() => props.navigation.navigate('Home')} style={styles.button}><Text style={styles.textButton}>Volver al Inicio</Text></TouchableHighlight>
             <Text style={styles.smartApps}>
                 ©2020 Powered by Smartapps
             </Text>
