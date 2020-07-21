@@ -16,7 +16,11 @@ const CarouselHome = () => {
 	const style = StyleSheet.create({
 		container: { width, height },
 		scroll: { width, height },
-		image: { width, height, resizeMode: "cover" },
+		image: { width: null,
+        resizeMode: "contain",
+        height: 220,
+        marginTop: -15,
+        zIndex: -2, },
 		pagination: {
 			flexDirection: "row",
 			position: "absolute",

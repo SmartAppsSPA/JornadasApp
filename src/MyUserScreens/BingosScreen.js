@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import { View, Text, TouchableHighlight, TextInput } from "react-native";
+import { SafeAreaView, View, Text, TextInput } from "react-native";
 import styles from "./Style";
 import HeaderView from "../components/Layouts/Header";
-import BonoImage from "../components/Layouts/BonoImagen";
+import MainImage from "../components/Layouts/MainImage";
+import {numberFormat} from '../Sources/PagoEnLinea/FormatPrice';
 import usePreference from "../Hooks/usePreferences";
-import { ScrollView } from "react-native-gesture-handler";
-import { numberFormat } from "../Sources/PagoEnLinea/FormatPrice";
-import firebase from "../../Firebase/Firebase";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { validateEmail, validateTelefono} from './validation';
 
-const BonoScreen = (props) => {
-	const { userFbData } = usePreference();
+const BingoScreen = (props) => {
+  const { userFbData } = usePreference();
 	const [formError, setFormError] = useState({});
 	const [cantidad, setCantidad] = useState(1);
 	const [nombre, setNombre] = useState(userFbData.nombre);
-	const [apellido, setApellido] = useState(userFbData.apellido);
-	const [telefono, setTelefono] = useState();
+  const [apellido, setApellido] = useState(userFbData.apellido);
+  const [email, setEmail] = useState(userFbData.email)
+	const [telefono, setTelefono] = useState(userFbData.telefono);
 	const precio = 500;
 	const precioTotal = precio * cantidad;
 
@@ -34,11 +35,12 @@ const BonoScreen = (props) => {
 	};
 
 	const comprar = () => {
-		let errors = [];
-		if (!nombre || !apellido || !telefono) {
+		let errors = {};
+		if (!nombre || !apellido || !telefono || !email) {
 			if (!nombre) errors.nombre = true;
 			if (!apellido) errors.apellido = true;
-			if (!telefono) errors.telefono = true;
+      if (!validateTelefono(telefono)) errors.telefono = true;
+      if (!validateEmail(email)) errors.email = true;
 		} else {
       alert(`compra de ${cantidad} bonos por ${numberFormat(precioTotal)} `);
       handleReset()
@@ -49,18 +51,19 @@ const BonoScreen = (props) => {
 	const handleReset = () => {
 		setCantidad(1);
 		setNombre(userFbData.nombre);
-		setApellido(userFbData.apellido);
-		setTelefono();
+    setApellido(userFbData.apellido);
+    setEmail(userFbData.email)
+		setTelefono(userFbData.telefono);
 	};
 
-	console.log(telefono);
-
-	if (userFbData) {
-		return (
-			<View style={styles.mainView}>
+  console.log(telefono);
+  console.log(email)
+  if (userFbData) {
+    return (
+			<SafeAreaView style={styles.mainView}>
 				<HeaderView props={props} />
 				<ScrollView>
-					<BonoImage />
+					<MainImage />
 					<View></View>
 					<View style={styles.textBoxBono}>
 						<Text style={styles.titles}>Bono Sorteo Parcela</Text>
@@ -84,13 +87,24 @@ const BonoScreen = (props) => {
 							defaultValue={apellido}
 							onChange={(e) => setApellido(e.nativeEvent.text)}
 						/>
+            <Text style={styles.form}>Email</Text>
+						<TextInput
+							name="email"
+							textContentType='emailAddress'
+							style={[styles.input, formError.email && styles.error]}
+							placeholder="Ingrese email de contacto..."
+							defaultValue={email}
+							onChange={(e) => setEmail(e.nativeEvent.text)}
+						/>
 						<Text style={styles.form}>Telefono</Text>
 						<TextInput
 							name="telefono"
 							textContentType="telephoneNumber"
 							style={[styles.input, formError.telefono && styles.error]}
 							placeholder="+56 9 ..."
-							defaultValue={telefono}
+              defaultValue={telefono}
+              keyboardType='phone-pad'
+              keyboardAppearance='dark'
 							onChange={(e) => setTelefono(e.nativeEvent.text)}
 						/>
 					</View>
@@ -98,42 +112,42 @@ const BonoScreen = (props) => {
 						<Text style={styles.cantidadText}>Cantidad</Text>
 					</View>
 					<View style={styles.quantity}>
-						<TouchableHighlight
+						<TouchableOpacity
 							onPress={() => handleCantidad(cantidad - 1)}
 							style={styles.buttonLess}
 						>
 							<Text style={styles.signo}>-</Text>
-						</TouchableHighlight>
+						</TouchableOpacity>
 						<Text style={styles.numero}>{cantidad}</Text>
-						<TouchableHighlight
+						<TouchableOpacity
 							onPress={() => handleCantidad(cantidad + 1)}
 							style={styles.buttonPlus}
 						>
 							<Text style={styles.signo}>+</Text>
-						</TouchableHighlight>
+						</TouchableOpacity>
 					</View>
 					<View style={styles.reset}>
-						<TouchableHighlight
+						<TouchableOpacity
 							onPress={() => handleReset(cantidad)}
 							style={styles.buttonReset}
 						>
 							<Text style={styles.textReset}>Borrar</Text>
-						</TouchableHighlight>
+						</TouchableOpacity>
 					</View>
 					<View style={styles.buttons}>
-						<TouchableHighlight
+						<TouchableOpacity
 							onPress={comprar}
 							style={styles.buttonPagar}
 						>
 							<Text style={styles.bonoSubmit}>
 								{numberFormat(precioTotal)} Comprar
 							</Text>
-						</TouchableHighlight>
+						</TouchableOpacity>
 					</View>
 				</ScrollView>
-			</View>
+			</SafeAreaView>
 		);
-	}
+  }
 };
 
-export default BonoScreen;
+export default BingoScreen;

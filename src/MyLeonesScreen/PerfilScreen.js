@@ -1,22 +1,22 @@
 import React from "react";
 import { View, Text, TouchableHighlight, TextInput } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import styles from "./Style";
+import Styles from './Style'
 import HeaderView from "../components/Layouts/Header";
 import MainImage from "../components/Layouts/MainImage";
 
-const Eventos = (props) => {
+const PerfilScreen = (props) => {
   return (
-    <View style={styles.mainView}>
+    <View style={Styles.mainView}>
       <HeaderView props={props} />
       <MainImage />
       <ScrollView>
         <View>
-          <Text style={styles.titles}>Eventos Empresas</Text>
+          <Text style={Styles.titles}>Perfil Screen</Text>
         </View>
       </ScrollView>
     </View>
   );
 };
 
-export default Eventos;
+export default PerfilScreen;

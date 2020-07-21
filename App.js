@@ -71,22 +71,3 @@ const App = () => {
 
 export default App;
 
-//     if (userFbData.tipo === "User") {
-//       return (
-//        <PreferencesContext.Provider value={preferences}>
-//        <MyUserDrawer />
-//        </PreferencesContext.Provider>
-//        );
-//     } else if (userFbData.tipo === "Company") {
-//       return (
-//       <PreferencesContext.Provider value={preferences}>
-//       <MyCompanyDrawer />
-//       </PreferencesContext.Provider>
-//       );
-//     } else {
-//       return <MyStack />;
-//     }
-//   } else {
-//     return <MyStack />;
-//   }
-// };
