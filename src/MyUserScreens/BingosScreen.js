@@ -3,18 +3,18 @@ import { SafeAreaView, View, Text, TextInput } from "react-native";
 import styles from "./Style";
 import HeaderView from "../components/Layouts/Header";
 import MainImage from "../components/Layouts/MainImage";
-import {numberFormat} from '../Sources/PagoEnLinea/FormatPrice';
+import { numberFormat } from "../Sources/PagoEnLinea/FormatPrice";
 import usePreference from "../Hooks/usePreferences";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { validateEmail, validateTelefono} from './validation';
+import { validateEmail, validateTelefono } from "./validation";
 
 const BingoScreen = (props) => {
-  const { userFbData } = usePreference();
+	const { userFbData } = usePreference();
 	const [formError, setFormError] = useState({});
 	const [cantidad, setCantidad] = useState(1);
 	const [nombre, setNombre] = useState(userFbData.nombre);
-  const [apellido, setApellido] = useState(userFbData.apellido);
-  const [email, setEmail] = useState(userFbData.email)
+	const [apellido, setApellido] = useState(userFbData.apellido);
+	const [email, setEmail] = useState(userFbData.email);
 	const [telefono, setTelefono] = useState(userFbData.telefono);
 	const precio = 500;
 	const precioTotal = precio * cantidad;
@@ -31,7 +31,7 @@ const BingoScreen = (props) => {
 			cantidad = max;
 			setCantidad(cantidad);
 			console.log(cantidad);
-    }
+		}
 	};
 
 	const comprar = () => {
@@ -39,27 +39,27 @@ const BingoScreen = (props) => {
 		if (!nombre || !apellido || !telefono || !email) {
 			if (!nombre) errors.nombre = true;
 			if (!apellido) errors.apellido = true;
-      if (!validateTelefono(telefono)) errors.telefono = true;
-      if (!validateEmail(email)) errors.email = true;
+			if (!validateTelefono(telefono)) errors.telefono = true;
+			if (!validateEmail(email)) errors.email = true;
 		} else {
-      alert(`compra de ${cantidad} bonos por ${numberFormat(precioTotal)} `);
-      handleReset()
-    }
-    setFormError(errors);
+			alert(`compra de ${cantidad} bonos por ${numberFormat(precioTotal)} `);
+			handleReset();
+		}
+		setFormError(errors);
 	};
 
 	const handleReset = () => {
 		setCantidad(1);
 		setNombre(userFbData.nombre);
-    setApellido(userFbData.apellido);
-    setEmail(userFbData.email)
+		setApellido(userFbData.apellido);
+		setEmail(userFbData.email);
 		setTelefono(userFbData.telefono);
 	};
 
-  console.log(telefono);
-  console.log(email)
-  if (userFbData) {
-    return (
+	console.log(telefono);
+	console.log(email);
+	if (userFbData) {
+		return (
 			<SafeAreaView style={styles.mainView}>
 				<HeaderView props={props} />
 				<ScrollView>
@@ -87,10 +87,10 @@ const BingoScreen = (props) => {
 							defaultValue={apellido}
 							onChange={(e) => setApellido(e.nativeEvent.text)}
 						/>
-            <Text style={styles.form}>Email</Text>
+						<Text style={styles.form}>Email</Text>
 						<TextInput
 							name="email"
-							textContentType='emailAddress'
+							textContentType="emailAddress"
 							style={[styles.input, formError.email && styles.error]}
 							placeholder="Ingrese email de contacto..."
 							defaultValue={email}
@@ -102,9 +102,9 @@ const BingoScreen = (props) => {
 							textContentType="telephoneNumber"
 							style={[styles.input, formError.telefono && styles.error]}
 							placeholder="+56 9 ..."
-              defaultValue={telefono}
-              keyboardType='phone-pad'
-              keyboardAppearance='dark'
+							defaultValue={telefono}
+							keyboardType="phone-pad"
+							keyboardAppearance="dark"
 							onChange={(e) => setTelefono(e.nativeEvent.text)}
 						/>
 					</View>
@@ -135,19 +135,22 @@ const BingoScreen = (props) => {
 						</TouchableOpacity>
 					</View>
 					<View style={styles.buttons}>
-						<TouchableOpacity
-							onPress={comprar}
-							style={styles.buttonPagar}
-						>
+						<TouchableOpacity onPress={comprar} style={styles.buttonPagar}>
 							<Text style={styles.bonoSubmit}>
 								{numberFormat(precioTotal)} Comprar
 							</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => props.navigation.navigate("Home")}
+							style={styles.buttonPagar}
+						>
+							<Text style={styles.bonoSubmit}>Volver</Text>
 						</TouchableOpacity>
 					</View>
 				</ScrollView>
 			</SafeAreaView>
 		);
-  }
+	}
 };
 
 export default BingoScreen;

@@ -9,6 +9,7 @@ import styled from "./Style"
 import HomeScreen from "../MyLeonesScreen/HomeScreen";
 import PerfilScreen from "../MyLeonesScreen/PerfilScreen";
 import MisAlcanciasScreen from "../MyLeonesScreen/MisAlcanciasScreen";
+import LeoLeonScreen from "../MyLeonesScreen/LeoLeonScreen";
 
 const Logout = () => {
   firebase.auth().signOut();
@@ -76,6 +77,7 @@ function MyUserDrawer(props) {
         <Drawer.Screen name="Alcancias" component={MisAlcanciasScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
         <Drawer.Screen name="Cerrar Sesión" component={Logout} />
+        <Drawer.Screen name="Panel Leones" component={LeoLeonScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

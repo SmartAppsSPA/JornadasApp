@@ -32,7 +32,7 @@ export default function HomeScreen(props) {
                 onPress={() => alert('Hola')}
                 style={styles.buttonBlue}
               >
-                <Text style={styles.textUsers}></Text>
+                <Text style={styles.textUsers}>Bingo</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => alert('Hola')}

@@ -4,7 +4,7 @@ import styles from "./Style";
 import HeaderView from "../components/Layouts/Header";
 import BonoImage from "../components/Layouts/BonoImagen";
 import usePreference from "../Hooks/usePreferences";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { numberFormat } from "../Sources/PagoEnLinea/FormatPrice";
 import firebase from "../../Firebase/Firebase";
 
@@ -129,6 +129,12 @@ const BonoScreen = (props) => {
 								{numberFormat(precioTotal)} Comprar
 							</Text>
 						</TouchableHighlight>
+						<TouchableOpacity
+						onPress={() => props.navigation.navigate('Home')}
+						style={styles.buttonPagar}
+						>
+							<Text style={styles.bonoSubmit} >Volver</Text>
+						</TouchableOpacity>
 					</View>
 				</ScrollView>
 			</View>
