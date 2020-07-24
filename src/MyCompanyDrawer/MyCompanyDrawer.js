@@ -68,7 +68,7 @@ function Menu(props) {
 
 const Drawer = createDrawerNavigator();
 
-function MyUserDrawer(props) {
+function MyUserDrawer() {
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={(props) => <Menu {...props} />}>

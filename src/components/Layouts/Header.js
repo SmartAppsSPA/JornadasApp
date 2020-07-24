@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "react-native";
 import { Header, Left, Right, Icon } from "native-base";
-import styles from "./Style";
+import styles from "../../Utils/Style";
 
 const HeaderView = ({ props }) => {
   return (

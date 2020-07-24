@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, TextInput } from "react-native";
+import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Styles from './Style'
 import HeaderView from "../components/Layouts/Header";

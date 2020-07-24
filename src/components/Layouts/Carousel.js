@@ -1,12 +1,5 @@
 import React from "react";
-import {
-	View,
-	Image,
-	ScrollView,
-	Dimensions,
-	Text,
-	StyleSheet,
-} from "react-native";
+import { View, Image, Dimensions, StyleSheet } from "react-native";
 import Carousel from "react-native-carousel";
 
 const CarouselHome = () => {
@@ -16,11 +9,13 @@ const CarouselHome = () => {
 	const style = StyleSheet.create({
 		container: { width, height },
 		scroll: { width, height },
-		image: { width: null,
-        resizeMode: "contain",
-        height: 220,
-        marginTop: -15,
-        zIndex: -2, },
+		image: {
+			width: null,
+			resizeMode: "contain",
+			height: 220,
+			marginTop: -15,
+			zIndex: -2,
+		},
 		pagination: {
 			flexDirection: "row",
 			position: "absolute",

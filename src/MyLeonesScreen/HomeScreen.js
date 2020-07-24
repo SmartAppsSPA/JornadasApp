@@ -1,10 +1,9 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import styles from "./Style";
+import styles from "../Utils/Style";
 import CarouselHome from '../components/Layouts/Carousel'
 import HeaderView from "../components/Layouts/Header";
-import MainImage from "../components/Layouts/MainImage";
 import firebase from '../../Firebase/Firebase';
 import usePreference from '../Hooks/usePreferences'
 
@@ -18,32 +17,33 @@ export default function HomeScreen(props) {
       <View style={styles.mainView}>
         <HeaderView props={props} />
         <CarouselHome />
-        {/* <MainImage /> */}
         <View style={{ flex: 1, alignItems: "center", marginTop: 10 }}>
           <View style={styles.bodyHome}>
             <View style={styles.buttonsHome}>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate("Alcancias")}
+                onPress={() => props.navigation.navigate("Donar")}
                 style={styles.buttonYellow}
               >
-                <Text style={styles.textCompany}>Mis Alcancias</Text>
+                <Text style={styles.textCompany}>Alcancia Digital</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => alert('Hola')}
+                onPress={() => props.navigation.navigate('Bingo')}
                 style={styles.buttonBlue}
               >
                 <Text style={styles.textUsers}>Bingo</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => alert('Hola')}
+                onPress={() => props.navigation.navigate('Bono')}
                 style={styles.buttonYellow}
               >
-                <Text style={styles.textCompany}></Text>
+                <Text style={styles.textCompany}>Bono Rifa</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.buttonsHome}>
-              <TouchableOpacity style={styles.buttonBlue}>
-                <Text style={styles.textUsers}></Text>
+              <TouchableOpacity
+              onPress={() => props.navigation.navigate("Mis Donaciones")}
+              style={styles.buttonBlue}>
+                <Text style={styles.textUsers}>Mis Donaciones</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
@@ -64,8 +64,10 @@ export default function HomeScreen(props) {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonBlue}>
-                <Text style={styles.textUsers}></Text>
+              <TouchableOpacity 
+              onPress={() => props.navigation.navigate("Mis Bonos")}
+              style={styles.buttonBlue}>
+                <Text style={styles.textUsers}>Mis Bonos</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.buttonsHome}>

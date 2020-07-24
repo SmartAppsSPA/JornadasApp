@@ -7,9 +7,12 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import styled from "./Style"
 //Screens
 import HomeScreen from "../MyLeonesScreen/HomeScreen";
+import DonarScreen from '../MyLeonesScreen/DonarScreen';
+import BingosScreen from '../MyLeonesScreen/BingosScreen';
+import BonoScreen from '../MyLeonesScreen/BonoScreen';
+import MisDonacionesScreen from '../MyLeonesScreen/MisDonacionesScreen';
+import MisBonosScreen from '../MyLeonesScreen/MisBonosScreen';
 import PerfilScreen from "../MyLeonesScreen/PerfilScreen";
-import MisAlcanciasScreen from "../MyLeonesScreen/MisAlcanciasScreen";
-import LeoLeonScreen from "../MyLeonesScreen/LeoLeonScreen";
 
 const Logout = () => {
   firebase.auth().signOut();
@@ -49,8 +52,28 @@ function Menu(props) {
         />
         <DrawerMenu
           iconName="donate"
-          titleName="Mis Alcancias"
-          navigation={() => props.navigation.navigate("Alcancias")}
+          titleName="Alcancia Digital"
+          navigation={() => props.navigation.navigate("Donar")}
+        />
+        <DrawerMenu
+          iconName="edit"
+          titleName="Comprar Bono"
+          navigation={() => props.navigation.navigate("Bono")}
+        />
+        <DrawerMenu
+          iconName="delicious"
+          titleName="Bingo"
+          navigation={() => props.navigation.navigate("Bingo")}
+        />
+        <DrawerMenu
+          iconName="receipt"
+          titleName="Mis Bonos"
+          navigation={() => props.navigation.navigate("Mis Bonos")}
+        />
+        <DrawerMenu
+          iconName="hand-holding-usd"
+          titleName="Mis Donaciones"
+          navigation={() => props.navigation.navigate("Mis Donaciones")}
         />
         <DrawerMenu
           iconName="users"
@@ -74,10 +97,13 @@ function MyUserDrawer(props) {
     <NavigationContainer>
       <Drawer.Navigator drawerContent={(props) => <Menu {...props} />}>
         <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Alcancias" component={MisAlcanciasScreen} />
+        <Drawer.Screen name="Donar" component={DonarScreen}/>
+        <Drawer.Screen name="Bingo" component={BingosScreen}/>
+        <Drawer.Screen name="Bono" component={BonoScreen}/>
+        <Drawer.Screen name="Mis Donaciones" component={MisDonacionesScreen} />
+        <Drawer.Screen name="Mis Bonos" component={MisBonosScreen} />
         <Drawer.Screen name="Perfil" component={PerfilScreen} />
         <Drawer.Screen name="Cerrar Sesión" component={Logout} />
-        <Drawer.Screen name="Panel Leones" component={LeoLeonScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

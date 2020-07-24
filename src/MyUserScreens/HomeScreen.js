@@ -3,7 +3,6 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import styles from "./Style";
 import HeaderView from "../components/Layouts/Header";
-import MainImage from "../components/Layouts/MainImage";
 import firebase from "../../Firebase/Firebase";
 import usePreference from "../Hooks/usePreferences";
 import CarouselHome from "../components/Layouts/Carousel";
@@ -15,7 +14,6 @@ export default function HomeScreen(props) {
     <View style={styles.mainView}>
       <HeaderView props={props} />
       <CarouselHome />
-      {/* <MainImage /> */}
       <View style={{ flex: 1, alignItems: "center", marginTop: 10 }}>
         <View style={styles.bodyHome}>
           <View style={styles.buttonsHome}>
@@ -35,7 +33,7 @@ export default function HomeScreen(props) {
               onPress={() => props.navigation.navigate("Bono")}
               style={styles.buttonYellow}
             >
-              <Text style={styles.textCompany}>Bono Sorteo</Text>
+              <Text style={styles.textCompany}>Bono Rifa</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonsHome}>

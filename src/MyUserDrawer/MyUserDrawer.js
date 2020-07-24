@@ -52,7 +52,7 @@ function Menu(props) {
         </View>
       </View>
       <ScrollView>
-        <DrawerMenu
+      <DrawerMenu
           iconName="home"
           titleName="Inicio"
           navigation={() => props.navigation.navigate("Home")}
@@ -72,12 +72,6 @@ function Menu(props) {
           titleName="Bingo"
           navigation={() => props.navigation.navigate("Bingo")}
         />
-
-        <DrawerMenu
-          iconName="users"
-          titleName="Perfil"
-          navigation={() => props.navigation.navigate("Perfil")}
-        />
         <DrawerMenu
           iconName="receipt"
           titleName="Mis Bonos"
@@ -87,6 +81,11 @@ function Menu(props) {
           iconName="hand-holding-usd"
           titleName="Mis Donaciones"
           navigation={() => props.navigation.navigate("Mis Donaciones")}
+        />
+        <DrawerMenu
+          iconName="users"
+          titleName="Perfil"
+          navigation={() => props.navigation.navigate("Perfil")}
         />
         <DrawerMenu
           iconName="door-open"
