@@ -6,33 +6,35 @@ import MainImage from "../../components/Layouts/MainImage";
 import { numberFormat } from "../../Sources/PagoEnLinea/FormatPrice";
 import usePreference from "../../Hooks/usePreferences";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { validateEmail} from "../../Utils/validation";
-import {useNavigation} from  '@react-navigation/native';
+import { validateEmail } from "../../Utils/validation";
+import { useNavigation } from "@react-navigation/native";
+import firebase from '../../../Firebase/Firebase';
+import moment from 'moment';
 
-export default function BingoUser(props){
-    const navigation =useNavigation();
+export default function BonoUser(props) {
+	const navigation = useNavigation();
 	const { userFbData } = usePreference();
 	const [formError, setFormError] = useState({});
-	const [cantidad, setCantidad] = useState(1);
+	const [cartones, setCartones] = useState(1);
 	const [nombre, setNombre] = useState(userFbData.nombre);
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [email, setEmail] = useState(userFbData.email);
 	const [telefono, setTelefono] = useState(userFbData.telefono);
 	const precio = 500;
-	const precioTotal = precio * cantidad;
+	const precioTotal = precio * cartones;
 
-	const handleCantidad = (cantidad, max) => {
-		if (cantidad >= 1) {
-			setCantidad(cantidad);
-			console.log(cantidad);
-		} else if (cantidad < 0) {
-			cantidad = 1;
-			setCantidad(cantidad);
-			console.log(cantidad);
-		} else if (cantidad >= max) {
-			cantidad = max;
-			setCantidad(cantidad);
-			console.log(cantidad);
+	const handlecartones = (cartones, max) => {
+		if (cartones >= 1) {
+			setCartones(cartones);
+			console.log(cartones);
+		} else if (cartones < 0) {
+			cartones = 1;
+			setCartones(cartones);
+			console.log(cartones);
+		} else if (cartones >= max) {
+			cartones = max;
+			setCartones(cartones);
+			console.log(cartones);
 		}
 	};
 
@@ -41,27 +43,44 @@ export default function BingoUser(props){
 		if (!nombre || !apellido || !telefono || !email) {
 			if (!nombre) errors.nombre = true;
 			if (!apellido) errors.apellido = true;
-			if (telefono) errors.telefono = true;
+			if (!telefono) errors.telefono = true;
 			if (!validateEmail(email)) errors.email = true;
 		} else {
-			alert(`compra de ${cantidad} bonos por ${numberFormat(precioTotal)} `);
+			const key = firebase.database().ref().push().key;
+			firebase
+				.database()
+				.ref()
+				.child(`Users/${userFbData.uid}/bingos/${key}/`)
+				.set({
+					total: numberFormat(precioTotal),
+					nombre: nombre,
+					apellido: apellido,
+					email: email,
+					cartones: cartones,
+					telefono: telefono,
+					numero_de_juego: 1,
+					ganador: false,
+					fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+					id: key,
+					estado_de_pago: "",
+					forma_de_pago: "",
+					uid: userFbData.uid,
+				});
+			alert("su Compra a sido exitosa");
 			handleReset();
 		}
 		setFormError(errors);
 	};
 
 	const handleReset = () => {
-		setCantidad(1);
+		setCartones(1);
 		setNombre(userFbData.nombre);
 		setApellido(userFbData.apellido);
 		setEmail(userFbData.email);
 		setTelefono(userFbData.telefono);
 	};
 
-	console.log(telefono);
-	console.log(email);
 	if (userFbData) {
-		
 		return (
 			<SafeAreaView style={styles.mainView}>
 				<HeaderView props={props} />
@@ -111,19 +130,19 @@ export default function BingoUser(props){
 							onChange={(e) => setTelefono(e.nativeEvent.text)}
 						/>
 					</View>
-					<View style={styles.textBoxCantidad}>
-						<Text style={styles.cantidadText}>Cantidad</Text>
+					<View style={styles.textBoxCartones}>
+						<Text style={styles.cartonesText}>cartones</Text>
 					</View>
 					<View style={styles.quantity}>
 						<TouchableOpacity
-							onPress={() => handleCantidad(cantidad - 1)}
+							onPress={() => handlecartones(cartones - 1)}
 							style={styles.buttonLess}
 						>
 							<Text style={styles.signo}>-</Text>
 						</TouchableOpacity>
-						<Text style={styles.numero}>{cantidad}</Text>
+						<Text style={styles.numero}>{cartones}</Text>
 						<TouchableOpacity
-							onPress={() => handleCantidad(cantidad + 1)}
+							onPress={() => handlecartones(cartones + 1)}
 							style={styles.buttonPlus}
 						>
 							<Text style={styles.signo}>+</Text>
@@ -131,7 +150,7 @@ export default function BingoUser(props){
 					</View>
 					<View style={styles.reset}>
 						<TouchableOpacity
-							onPress={() => handleReset(cantidad)}
+							onPress={() => handleReset(cartones)}
 							style={styles.buttonReset}
 						>
 							<Text style={styles.textReset}>Borrar</Text>
@@ -154,5 +173,6 @@ export default function BingoUser(props){
 			</SafeAreaView>
 		);
 	}
-};
+}
+
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableHighlight, TextInput } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import styles from "../../Utils/Style";
 import HeaderView from "../../components/Layouts/Header";
 import MainImage from "../../components/Layouts/MainImage";
@@ -103,15 +102,15 @@ export default function DonarUser(props) {
 					/>
 				</View>
 				<View style={styles.buttons}>
-					<TouchableHighlight onPress={submit} style={styles.buttonPagar}>
+					<TouchableOpacity onPress={submit} style={styles.buttonPagar}>
 						<Text style={styles.textSubmit}>Donar</Text>
-					</TouchableHighlight>
-					<TouchableHighlight
+					</TouchableOpacity>
+					<TouchableOpacity
 						onPress={() => navigation.navigate("Home")}
 						style={styles.buttonPagar}
 					>
 						<Text style={styles.textSubmit}>Volver</Text>
-					</TouchableHighlight>
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
 		</View>

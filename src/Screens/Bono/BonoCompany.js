@@ -9,7 +9,7 @@ import { numberFormat } from "../../Sources/PagoEnLinea/FormatPrice";
 import {useNavigation} from '@react-navigation/native'
 import firebase from "../../../Firebase/Firebase";
 
-export default function BonoCompany(){
+export default function BonoCompany(props){
 	const navigation = useNavigation()
 	const { userFbData } = usePreference();
 	const [formError, setFormError] = useState({});

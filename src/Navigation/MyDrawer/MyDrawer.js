@@ -1,5 +1,5 @@
 import React from "react";
-import usePreference from '../../Hooks/usePreferences';
+import usePreference from "../../Hooks/usePreferences";
 import {
 	View,
 	Text,
@@ -17,11 +17,12 @@ import HomeScreen from "../../Screens/Home/HomeScreen";
 import DonarScreen from "../../Screens/Donar/DonarScreen";
 import BingosScreen from "../../Screens/Bingo/BingosScreen";
 import BonoScreen from "../../Screens/Bono/BonoScreen";
-import MisBonosScreen from "../../Screens/MisDonaciones/MisDonacionesScreen";
+import MisBonosScreen from "../../Screens/MisBonos/MisBonosScreen";
 import MisDonacionesScreen from "../../Screens/MisDonaciones/MisDonacionesScreen";
 import PerfilScreen from "../../Screens/Perfil/PerfilScreen";
 import firebase from "../../../Firebase/Firebase";
-import Dashboard from "../../Dashboard/Dashboard";
+import Dashboard from "../../components/Dashboard/Dashboard";
+import MisBingos from "../../Screens/MisBingos/MisBingos";
 
 const Logout = () => {
 	firebase.auth().signOut();
@@ -43,7 +44,7 @@ function DrawerMenu(props) {
 }
 
 function Menu(props) {
-	const { userFbData } = usePreference();;
+	const { userFbData } = usePreference();
 	if (userFbData) {
 		return (
 			<View style={styled.container}>
@@ -67,35 +68,46 @@ function Menu(props) {
 						navigation={() => props.navigation.navigate("Donar")}
 					/>
 					<DrawerMenu
-						iconName="edit"
-						titleName="Comprar Bono"
-						navigation={() => props.navigation.navigate("Bono")}
-					/>
-					<DrawerMenu
-						iconName="delicious"
-						titleName="Bingo"
-						navigation={() => props.navigation.navigate("Bingo")}
-					/>
-					<DrawerMenu
-						iconName="receipt"
-						titleName="Mis Bonos"
-						navigation={() => props.navigation.navigate("Mis Bonos")}
-					/>
-					<DrawerMenu
 						iconName="hand-holding-usd"
 						titleName="Mis Donaciones"
 						navigation={() => props.navigation.navigate("Mis Donaciones")}
 					/>
-					{userFbData.subtipo? (
-                        <DrawerMenu
-                        iconName="tools"
-                        titleName="Panel de control"
-                        navigation={() => props.navigation.navigate("Panel De Control")}
-                    />
-						
-					) : (
-						null
-					)}
+					{userFbData.tipo === "User" ? (
+						<DrawerMenu
+							iconName="edit"
+							titleName="Comprar Bono"
+							navigation={() => props.navigation.navigate("Bono")}
+						/>
+					) : null}
+					{userFbData.tipo === "User" ? (
+						<DrawerMenu
+							iconName="receipt"
+							titleName="Mis Bonos"
+							navigation={() => props.navigation.navigate("Mis Bonos")}
+						/>
+					) : null}
+					{userFbData.tipo === "User" ? (
+						<DrawerMenu
+							iconName="delicious"
+							titleName="Bingo"
+							navigation={() => props.navigation.navigate("Bingo")}
+						/>
+					) : null}
+					{userFbData.tipo === "User" ? (
+						<DrawerMenu
+							iconName="table"
+							titleName="Mis Bingos"
+							navigation={() => props.navigation.navigate("Mis Bingos")}
+						/>
+					) : null}
+
+					{userFbData.subtipo ? (
+						<DrawerMenu
+							iconName="tools"
+							titleName="Panel de control"
+							navigation={() => props.navigation.navigate("Panel De Control")}
+						/>
+					) : null}
 					<DrawerMenu
 						iconName="users"
 						titleName="Perfil"
@@ -116,7 +128,7 @@ function Menu(props) {
 
 const Drawer = createDrawerNavigator();
 
-function MyDrawer() {
+function MyDrawer(props) {
 	return (
 		<NavigationContainer>
 			<StatusBar />
@@ -127,6 +139,7 @@ function MyDrawer() {
 				<Drawer.Screen name="Bingo" component={BingosScreen} />
 				<Drawer.Screen name="Mis Donaciones" component={MisDonacionesScreen} />
 				<Drawer.Screen name="Mis Bonos" component={MisBonosScreen} />
+				<Drawer.Screen name="Mis Bingos" component={MisBingos} />
 				<Drawer.Screen name="Panel De Control" component={Dashboard} />
 				<Drawer.Screen name="Perfil" component={PerfilScreen} />
 				<Drawer.Screen name="Cerrar Sesión" component={Logout} />

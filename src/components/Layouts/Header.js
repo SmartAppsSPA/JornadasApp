@@ -2,15 +2,17 @@ import React from "react";
 import { Image } from "react-native";
 import { Header, Left, Right, Icon } from "native-base";
 import styles from "../../Utils/Style";
+import {useNavigation} from  '@react-navigation/native'
 
-const HeaderView = ({ props }) => {
+const HeaderView = () => {
+  const navigation = useNavigation();
   return (
     <Header style={styles.header}>
       <Left>
         <Icon
           style={styles.icon}
           name="menu"
-          onPress={() => props.navigation.openDrawer()}
+          onPress={() => navigation.openDrawer()}
         />
       </Left>
       <Right>

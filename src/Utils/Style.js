@@ -149,15 +149,15 @@ export default {
 		marginRight: 5,
 		marginLeft: 5,
 	},
-	textUsers: {
-		fontSize: 17,
+	textBlue: {
+		fontSize: 13,
 		color: "#F5C300",
 		fontWeight: "bold",
 		justifyContent: "center",
 		textAlign: "center",
 	},
-	textCompany: {
-		fontSize: 17,
+	textYellow: {
+		fontSize: 13,
 		color: "#03255F",
 		fontWeight: "bold",
 		justifyContent: "center",
@@ -180,7 +180,21 @@ export default {
 		marginTop: 20,
 	},
 
+	textBoxCartones: {
+		alignItems: "center",
+		textAlign: "center",
+		justifyContent: "center",
+		marginTop: 20,
+	},
+
 	cantidadText: {
+		fontSize: 30,
+		color: "#03255F",
+		fontWeight: "bold",
+		alignItems: "center",
+	},
+
+	cartonesText: {
 		fontSize: 30,
 		color: "#03255F",
 		fontWeight: "bold",
