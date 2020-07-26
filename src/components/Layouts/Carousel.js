@@ -34,7 +34,7 @@ const CarouselHome = () => {
 	return (
 		<View style={style.container}>
 			<Carousel
-				animate={true}
+				// animate={true}
 				delay={5000}
 				loop={true}
 				hideIndicators={false}
