@@ -115,18 +115,19 @@ export default {
 	
 	header: {
 		backgroundColor: "#03255F",
-		height: 70,
+		height: 45,
+
 	  },
 	  headerImage: {
 		width: 200,
 		resizeMode: "contain",
-		height: 50,
-		marginRight: -20,
-		marginBottom: 5,
+		height: 40,
+		marginRight: -45,
+		marginBottom: 1,
 	  },
 	  icon: {
 		color: "white",
-		marginBottom: 5,
+		marginBottom: 1,
 	  },
 
 	//Home

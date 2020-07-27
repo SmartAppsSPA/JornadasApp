@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\jahma\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @react-navigation/bottom-tabs@~5.2.6
+  C:\Program Files\nodejs\node.exe C:\Users\jahma\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js remove @react-native-community/viewpager
 
 PATH: 
   C:\Program Files\Android\Android Studio\bin;C:\Python38\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Android\Android Studio\bin;C:\Program Files\nodejs\;C:\Program Files\Android\Android Studio\bin;C:\Python38\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Android\Android Studio\bin;C:\Users\jahma\AppData\Local\Microsoft\WindowsApps;C:\Users\jahma\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jahma\AppData\Local\GitHubDesktop\bin;C:\Program Files\Git\cmd;;C:\Program Files\android-sdk-windows\platform-tools;C:\Users\jahma\AppData\Roaming\npm
@@ -30,6 +30,7 @@ npm manifest:
       "@react-native-community/masked-view": "0.1.10",
       "@react-native-firebase/app": "^8.0.0",
       "@react-native-firebase/auth": "^8.0.9",
+      "@react-navigation/bottom-tabs": "~5.2.6",
       "@react-navigation/drawer": "^5.8.2",
       "@react-navigation/native": "^5.5.1",
       "@react-navigation/stack": "^5.5.1",
@@ -1792,6 +1793,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-1.1.7.tgz#7d3b1631f1ec91145db92a8e25c80d53027e96ba"
     integrity sha512-k9v2KJtAprNPq7IZmedD2VLMePvPW+ohX3uDnkpoKritBji+/RtRmTKrdtPi3Uvp0toq/KtPttAds1dr7AZNpw==
   
+  "@react-native-community/viewpager@^4.1.2":
+    version "4.1.2"
+    resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-4.1.2.tgz#aa5babc5313cf9d1fa8041d0ebcfd7fdf7ac61cb"
+    integrity sha512-cSs+nwYKSBsG/j+u6bC4LRbfm8v8hOyglIY8Zrwqo6/cP/1vjIytu5cFaZLDSVwC86CHVloLPvHbpzxjeKUVqA==
+  
   "@react-native-firebase/app-types@6.7.2":
     version "6.7.2"
     resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.7.2.tgz#d2e1530af5702e00578914b41468898c10d3289c"
@@ -1810,6 +1816,14 @@ Lockfile:
     version "8.0.9"
     resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-8.0.9.tgz#2fd0c59b7df78ff904b62d1a0a86a8df177d7c31"
     integrity sha512-ZK+iXHIdJNqrSQYtBZYyVrx1JCQXPYVqz61gwsIOB2hi8zTs1vUcaZUcK4joI/fAOKSPRwwC8WosOwdLy2kzmg==
+  
+  "@react-navigation/bottom-tabs@~5.2.6":
+    version "5.2.8"
+    resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.2.8.tgz#9b47bf2ed4b9ebf2d8976cb49142002f42883195"
+    integrity sha512-oCIaFNvfWGNaJYPnNAJ2XkruG0f+E+ofPWKdFiJZULppN/Mee3G+q7hkdQkGtqK2DgRYapM1n3AsJBwon/KO5g==
+    dependencies:
+      color "^3.1.2"
+      react-native-iphone-x-helper "^1.2.1"
   
   "@react-navigation/core@^5.10.0":
     version "5.10.0"
