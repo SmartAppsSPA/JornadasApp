@@ -31,7 +31,7 @@ export default function MisBingos(props) {
 			<View style={styles.mainView}>
 				<HeaderView />
 				<MainImage />
-				<Text style={[styles.titles, { margin: 15 }]}>Mis Donaciones</Text>
+				<Text style={[styles.titles, { margin: 15 }]}>Mis Bingos</Text>
 				<ScrollView>
 					{bingosToArray.map((bingos, i) => {
 						return (

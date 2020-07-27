@@ -1,29 +1,22 @@
 import React from "react";
-import {Text} from 'react-native'
 import usePreference from "../../Hooks/usePreferences";
-import DonarUser from './DonarUSer';
-import DonarCompany from './DonarCompany';
+import DonarUser from "./DonarUSer";
+import DonarCompany from "./DonarCompany";
 
 const Donar = () => {
 	const { userFbData } = usePreference();
 
-	
-		switch (userFbData.tipo) {
-			case "User": {
-			  return (
-			   <DonarUser/>
-			  );
-			}
-			case "Company": {
-			  return (
-			<DonarCompany/>
-			  );
-			}
-			default: {
-			  return null;
-			}
-		  }
-	
+	switch (userFbData.tipo) {
+		case "User": {
+			return <DonarUser />;
+		}
+		case "Company": {
+			return <DonarCompany />;
+		}
+		default: {
+			return null;
+		}
+	}
 };
 
 export default Donar;

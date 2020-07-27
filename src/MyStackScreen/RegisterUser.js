@@ -21,12 +21,14 @@ const Register = (props) => {
       !formUserData.nombre ||
       !formUserData.apellido ||
       !formUserData.email ||
+      !formUserData.telefono ||
       !formUserData.password ||
       !formUserData.repeatPassword
     ) {
       if (!formUserData.nombre) errors.nombre = true;
       if (!formUserData.apellido) errors.apellido = true;
       if (!formUserData.email) errors.email = true;
+      if (!formUserData.telefono) errors.telefono = true;
       if (!formUserData.password) errors.password = true;
       if (!formUserData.repeatPassword) errors.repeatPassword = true;
     } else if (!validateEmail(formUserData.email)) {
@@ -59,6 +61,7 @@ const Register = (props) => {
               nombre: formUserData.nombre,
               apellido: formUserData.apellido,
               email: formUserData.email,
+              telefono: formUserData.telefono,
               password: formUserData.password,
             });
         })
@@ -67,6 +70,7 @@ const Register = (props) => {
             nombre: true,
             apellido: true,
             email: true,
+            telefono: true,
             password: true,
             repeatPassword: true,
           });
@@ -78,9 +82,9 @@ const Register = (props) => {
   };
 
   return (
-    <ScrollView>
       <View style={styles.background}>
         <Logo />
+        <ScrollView>
         <TextInput
           style={[styles.input, formError.nombre && styles.error]}
           placeholder="Nombre(s)"
@@ -103,6 +107,18 @@ const Register = (props) => {
           placeholderTextColor="#969696"
           onChange={(e) =>
             setFormUserData({ ...formUserData, email: e.nativeEvent.text })
+          }
+        />
+        <TextInput
+          style={[styles.input, formError.telefono && styles.error]}
+          placeholder="Teléfono De Contacto"
+          placeholderTextColor="#969696"
+          keyboardType='number-pad'
+          onChange={(e) =>
+            setFormUserData({
+              ...formUserData,
+              telefono: e.nativeEvent.text,
+            })
           }
         />
         <TextInput
@@ -135,8 +151,8 @@ const Register = (props) => {
         >
           <Text style={styles.text}>Volver</Text>
         </TouchableOpacity>
+        </ScrollView>
       </View>
-    </ScrollView>
   );
 };
 
@@ -145,6 +161,7 @@ function defaultUserValue() {
     nombre: "",
     apellido: "",
     email: "",
+    telefono: "",
     password: "",
     repeatPassword: "",
   };

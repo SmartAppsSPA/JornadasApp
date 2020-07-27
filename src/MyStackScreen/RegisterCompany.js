@@ -84,9 +84,10 @@ const Register = (props) => {
     setFormErrorCom(errors);
   };
   return (
-    <ScrollView>
+    
       <View style={styles.background}>
         <Logo />
+        <ScrollView>
         <TextInput
           style={[styles.input, formErrorCom.nombreCom && styles.error]}
           placeholder="Nombre o Razón Social"
@@ -113,6 +114,7 @@ const Register = (props) => {
           style={[styles.input, formErrorCom.rutEmpresa && styles.error]}
           placeholder="Rut de La Empresa"
           placeholderTextColor="#969696"
+          keyboardType='number-pad'
           onChange={(e) =>
             setFormCompanytData({
               ...formCompanyData,
@@ -135,6 +137,7 @@ const Register = (props) => {
           style={[styles.input, formErrorCom.telefono && styles.error]}
           placeholder="Teléfono De Contacto"
           placeholderTextColor="#969696"
+          keyboardType='number-pad'
           onChange={(e) =>
             setFormCompanytData({
               ...formCompanyData,
@@ -175,8 +178,8 @@ const Register = (props) => {
         >
           <Text style={styles.text}>Volver</Text>
         </TouchableOpacity>
+        </ScrollView>
       </View>
-    </ScrollView>
   );
 };
 

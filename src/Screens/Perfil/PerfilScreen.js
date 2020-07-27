@@ -1,14 +1,28 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import HeaderView from "../../components/Layouts/Header";
+import { useNavigation } from "@react-navigation/native";
+import usePreference from "../../Hooks/usePreferences";
+import styles from "../../Utils/Style";
+import MainImage from "../../components/Layouts/MainImage";
+import PerfilUSer from "./PerfilUSer";
+import PerfilCompany from './PerfilCompany';
 
 export default function PerfilScreen(props) {
-  return (
-    <View style={{ flex: 1 }}>
-      <HeaderView props={props} />
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 20 }}>perfil Screen</Text>
-      </View>
-    </View>
-  );
+	const navigation = useNavigation();
+	const { userFbData } = usePreference();
+
+	if (userFbData) {
+		return (
+			<View style={styles.mainView}>
+				<HeaderView props={props} />
+				<MainImage />
+				<ScrollView>
+					{userFbData.tipo === "User" ? <PerfilUSer /> : <PerfilCompany />}
+				</ScrollView>
+			</View>
+		);
+	} else {
+		return null;
+	}
 }

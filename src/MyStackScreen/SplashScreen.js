@@ -20,8 +20,6 @@ const SplashScreen = (props) => {
     return () => clearTimeout(timer);
   }, [!click]);
 
-  //console.log(click);
-  //console.log(props.route.name);
   return (
     <View style={styles.splashScreen} onTouchStart={() => setClick(!click)}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0.2)" />

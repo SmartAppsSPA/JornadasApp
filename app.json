@@ -9,7 +9,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Cruz_de_malta.png",
+    "icon": "./assets/Cruz_de_malta_azul.png",
     "splash": {
       "image": "./assets/logo_jornadas.png",
       "resizeMode": "contain",
@@ -29,7 +29,7 @@
     "android": {
       "package": "com.yourcompany.yourappname",
       "versionCode": 1
-    }
-
+    },
+    "description": ""
   }
 }

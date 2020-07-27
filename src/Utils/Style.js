@@ -1,5 +1,12 @@
 export default {
 	//Global
+	logo: {
+		width: 300,
+		height: 100,
+		resizeMode: "center",
+		marginTop: 50,
+		marginBottom: 25,
+	  },
 	mainView: {
 		flex: 1,
 	},
@@ -278,4 +285,21 @@ export default {
 		justifyContent: "space-around",
 		padding: 10,
 	},
-};
+	
+//splashscreen
+splashScreen: {
+	flex: 1,
+	flexDirection: "column",
+	justifyContent: "center",
+	alignItems: "center",
+	backgroundColor: "#03255F",
+  },
+
+  smartApps: {
+	fontSize: 12,
+	color: "white",
+	fontWeight: "bold",
+	marginBottom: 50,
+   textAlign: 'center',
+  },
+}

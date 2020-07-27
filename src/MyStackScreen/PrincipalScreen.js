@@ -98,9 +98,6 @@ const PrincipalScreen = (props) => {
       <TouchableOpacity style={styles.buttonGoogle}>
         <Text style={styles.textRedes}>Iniciar Sesión Con Google</Text>
       </TouchableOpacity>
-      <TouchableOpacity  style={styles.button}>
-        <Text style={styles.text}>Ingresar como invitado</Text>
-      </TouchableOpacity>
       <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
       </ScrollView>
     </View>

@@ -13,7 +13,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import styled from "./Style";
 //Screens
-import HomeScreen from "../../Screens/Home/HomeScreen";
+import HomeScreen from '../../Screens/Home/HomeScreen';
 import DonarScreen from "../../Screens/Donar/DonarScreen";
 import BingosScreen from "../../Screens/Bingo/BingosScreen";
 import BonoScreen from "../../Screens/Bono/BonoScreen";
@@ -21,7 +21,7 @@ import MisBonosScreen from "../../Screens/MisBonos/MisBonosScreen";
 import MisDonacionesScreen from "../../Screens/MisDonaciones/MisDonacionesScreen";
 import PerfilScreen from "../../Screens/Perfil/PerfilScreen";
 import firebase from "../../../Firebase/Firebase";
-import Dashboard from "../../components/Dashboard/Dashboard";
+import Dashboard from "../../Screens/Dashboard/Dashboard";
 import MisBingos from "../../Screens/MisBingos/MisBingos";
 
 const Logout = () => {
@@ -100,7 +100,6 @@ function Menu(props) {
 							navigation={() => props.navigation.navigate("Mis Bingos")}
 						/>
 					) : null}
-
 					{userFbData.subtipo ? (
 						<DrawerMenu
 							iconName="tools"

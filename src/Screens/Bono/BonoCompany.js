@@ -23,15 +23,12 @@ export default function BonoCompany(props){
 	const handleCantidad = (cantidad, max) => {
 		if (cantidad >= 1) {
 			setCantidad(cantidad);
-			console.log(cantidad);
 		} else if (cantidad < 0) {
 			cantidad = 1;
 			setCantidad(cantidad);
-			console.log(cantidad);
 		} else if (cantidad >= max) {
 			cantidad = max;
 			setCantidad(cantidad);
-			console.log(cantidad);
     }
 	};
 
@@ -54,8 +51,6 @@ export default function BonoCompany(props){
 		setApellido(userFbData.apellido);
 		setTelefono();
 	};
-
-	console.log(telefono);
 
 	if (userFbData) {
 		return (

@@ -26,15 +26,12 @@ export default function BonoUser(props) {
 	const handlecartones = (cartones, max) => {
 		if (cartones >= 1) {
 			setCartones(cartones);
-			console.log(cartones);
 		} else if (cartones < 0) {
 			cartones = 1;
 			setCartones(cartones);
-			console.log(cartones);
 		} else if (cartones >= max) {
 			cartones = max;
 			setCartones(cartones);
-			console.log(cartones);
 		}
 	};
 

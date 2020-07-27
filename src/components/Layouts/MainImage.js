@@ -10,6 +10,7 @@ const MainImage = ({ props }) => {
         resizeMode: "contain",
         height: 220,
         marginTop: -15,
+        marginBottom: -4,
         zIndex: -2,
       }}
     />

@@ -11,7 +11,6 @@ import CarouselHome from "../../components/Layouts/Carousel";
 export default function HomeCompany(props) {
 	const navigation = useNavigation();
 	const { userFbData } = usePreference();
-
 	if (userFbData) {
 		return (
 			<View style={styles.mainView}>
@@ -76,13 +75,10 @@ export default function HomeCompany(props) {
 							</TouchableOpacity>
 						</View>
 						<View style={styles.buttonsHome}>
-							<TouchableOpacity
-								style={styles.buttonYellow}
-							>
-								<Text style={styles.textYellow}>
-								</Text>
+							<TouchableOpacity style={styles.buttonYellow}>
+								<Text style={styles.textYellow}></Text>
 							</TouchableOpacity>
-                            <TouchableOpacity onPress={Logout} style={styles.buttonBlue}>
+							<TouchableOpacity onPress={Logout} style={styles.buttonBlue}>
 								<Text style={styles.textBlue}>
 									<Icon name="door-open" size={20} color="#f5c300" />
 									{`\nCerrar Sesión`}
@@ -94,8 +90,8 @@ export default function HomeCompany(props) {
 									style={styles.buttonYellow}
 								>
 									<Text style={styles.textBlue}>
-                                    <Icon name="door-open" size={20} color="#f5c300" />
-									{`\nCerrar Sesión`}
+										<Icon name="door-open" size={20} color="#f5c300" />
+										{`\nCerrar Sesión`}
 									</Text>
 								</TouchableOpacity>
 							) : (
@@ -116,4 +112,3 @@ export default function HomeCompany(props) {
 const Logout = () => {
 	firebase.auth().signOut();
 };
-

@@ -25,15 +25,12 @@ export default function BonoUser(props) {
 	const handleCantidad = (cantidad, max) => {
 		if (cantidad >= 1) {
 			setCantidad(cantidad);
-			console.log(cantidad);
 		} else if (cantidad < 0) {
 			cantidad = 1;
 			setCantidad(cantidad);
-			console.log(cantidad);
 		} else if (cantidad >= max) {
 			cantidad = max;
 			setCantidad(cantidad);
-			console.log(cantidad);
 		}
 	};
 
@@ -55,7 +52,6 @@ export default function BonoUser(props) {
 					apellido: apellido,
 					email: email,
 					cantidad: cantidad,
-					telefono: telefono,
 					fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 					id: key,
 					estado_de_pago: "",

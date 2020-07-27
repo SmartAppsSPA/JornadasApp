@@ -32,7 +32,7 @@ export default function MisBonos(props){
 			<View style={styles.mainView}>
 				<HeaderView />
 				<MainImage />
-				<Text style={[styles.titles, { margin: 15 }]}>Mis Donaciones</Text>
+				<Text style={[styles.titles, { margin: 15 }]}>Mis Bonos</Text>
 				<ScrollView>
 					{bonosToArray.map((Bonos, i) => {
 						return (

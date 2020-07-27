@@ -23,7 +23,8 @@ const App = () => {
 				console.log("No hay usuario logeado");
 			}
 		});
-	}, [user]);
+		
+	}, []);
 
 	const preferences = useMemo(
 		() => ({
@@ -47,35 +48,3 @@ const App = () => {
 };
 
 export default App;
-
-// if (user && userFbData) {
-//   switch (userFbData.tipo) {
-//     case "User": {
-//       return (
-//         <PreferencesContext.Provider value={preferences}>
-//           <MyDrawer/>
-//           {/* <MyUserDrawer /> */}
-//         </PreferencesContext.Provider>
-//       );
-//     }
-//     case "Company": {
-//       return (
-//         <PreferencesContext.Provider value={preferences}>
-//           <MyCompanyDrawer />
-//         </PreferencesContext.Provider>
-//       );
-//     }
-//     case "Leo/Leon": {
-//       return(
-//         <PreferencesContext.Provider value={preferences}>
-//           <MyLeonesDrawer />
-//         </PreferencesContext.Provider>
-//       );
-//     }
-//     default: {
-//       return <MyStack />;
-//     }
-//   }
-// } else {
-//   return <MyStack />;
-// }
