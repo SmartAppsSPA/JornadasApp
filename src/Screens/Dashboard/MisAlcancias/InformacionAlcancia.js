@@ -2,58 +2,181 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../../components/Layouts/Header";
-import firebase from "../../../../Firebase/Firebase";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { numberFormat } from "../../../Sources/PagoEnLinea/FormatPrice";
 
 export default function InformacionAlcancia(props) {
 	const navigation = useNavigation();
 	const content = props.route.params.content;
+	console.log(content);
 
 	if (content) {
 		return (
 			<View>
 				<Header />
-				<Text style={styles.infoTitle}>Informacion Alcancia</Text>
+				<Text style={styles.infoTitle}>Información Alcancía</Text>
 				<View style={styles.infoView}>
-					<Text>{`Numero De Alcancia: ${content.alcancia_numero}`}</Text>
+					<View style={styles.textBox}>
+						<Text style={styles.textKey}>Numero De Alcancia:</Text>
+						<Text style={styles.textValue}> {content.alcancia_numero}</Text>
+					</View>
 					{content.asiganda_externo ? (
-						<Text>Asignada Externo: Si </Text>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Asignada Externo:</Text>
+							<Text style={styles.textValue}> Si</Text>
+						</View>
 					) : (
-						<Text>Asignada Externo: No </Text>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Asignada Externo:</Text>
+							<Text style={styles.textValue}> No</Text>
+						</View>
 					)}
 					{content.asignada_tercero ? (
-						<Text>Asignada Tercero: Si </Text>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Asignada A Tercero:</Text>
+							<Text style={styles.textValue}> Si</Text>
+						</View>
 					) : (
-						<Text>Asignada Tercero: No </Text>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Asignada A Tercero:</Text>
+							<Text style={styles.textValue}> No</Text>
+						</View>
 					)}
 					{content.asignada_usuario ? (
-						<Text>Asignada Usuario: Si </Text>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Asignada A Usuario:</Text>
+							<Text style={styles.textValue}> Si</Text>
+						</View>
 					) : (
-						<Text>Asignada Usuario: No </Text>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Asignada A Usuario:</Text>
+							<Text style={styles.textValue}> No</Text>
+						</View>
 					)}
-					<Text>{`Codigo De Barra: ${content.codigo_barra}`}</Text>
-					<Text>{content.monto_recaudado}</Text>
+					<View style={styles.textBox}>
+						<Text style={styles.textKey}>Codigo De Barra:</Text>
+						<Text style={styles.textValue}> {content.codigo_barra}</Text>
+					</View>
+					<View style={styles.textBox}>
+						<Text style={styles.textKey}>Monto Recaudado:</Text>
+						<Text style={styles.textValue}>
+							{" "}
+							{numberFormat(content.monto_recaudad)}
+						</Text>
+					</View>
 				</View>
+				{content.tercero ? (
+					<View>
+					<Text style={styles.infoTitle}>Información de Tercero</Text>
+					<View style={styles.infoView}>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Nombre: </Text>
+				<Text style={styles.textValue}>{content.tercero.nombre}</Text>
+						</View>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Email: </Text>
+							<Text style={styles.textValue}>{content.tercero.correo}</Text>
+						</View>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Dirección:</Text>
+							<Text style={styles.textValue}>{content.tercero.direccion}</Text>
+						</View>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Teléfono:</Text>
+							<Text style={styles.textValue}>{content.tercero.telefono}</Text>
+						</View>
+					</View>
+					</View>
+				) : null}
+				{content.externo ? (
+					<View>
+					<Text style={styles.infoTitle}>Información de Externo</Text>
+					<View style={styles.infoView}>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Nombre: </Text>
+				<Text style={styles.textValue}>{content.externo.nombre}</Text>
+						</View>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Email: </Text>
+							<Text style={styles.textValue}>{content.externo.correo}</Text>
+						</View>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Dirección:</Text>
+							<Text style={styles.textValue}>{content.externo.direccion}</Text>
+						</View>
+						<View style={styles.textBox}>
+							<Text style={styles.textKey}>Teléfono:</Text>
+							<Text style={styles.textValue}>{content.externo.telefono}</Text>
+						</View>
+					</View>
+					</View>
+				) : null}
+				<TouchableOpacity
+					onPress={() => navigation.goBack()}
+					style={styles.backButton}
+				>
+					<Icon
+						type="FontAwesome5"
+						name="arrow-circle-left"
+						size={50}
+						color="#03255f"
+						style={styles.icon}
+					/>
+				</TouchableOpacity>
 			</View>
 		);
 	} else {
-		return (
-			<View>
-				<Text>Aun no se le han asignado alcancias.</Text>
-			</View>
-		);
+		return null;
 	}
 }
 
 const styles = StyleSheet.create({
 	infoTitle: {
+		marginVertical:10,
 		fontWeight: "bold",
-		color: "#03255F",
-		fontSize: 30,
+		color: "#fff",
+		fontSize: 20,
 		textAlign: "center",
+		justifyContent: "center",
+		backgroundColor: "#696969",
+		height: 30,
 	},
 	infoView: {
-		margin: 10,
+		paddingVertical:10,
+		paddingHorizontal: 70,
+		marginVertical: 10,
+		marginHorizontal: 10,
 		backgroundColor: "#fff",
+		borderWidth: 0.05,
+		borderRadius: 5,
 	},
-	textInfo: {},
+	textBox: {
+		flexDirection: "row",
+	},
+	textKey: {
+		flex: 1,
+		marginLeft: 3,
+		fontSize: 15,
+		fontWeight: "bold",
+		color: "#03255f",
+	},
+	textValue: {
+		fontSize: 15,
+		fontWeight: "700",
+		color: "#696969",
+	},
+	backButton: {
+		flexDirection: "row",
+		width: 55,
+		height: 55,
+		alignSelf: "flex-start",
+		justifyContent: "center",
+		borderRadius: 25,
+		marginLeft: 20,
+		position: 'absolute',
+		marginTop: 145,
+	},
+	icon: {
+		marginTop: 3,
+	},
 });

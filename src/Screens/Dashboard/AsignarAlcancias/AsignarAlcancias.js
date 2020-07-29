@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 export default function AsignarAlcancias() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator headerMode="none">
             <Stack.Screen name='Alcancias' component={Alcancias} options={{title: 'Alcancias'}}/>
             <Stack.Screen name="Asignar" component={Asignar} options={{title: 'Asignmar'}}/>
             <Stack.Screen name='Informacion' component={Informacion} options={{title: 'Informacion'}} />

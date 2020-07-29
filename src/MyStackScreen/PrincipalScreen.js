@@ -72,7 +72,7 @@ const PrincipalScreen = (props) => {
       >
         <Text style={styles.text}>Registrarse</Text>
       </TouchableOpacity>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View
           style={{
             flex: 1,
@@ -97,7 +97,7 @@ const PrincipalScreen = (props) => {
       </View>
       <TouchableOpacity style={styles.buttonGoogle}>
         <Text style={styles.textRedes}>Iniciar Sesión Con Google</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
       </ScrollView>
     </View>

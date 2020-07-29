@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import styles from "../../../Utils/Style";
+import {
+	View,
+	Text,
+	ScrollView,
+	TouchableOpacity,
+	StyleSheet,
+} from "react-native";
 import usePreference from "../../../Hooks/usePreferences";
 import firebase from "../../../../Firebase/Firebase";
 import Header from "../../../components/Layouts/Header";
-import {useNavigation} from '@react-navigation/native';
- 
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome5";
+
 export default function Alcancias() {
 	const navigation = useNavigation();
 	const { userFbData } = usePreference();
@@ -29,79 +35,40 @@ export default function Alcancias() {
 		return (
 			<View style={styles.mainView}>
 				<Header />
-				<Text style={[styles.titles, { margin: 15 }]}>Mis Alcancias</Text>
+				<Text style={styles.infoTitle}>Mis Alcancias</Text>
 				<ScrollView>
 					{alcanciasToArray.map((alcancia, i) => {
 						return (
-							<TouchableOpacity
-							onPress={()=> navigation.navigate('InformacionAlcancia', {alcancia: alcancia.alcancia_numero, uid: userFbData.uid, content: alcancia})}
-								key={i}
-								style={{ margin: 10, backgroundColor: "#fff" }}
-							>
-								<View style={{ alignItems: "flex-start", marginLeft: 15 }}>
-									<View style={{ flexDirection: "row" }}>
-										<Text
-											style={{
-												fontWeight: "bold",
-												color: "#03255F",
-												fontSize: 15,
-											}}
-										>
-											Numero:{"  "}
-										</Text>
-										<Text style={{ fontWeight: "bold", color: "#696969" }}>
-											{alcancia.alcancia_numero}
-										</Text>
-									</View>
-									{alcancia.asignada_externo === true ||
-									alcancia.asignada_tercero === true ||
-									alcancia.asignada_usuario === true ? (
-										<View style={{ flexDirection: "row" }}>
-											<Text
-												style={{
-													fontWeight: "bold",
-													color: "#03255F",
-													fontSize: 15,
-												}}
-											>
-												Asignada:{"  "}
-											</Text>
-											<Text style={{ fontWeight: "bold", color: "#696969" }}>
-												si
-											</Text>
-										</View>
-									) : (
-										<View style={{ flexDirection: "row" }}>
-											<Text
-												style={{
-													fontWeight: "bold",
-													color: "#03255F",
-													fontSize: 15,
-												}}
-											>
-												Asignada:{"  "}
-											</Text>
-											<Text style={{ fontWeight: "bold", color: "#696969" }}>
-												No
-											</Text>
-										</View>
-									)}
-									<View style={{ flexDirection: "row" }}>
-										<Text
-											style={{
-												fontWeight: "bold",
-												color: "#03255F",
-												fontSize: 15,
-											}}
-										>
-											Codigo de barra:{"  "}
-										</Text>
-										<Text style={{ fontWeight: "500", color: "#696969" }}>
-											{alcancia.codigo_barra}
-										</Text>
-									</View>
+							<View key={i} style={styles.infoView}>
+								<View style={styles.textBox}>
+									<Text style={styles.textKey}>Numero De Alcancia:</Text>
+									<Text style={styles.textValue}>
+										{alcancia.alcancia_numero}
+									</Text>
 								</View>
-							</TouchableOpacity>
+								<View style={styles.textBox}>
+									<Text style={styles.textKey}>Codigo de barra:</Text>
+									<Text style={styles.textValue}>{alcancia.codigo_barra}</Text>
+								</View>
+
+								<TouchableOpacity
+									onPress={() =>
+										navigation.navigate("InformacionAlcancia", {
+											content: alcancia,
+										})
+									}
+									key={i}
+									style={styles.backButton}
+								>
+									<Icon
+										type="FontAwesome5"
+										name="arrow-circle-right"
+										size={50}
+										color="#03255f"
+										style={styles.icon}
+									/>
+								</TouchableOpacity>
+							</View>
 						);
 					})}
 				</ScrollView>
@@ -110,16 +77,10 @@ export default function Alcancias() {
 	} else {
 		return (
 			<View style={styles.mainView}>
+				<Header />
 				<View style={{ alignItems: "center", marginTop: 30 }}>
-                <Header />
-				<Text style={[styles.titles, { margin: 15 }]}>Mis Alcancias</Text>
-					<Text
-						style={{
-							fontWeight: "bold",
-							color: "#03255F",
-							fontSize: 15,
-						}}
-					>
+					<Text style={[styles.titles, { margin: 15 }]}>Mis Alcancias</Text>
+					<Text style={{ fontWeight: "bold", color: "#03255F", fontSize: 15 }}>
 						No tiene alcancias asignadas.
 					</Text>
 				</View>
@@ -127,3 +88,51 @@ export default function Alcancias() {
 		);
 	}
 }
+
+const styles = StyleSheet.create({
+	infoTitle: {
+		marginVertical: 10,
+		fontWeight: "bold",
+		color: "#fff",
+		fontSize: 20,
+		textAlign: "center",
+		justifyContent: "center",
+		backgroundColor: "#696969",
+		height: 30,
+	},
+	infoView: {
+		paddingVertical: 10,
+		marginVertical: 10,
+		marginHorizontal: 26,
+		backgroundColor: "#fff",
+		borderWidth: 0.05,
+		borderRadius: 5,
+	},
+	textBox: {flexDirection: 'row',},
+	textKey: {
+		flex: 1,
+		marginLeft: 3,
+		fontSize: 15,
+		fontWeight: "bold",
+		color: "#03255f",
+	},
+	textValue: {
+		fontSize: 15,
+		fontWeight: "700",
+		color: "#696969",
+		marginRight: 70,
+	},
+	backButton: {
+		flexDirection: "row",
+		width: 55,
+		height: 55,
+		alignSelf: "flex-end",
+		justifyContent: "center",
+		borderRadius: 25,
+		marginLeft: 20,
+		position: "absolute",
+	},
+	icon: {
+		marginTop: 3,
+	},
+});

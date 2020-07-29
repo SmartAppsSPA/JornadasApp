@@ -23,7 +23,6 @@ const App = () => {
 				console.log("No hay usuario logeado");
 			}
 		});
-		
 	}, []);
 
 	const preferences = useMemo(
@@ -36,15 +35,22 @@ const App = () => {
 
 	if (user === undefined) return null;
 
-	if (user !== null) {
+	if (user !== null && userFbData !== null) {
+		return (
+			<PreferencesContext.Provider value={preferences}>
+				<MyDrawer />
+			</PreferencesContext.Provider>
+		);
+	} else if (user === null && userFbData !== null) {
 		return (
 			<PreferencesContext.Provider value={preferences}>
 				<MyDrawer />
 			</PreferencesContext.Provider>
 		);
 	} else {
-    return <MyStack />;
-  }
+		return <MyStack />;
+	}
 };
 
 export default App;
+

@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <View>
       <Image
-        style={styles.logo}
+        style={[styles.logo, {marginTop: 150}]}
         source={require("../../assets/logo_jornadas.png")}
       />
     </View>

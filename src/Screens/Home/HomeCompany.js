@@ -10,7 +10,13 @@ import CarouselHome from "../../components/Layouts/Carousel";
 
 export default function HomeCompany(props) {
 	const navigation = useNavigation();
-	const { userFbData } = usePreference();
+	const { userFbData, setUserFbData } = usePreference();
+
+	const Logout = () => {
+		firebase.auth().signOut();
+		setUserFbData(null);	
+	};
+	
 	if (userFbData) {
 		return (
 			<View style={styles.mainView}>
@@ -108,7 +114,3 @@ export default function HomeCompany(props) {
 		return null;
 	}
 }
-
-const Logout = () => {
-	firebase.auth().signOut();
-};

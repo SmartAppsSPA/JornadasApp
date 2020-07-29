@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "JornadasApp",
-    "slug": "JornadasApp",
+    "name": "Jornadas Magallanicas",
+    "slug": "JornadasMagallanicas",
     "platforms": [
       "ios",
       "android",
@@ -23,11 +23,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.yourappname",
+      "bundleIdentifier": "cl.SmartApps.JornadasMagallanicas",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.yourcompany.yourappname",
+      "package": "cl.SmartApps.JornadasMagallanicas",
       "versionCode": 1
     },
     "description": ""

@@ -24,9 +24,6 @@ import firebase from "../../../Firebase/Firebase";
 import Dashboard from "../../Screens/Dashboard/Dashboard";
 import MisBingos from "../../Screens/MisBingos/MisBingos";
 
-const Logout = () => {
-	firebase.auth().signOut();
-};
 
 function DrawerMenu(props) {
 	return (
@@ -44,7 +41,13 @@ function DrawerMenu(props) {
 }
 
 function Menu(props) {
-	const { userFbData } = usePreference();
+	const { userFbData, setUserFbData } = usePreference();
+
+	const Logout = () => {
+		firebase.auth().signOut();
+		setUserFbData(null);	
+	};
+
 	if (userFbData) {
 		return (
 			<View style={styled.container}>
@@ -90,14 +93,14 @@ function Menu(props) {
 						<DrawerMenu
 							iconName="delicious"
 							titleName="Bingo"
-							navigation={() => props.navigation.navigate("Bingo")}
+							// navigation={() => props.navigation.navigate("Bingo")}
 						/>
 					) : null}
 					{userFbData.tipo === "User" ? (
 						<DrawerMenu
 							iconName="table"
 							titleName="Mis Bingos"
-							navigation={() => props.navigation.navigate("Mis Bingos")}
+							// navigation={() => props.navigation.navigate("Mis Bingos")}
 						/>
 					) : null}
 					{userFbData.subtipo ? (
@@ -128,6 +131,7 @@ function Menu(props) {
 const Drawer = createDrawerNavigator();
 
 function MyDrawer(props) {
+	
 	return (
 		<NavigationContainer>
 			<StatusBar />
@@ -141,7 +145,7 @@ function MyDrawer(props) {
 				<Drawer.Screen name="Mis Bingos" component={MisBingos} />
 				<Drawer.Screen name="Panel De Control" component={Dashboard} />
 				<Drawer.Screen name="Perfil" component={PerfilScreen} />
-				<Drawer.Screen name="Cerrar Sesión" component={Logout} />
+				{/* <Drawer.Screen name="Cerrar Sesión" component={Logout} /> */}
 			</Drawer.Navigator>
 		</NavigationContainer>
 	);

@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 export default function AsignarTalonarios() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator headerMode='none'>
             <Stack.Screen name='Talonarios' component={Talonarios} options={{title: 'Talonarios'}} />
             <Stack.Screen name='Asignar' component={Asignar} options={{title: 'Asignar'}} />
             <Stack.Screen name='Informacion' component={Informacion} options={{title: 'Informacion'}} />

@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 
 export default function MisAlcancias() {
     return (
-        <Stack.Navigator headerMode="none">
+        <Stack.Navigator headerMode="none" initialRouteName='Alcancias'>
             <Stack.Screen name='Alcancias' component={Alcancias} options={{title: 'Alcancias'}}/>
             <Stack.Screen name='InformacionAlcancia' component={InformacionAlcancia} options={{title: 'Informacion'}}/>
         </Stack.Navigator>

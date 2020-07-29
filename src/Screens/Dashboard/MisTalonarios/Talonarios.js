@@ -4,6 +4,7 @@ import styles from "../../../Utils/Style";
 import usePreference from "../../../Hooks/usePreferences";
 import firebase from "../../../../Firebase/Firebase";
 import Header from "../../../components/Layouts/Header";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Talonarios() {
     const { userFbData } = usePreference();
@@ -29,79 +30,8 @@ export default function Talonarios() {
 				<Header />
 				<Text style={[styles.titles, { margin: 15 }]}>Mis Talonarios</Text>
 				<ScrollView>
-					{alcanciasToArray.map((alcancia, i) => {
-						return (
-							<TouchableOpacity
-								key={i}
-								style={{ margin: 10, backgroundColor: "#fff" }}
-							>
-								<View style={{ alignItems: "flex-start", marginLeft: 15 }}>
-									<View style={{ flexDirection: "row" }}>
-										<Text
-											style={{
-												fontWeight: "bold",
-												color: "#03255F",
-												fontSize: 15,
-											}}
-										>
-											Numero:{"  "}
-										</Text>
-										<Text style={{ fontWeight: "bold", color: "#696969" }}>
-											{alcancia.alcancia_numero}
-										</Text>
-									</View>
-									{alcancia.asignada_externo === true ||
-									alcancia.asignada_tercero === true ||
-									alcancia.asignada_usuario === true ? (
-										<View style={{ flexDirection: "row" }}>
-											<Text
-												style={{
-													fontWeight: "bold",
-													color: "#03255F",
-													fontSize: 15,
-												}}
-											>
-												Asignada:{"  "}
-											</Text>
-											<Text style={{ fontWeight: "bold", color: "#696969" }}>
-												si
-											</Text>
-										</View>
-									) : (
-										<View style={{ flexDirection: "row" }}>
-											<Text
-												style={{
-													fontWeight: "bold",
-													color: "#03255F",
-													fontSize: 15,
-												}}
-											>
-												Asignada:{"  "}
-											</Text>
-											<Text style={{ fontWeight: "bold", color: "#696969" }}>
-												No
-											</Text>
-										</View>
-									)}
-									<View style={{ flexDirection: "row" }}>
-										<Text
-											style={{
-												fontWeight: "bold",
-												color: "#03255F",
-												fontSize: 15,
-											}}
-										>
-											Codigo de barra:{"  "}
-										</Text>
-										<Text style={{ fontWeight: "500", color: "#696969" }}>
-											{alcancia.codigo_barra}
-										</Text>
-									</View>
-								</View>
-							</TouchableOpacity>
-						);
-					})}
-				</ScrollView>
+                <Text style={[styles.titles, { margin: 15 }]}>En Construción</Text>
+                </ScrollView>
 			</View>
 		);
 	} else {
