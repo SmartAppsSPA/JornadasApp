@@ -1,57 +1,80 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import {
 	View,
 	Text,
 	TouchableOpacity,
 	StyleSheet,
-    TextInput,
+	TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../../components/Layouts/Header";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { ScrollView } from "react-native-gesture-handler";
 import { validateEmail } from "../../../Utils/validation";
-import firebase from '../../../../Firebase/Firebase';
+import firebase from "../../../../Firebase/Firebase";
 
 export default function InformacionAlcancia(props) {
 	const navigation = useNavigation();
 	// hacemos destructurinde  props para obtener los datos de la alcancia seleccionada y el uid del usuario.
 	const content = props.route.params.content;
-    const uid = props.route.params.uid;
-    const key = props.route.params.key;
+	const uid = props.route.params.uid;
+	const key = props.route.params.key;
 	//se declaran los useState.
 	const [errorForm, setErrorForm] = useState(false);
 	const [nombre, setNombre] = useState("");
 	const [correo, setCorreo] = useState("");
 	const [direccion, setDireccion] = useState("");
-    const [telefono, setTelefono] = useState("");
+	const [telefono, setTelefono] = useState("");
+	const [rut, setRut] = useState("");
+	const indice_alcancia = content.alcancia_numero - 1;
 
 	const submit = () => {
 		let errors = {};
-		if (!nombre || !correo || !direccion || !telefono) {
+		if (
+			!nombre ||
+			!direccion ||
+			!telefono ||
+			content.asignada_tercero === true
+		) {
+			if (content.asignada_tercero === true)
+				alert("esta alcancia ya asido asignada"), console.log("ERROR 0");
 			if (!nombre) (errors.nombre = true), console.log("ERROR1");
-			if (!correo) (errors.correo = true), console.log("ERROR2");
 			if (!direccion) (errors.direccion = true), console.log("ERROR3");
 			if (!telefono) (errors.telefono = true), console.log("ERROR4");
-		} else if (!validateEmail(correo)) {
-			(errors.correo = true), console.log("ERROR5");
 		} else {
 			firebase
 				.database()
 				.ref()
-                .child(`Users/${uid}/alcancias/${key}/`)
+				.child(`Users/${uid}/alcancias/${key}/`)
 				.update({
+					reset: false,
 					asignada_tercero: true,
 					tercero: {
 						nombre: nombre,
 						correo: correo,
 						direccion: direccion,
 						telefono: telefono,
+						rut: rut,
+					},
+				});
+			firebase
+				.database()
+				.ref()
+				.child(`Alcancias/${indice_alcancia}/`)
+				.update({
+					reset: false,
+					asignada_tercero: true,
+					tercero: {
+						nombre: nombre,
+						correo: correo,
+						direccion: direccion,
+						telefono: telefono,
+						rut: rut,
 					},
 				});
 			console.log("Exito Al Asignar");
-            handleReset(); 
-            
+			handleReset();
+			navigation.navigate("Alcancias");
 		}
 		setErrorForm(errors);
 	};
@@ -61,70 +84,87 @@ export default function InformacionAlcancia(props) {
 		setCorreo("");
 		setDireccion("");
 		setTelefono("");
+		setRut("");
 	};
 
-	return (
-		<View style={styles.container}>
-			<Header />
-			<ScrollView>
-				<Text style={styles.title}>
-					Asignar Alcancía: {content.alcancia_numero} {`\n`} codigo:{" "}
-					{content.codigo_barra}
-				</Text>
-				<View style={styles.infoView}>
-					<Text style={styles.subTitle}>Formulario entrega de Alcancía</Text>
-					<Text style={styles.textKey}>Nombre y Apellido</Text>
-					<TextInput
-						name="nombre"
-						placeholder="Ingrese Nombre y Apellido"
-						defaultValue={nombre}
-						onChange={(e) => setNombre(e.nativeEvent.text)}
-						style={[styles.textInput, errorForm.nombre && styles.error]}
-					/>
-					<Text style={styles.textKey}>Correo</Text>
-					<TextInput
-						name="correo"
-						placeholder="Ingrese correo electronico de contacto"
-						defaultValue={correo}
-						onChange={(e) => setCorreo(e.nativeEvent.text)}
-						style={[styles.textInput, errorForm.correo && styles.error]}
-					/>
-					<Text style={styles.textKey}>Dirección</Text>
-					<TextInput
-						name="direccion"
-						placeholder="Ingrese una Dirección"
-						defaultValue={direccion}
-						onChange={(e) => setDireccion(e.nativeEvent.text)}
-						style={[styles.textInput, errorForm.direccion && styles.error]}
-					/>
-					<Text style={styles.textKey}>Teléfono</Text>
-					<TextInput
-						name="telefono"
-						keyboardType="phone-pad"
-						placeholder="+56 9..."
-						defaultValue={telefono}
-						onChange={(e) => setTelefono(e.nativeEvent.text)}
-						style={[styles.textInput, errorForm.telefono && styles.error]}
-					/>
-					<TouchableOpacity onPress={submit} style={styles.submitBtn}>
-						<Text style={styles.textBtn}>Asignar</Text>
+	if (!content.asignada_tercero) {
+		return (
+			<View style={styles.container}>
+				<Header />
+				<ScrollView>
+					<Text style={styles.title}>
+						Asignar Alcancía: {content.alcancia_numero} {`\n`} codigo:{" "}
+						{content.codigo_barra}
+					</Text>
+					<View style={styles.infoView}>
+						<Text style={styles.subTitle}>Formulario entrega de Alcancía</Text>
+						<Text style={styles.textKey}>Nombre y Apellido</Text>
+						<TextInput
+							name="nombre"
+							placeholder="Ingrese Nombre y Apellido"
+							defaultValue={nombre}
+							onChange={(e) => setNombre(e.nativeEvent.text)}
+							style={[styles.textInput, errorForm.nombre && styles.error]}
+						/>
+						<Text style={styles.textKey}>Correo</Text>
+						<TextInput
+							name="correo"
+							placeholder="Ingrese correo electronico de contacto"
+							defaultValue={correo}
+							onChange={(e) => setCorreo(e.nativeEvent.text)}
+							style={[styles.textInput, errorForm.correo && styles.error]}
+						/>
+						<Text style={styles.textKey}>Dirección</Text>
+						<TextInput
+							name="direccion"
+							placeholder="Ingrese una Dirección"
+							defaultValue={direccion}
+							onChange={(e) => setDireccion(e.nativeEvent.text)}
+							style={[styles.textInput, errorForm.direccion && styles.error]}
+						/>
+						<Text style={styles.textKey}>Teléfono</Text>
+						<TextInput
+							name="telefono"
+							keyboardType="phone-pad"
+							placeholder="+56 9..."
+							defaultValue={telefono}
+							onChange={(e) => setTelefono(e.nativeEvent.text)}
+							style={[styles.textInput, errorForm.telefono && styles.error]}
+						/>
+						<Text style={styles.textKey}>Rut</Text>
+						<TextInput
+							name="Rut"
+							placeholder="1.111.111-1"
+							defaultValue={rut}
+							onChange={(e) => setRut(e.nativeEvent.text)}
+							style={[styles.textInput, errorForm.rut && styles.error]}
+						/>
+						<TouchableOpacity onPress={submit} style={styles.submitBtn}>
+							<Text style={styles.textBtn}>Asignar</Text>
+						</TouchableOpacity>
+						<Text style={styles.note}>Todos los campos son obligatorios.</Text>
+					</View>
+					<TouchableOpacity
+						onPress={() => navigation.navigate("Alcancias")}
+						style={styles.backButton}
+					>
+						<Icon
+							type="FontAwesome5"
+							name="arrow-circle-left"
+							size={40}
+							color="#03255f"
+						/>
 					</TouchableOpacity>
-					<Text style={styles.note}>Todos los campos son obligatorios.</Text>
-				</View>
-				<TouchableOpacity
-					onPress={() => navigation.goBack()}
-					style={styles.backButton}
-				>
-					<Icon
-						type="FontAwesome5"
-						name="arrow-circle-left"
-						size={50}
-						color="#03255f"
-					/>
-				</TouchableOpacity>
-			</ScrollView>
-		</View>
-	);
+				</ScrollView>
+			</View>
+		);
+	} else {
+		return (
+			<View>
+				<Text>Esta alcancia ya fue asignada</Text>
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
@@ -200,12 +240,10 @@ const styles = StyleSheet.create({
 	},
 	backButton: {
 		flex: 1,
-		width: 55,
-		height: 55,
 		alignSelf: "flex-start",
 		borderRadius: 25,
 		marginLeft: 20,
-		marginBottom: 5,
-		position: "relative",
+		marginTop: 15,
+		position: "absolute",
 	},
 });

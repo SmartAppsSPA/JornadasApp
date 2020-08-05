@@ -22,10 +22,10 @@ export default function Alcancias() {
 		firebase
 			.database()
 			.ref(`Users/${userFbData.uid}/alcancias/`)
-			.once("value", (snapshot) => {
+			.on("value", (snapshot) => {
 				setAlcancias(snapshot.val());
 			});
-	}, [userFbData.uid]);
+	}, []);
 
 	if (alcancias && userFbData) {
 		Object.keys(alcancias).forEach((key, i) => {
@@ -49,7 +49,7 @@ export default function Alcancias() {
 								<View style={styles.textBox}>
 									<Text style={styles.textKey}>Codigo de barra</Text>
 									<Text style={styles.textValue}>{alcancia.codigo_barra}</Text>
-								</View>
+								</View>								
 								<TouchableOpacity
 									onPress={() =>
 										navigation.navigate("Asignar", {

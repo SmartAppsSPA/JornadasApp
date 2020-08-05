@@ -10,6 +10,7 @@ import { validateEmail } from "../../Utils/validation";
 import { useNavigation } from "@react-navigation/native";
 import firebase from '../../../Firebase/Firebase';
 import moment from 'moment';
+import BonoImagen from  '../../components/Layouts/BonoImagen';
 
 export default function BonoUser(props) {
 	const navigation = useNavigation();
@@ -76,7 +77,7 @@ export default function BonoUser(props) {
 			<SafeAreaView style={styles.mainView}>
 				<HeaderView props={props} />
 				<ScrollView>
-					<MainImage />
+				<BonoImagen/>
 					<View></View>
 					<View style={styles.textBoxBono}>
 						<Text style={styles.titles}>Bono Sorteo Parcela</Text>

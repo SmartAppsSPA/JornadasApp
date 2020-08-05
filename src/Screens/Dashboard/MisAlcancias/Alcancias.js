@@ -27,7 +27,7 @@ export default function Alcancias() {
 			});
 	}, []);
 
-	if (alcancias) {
+	if (alcancias && userFbData) {
 		Object.keys(alcancias).forEach((key, i) => {
 			alcanciasToArray[i] = alcancias[key];
 		});
@@ -50,11 +50,29 @@ export default function Alcancias() {
 									<Text style={styles.textKey}>Codigo de barra:</Text>
 									<Text style={styles.textValue}>{alcancia.codigo_barra}</Text>
 								</View>
-
+								{alcancia.asignada_tercero === true ||
+								alcancia.asignada_externo === true ? (
+									<View style={styles.textBox}>
+										<Text style={styles.textKey}>Recuperada: </Text>
+										{alcancia.recuperada === true ? (
+											<Text style={[styles.textValue, {color: 'green'}]}>Si</Text>
+										) : (
+											<Text style={[styles.textValue, {color: 'red'}]}>No</Text>
+										)}
+									</View>
+								) : (
+									<View style={styles.textBox}>
+										<Text style={styles.textKey}>Asignada: </Text>
+										<Text style={[styles.textValue, {color: 'red'}]}>No</Text>
+									</View>
+								)}
 								<TouchableOpacity
 									onPress={() =>
 										navigation.navigate("InformacionAlcancia", {
 											content: alcancia,
+											uid: userFbData.uid,
+											key: i,
+
 										})
 									}
 									key={i}
@@ -108,7 +126,7 @@ const styles = StyleSheet.create({
 		borderWidth: 0.05,
 		borderRadius: 5,
 	},
-	textBox: {flexDirection: 'row',},
+	textBox: { flexDirection: "row" },
 	textKey: {
 		flex: 1,
 		marginLeft: 3,
