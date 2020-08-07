@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, StatusBar, ActivityIndicator, Text } from "react-native";
+import { View, StatusBar, ActivityIndicator, Text, StyleSheet } from "react-native";
 import * as Animatable from "react-native-animatable";
-import styles from "./Style";
 
-const SplashScreen = (props) => {
+export default function SplashScreen(props){
   const [click, setClick] = useState(false);
 
   const goToScreen = (routeName) => {
@@ -27,7 +26,7 @@ const SplashScreen = (props) => {
         animation="pulse"
         easing="ease-in-expo"
         iterationCount="infinite"
-        style={{ width: 300, height: 100, margin: 100 }}
+        style={{ width: 300, height: 100, marginTop:300 }}
         source={require("../../assets/logo_jornadas.png")}
       />
       <View style={[styles.containerStatus, styles.horizontal]}>
@@ -38,4 +37,29 @@ const SplashScreen = (props) => {
   );
 };
 
-export default SplashScreen;
+
+const styles = StyleSheet.create({
+  splashScreen: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#03255F",
+  },
+  smartApps: {
+    fontSize: 12,
+    color: "white",
+    fontWeight: "bold",
+    marginBottom: 75,
+   textAlign: 'center',
+  },
+  containerStatus: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+})
+

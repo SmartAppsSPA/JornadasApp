@@ -1,16 +1,25 @@
-import React, { useState } from "react";
-import { View, Image } from "react-native";
-import styles from "./Style";
+import React from "react";
+import { View, Image, StyleSheet } from "react-native";
 
-const Logo = () => {
+export default function Logo (){
   return (
     <View>
       <Image
-        style={[styles.logo, {marginTop: 150}]}
+        style={[styles.logo]}
         source={require("../../assets/logo_jornadas.png")}
       />
     </View>
   );
 };
 
-export default Logo;
+
+
+const styles = StyleSheet.create({
+  logo: {
+    width: 300,
+    height: 100,
+    resizeMode: "center",
+    marginBottom: 15,
+    marginTop:50,
+  },
+})

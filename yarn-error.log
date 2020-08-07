@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\jahma\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js remove react-native-sideswipe
+  C:\Program Files\nodejs\node.exe C:\Users\jahma\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-keyboard-aware-scroll-view
 
 PATH: 
   C:\Program Files\Android\Android Studio\bin;C:\Python38\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Android\Android Studio\bin;C:\Program Files\nodejs\;C:\Program Files\Android\Android Studio\bin;C:\Python38\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Android\Android Studio\bin;C:\Users\jahma\AppData\Local\Microsoft\WindowsApps;C:\Users\jahma\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jahma\AppData\Local\GitHubDesktop\bin;C:\Program Files\Git\cmd;;C:\Program Files\android-sdk-windows\platform-tools;C:\Users\jahma\AppData\Roaming\npm
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\jahma\OneDrive\Documents\GitHub\JornadasApp\node_modules\android-platform-tools\platform-tools\AdbWinUsbApi.dll'
+  Error: EPERM: operation not permitted, unlink 'C:\Users\jahma\OneDrive\Documents\GitHub\JornadasApp\node_modules\android-platform-tools\platform-tools\adb.exe'
 
 npm manifest: 
   {
@@ -44,6 +44,7 @@ npm manifest:
       "git": "^0.1.5",
       "google-auth-library": "^6.0.2",
       "intl": "^1.2.5",
+      "lodash": "^4.17.19",
       "moment": "^2.27.0",
       "native-base": "^2.13.12",
       "npm": "^6.14.6",
@@ -55,6 +56,7 @@ npm manifest:
       "react-native-banner-carousel": "^1.0.3",
       "react-native-carousel": "^0.12.0",
       "react-native-divider": "^1.0.3",
+      "react-native-easy-toast": "^1.2.0",
       "react-native-elements": "^2.0.4",
       "react-native-gesture-handler": "~1.6.0",
       "react-native-intl": "^1.0.0",
@@ -63,6 +65,7 @@ npm manifest:
       "react-native-safe-area-context": "~3.0.7",
       "react-native-screens": "~2.9.0",
       "react-native-web": "~0.11.7",
+      "react-native-x-carousel": "^1.0.1",
       "react-number-format": "^4.4.1",
       "yarn": "^1.22.4"
     },
@@ -7997,6 +8000,13 @@ Lockfile:
     dependencies:
       lodash "^4.17.15"
   
+  react-native-easy-toast@^1.2.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/react-native-easy-toast/-/react-native-easy-toast-1.2.0.tgz#0f70bcb99e3306cda4800c244bfb4a67d42276ed"
+    integrity sha512-UtpxnRn1ME+035Uey4VR+9K0P4aVoTcWNOx5QkioWBe3LBKMPb/kZjrQ1LtvWzOyeGP4TeTUTtMX3IOPWv5MtA==
+    dependencies:
+      prop-types "^15.5.10"
+  
   react-native-elements@^2.0.4:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-2.0.4.tgz#ea5a6bb34cabd48dcd6c6546e4737d2075e40ee3"
@@ -8081,11 +8091,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.9.0.tgz#ead2843107ba00fee259aa377582e457c74f1f3b"
     integrity sha512-5MaiUD6HA3nzY3JbVI8l3V7pKedtxQF3d8qktTVI0WmWXTI4QzqOU8r8fPVvfKo3MhOXwhWBjr+kQ7DZaIQQeg==
   
-  react-native-sideswipe@^1.5.0:
-    version "1.5.0"
-    resolved "https://registry.yarnpkg.com/react-native-sideswipe/-/react-native-sideswipe-1.5.0.tgz#f67014633456c7d1a44112b6126ee877f7202f50"
-    integrity sha512-1qI9qQrc+UwM24qtQN5Tk9cucvTRTpp3wnGxG3JjeATwaBxcIMQPtxbuosMFi+gXBH2p/ofmtD4jZc7w2bmGeg==
-  
   react-native-status-bar-height@^2.5.0:
     version "2.5.0"
     resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
@@ -8115,6 +8120,11 @@ Lockfile:
       normalize-css-color "^1.0.2"
       prop-types "^15.6.0"
       react-timer-mixin "^0.13.4"
+  
+  react-native-x-carousel@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/react-native-x-carousel/-/react-native-x-carousel-1.0.1.tgz#3a03956d370f0f211605efa55ce8fa48fc862b26"
+    integrity sha512-HioYKgsW7RS6EZzVlcLK0PUn/2gk1EF1gv1fCydEEBiGnYjxhtuG+ZKphE2Y4VKRIV4OqgSi3uwPUo1wcR3dvQ==
   
   react-native@^0.62.2:
     version "0.62.2"

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import styles from "../../Utils/Style";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions, SafeAreaView, ImageBackground } from "react-native";
 import HeaderView from "../../components/Layouts/Header";
 import MainImage from "../../components/Layouts/MainImage";
 import usePreference from "../../Hooks/usePreferences";
 import firebase from "../../../Firebase/Firebase";
 import { numberFormat } from "../../Sources/PagoEnLinea/FormatPrice";
 import {useNavigation} from '@react-navigation/native';
+import {Icon} from 'react-native-elements';
 
-export default function MisDonaciones() {
+export default function MisDonaciones(props) {
 	const navigation = useNavigation();
 	const { userFbData } = usePreference();
 	const [aportesList, setAportesList] = useState([]);
@@ -29,14 +29,21 @@ export default function MisDonaciones() {
 		});
 
 		return (
-			<View style={styles.mainView}>
-				<HeaderView />
-				<MainImage />
-				<Text style={[styles.titles, { margin: 15 }]}>Mis Donaciones</Text>
-				<ScrollView>
+			<SafeAreaView style={styles.container}>
+				<View style={styles.headerContainer}>
+					<HeaderView props={props} />
+				</View>
+				<View style={styles.imageContainer}>
+					<MainImage />
+				</View>
+				<View style={styles.titleContainer}>
+					<Text style={styles.title}>Mis Donaciones</Text>
+				</View>
+				<View style={styles.detailContainer}>
+				<ScrollView style={styles.scroll}>
 					{aportesToArray.map((aporte, i) => {
 						return (
-							<View key={i} style={{ margin: 10, backgroundColor: "#fff" }}>
+							<View key={i} style={styles.detailBox}>
 								<View style={{ alignItems: "center" }}>
 									<View style={{ flexDirection: "row" }}>
 										<Text
@@ -74,42 +81,135 @@ export default function MisDonaciones() {
 						);
 					})}
 				</ScrollView>
-				<View style={[styles.buttons, {marginTop: 40, marginBottom:40}]}>
+				</View>
+				<View style={styles.backContainer}>
 					<TouchableOpacity
 						onPress={() => navigation.navigate("Home")}
-						style={styles.buttonPagar}
+						style={styles.comeBack}
 					>
-						<Text style={styles.textSubmit}>Volver</Text>
+						<Icon
+							raised
+							name="arrow-left"
+							type="font-awesome"
+							color="#03255F"
+						/>
 					</TouchableOpacity>
 				</View>
-			</View>
+			</SafeAreaView>
 		);
 	} else {
 		return (
-			<View style={styles.mainView}>
-				<HeaderView />
-				<MainImage />
-				<View style={{ alignItems: "center", marginTop: 30 }}>
-					<Text style={styles.form}>Mis Donaciones</Text>
-					<Text
-						style={{
-							fontWeight: "bold",
-							color: "#03255F",
-							fontSize: 15,
-						}}
-					>
-						No se registran donaciones
-					</Text>
+			<SafeAreaView style={styles.container2}>
+				<View style={styles.headerContainer2}>
+					<HeaderView props={props} />
 				</View>
-				<View style={[styles.buttons, {marginTop: 40, marginBottom:40}]}>
+				<View style={styles.imageContainer2}>
+					<MainImage />
+				</View>
+				<View style={styles.titleContainer2}>
+					<Text style={styles.title}>Mis Bonos</Text>
+				</View>
+				<View style={styles.subTitleContainer2}>
+					<ImageBackground
+						source={require("../../../assets/Cruz_de_malta.png")}
+						style={styles.imageBackground}
+					>
+						<Text style={styles.subTitle2}>Aun no has realizado donaciones.</Text>
+					</ImageBackground>
+				</View>
+				<View style={styles.backContainer}>
 					<TouchableOpacity
 						onPress={() => navigation.navigate("Home")}
-						style={styles.buttonPagar}
+						style={styles.comeBack}
 					>
-						<Text style={styles.textSubmit}>Volver</Text>
+						<Icon
+							raised
+							name="arrow-left"
+							type="font-awesome"
+							color="#03255F"
+						/>
 					</TouchableOpacity>
 				</View>
-			</View>
+			</SafeAreaView>
 		);
 	}
 }
+
+
+const { width, height } = Dimensions.get("window");
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 10,
+	},
+	headerContainer: {
+		flex: 0.5,
+	},
+	imageContainer: {
+		flex: 3,
+		marginTop: 20,
+	},
+	titleContainer: {
+		flex: 0.5,
+	},
+	detailContainer: {
+		flex: 4,
+		alignItems: "center",
+		backgroundColor: "#A9D0F5",
+	},
+	backContainer: {
+		marginLeft: 10,
+	},
+
+	title: {
+		fontSize: 20,
+		color: "#03255F",
+		fontWeight: "bold",
+		textAlign: "center",
+	},
+	detailBox: {
+		width: width * 0.95,
+		height: height * 0.1,
+		margin: 5,
+		backgroundColor: "#fff",
+	},
+	//sin Donaciones
+	container2: {
+		flex: 10,
+	},
+	headerContainer2: {
+		flex: 0.5,
+	},
+	imageContainer2: {
+		flex: 3,
+		marginTop: -5,
+		zIndex: -2,
+		marginBottom: -20,
+	},
+	titleContainer2: {
+		flex: 0.5,
+		marginTop: -50
+	},
+	subTitleContainer2: {
+		flex: 3,
+		backgroundColor: '#F5F6CE',
+		justifyContent: 'center',
+	},
+	subTitle2: {
+		fontSize: 25,
+		color: "#03255F",
+		fontWeight: "bold",
+		width: width * 0.95,
+		textAlign: 'center',
+		alignSelf: 'center',
+	},
+	imageBackground: {
+		resizeMode: "cover",
+		alignSelf: 'center',
+		justifyContent: "center",
+		width: 200,
+		height: 200,
+		marginTop: 20,
+		opacity: .4 ,
+	},
+});

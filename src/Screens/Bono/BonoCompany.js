@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text, TouchableHighlight, TextInput } from "react-native";
 import styles from "../../Utils/Style";
 import HeaderView from "../../components/Layouts/Header";
-import BonoImage from "../../components/Layouts/BonoImagen";
 import usePreference from "../../Hooks/usePreferences";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { numberFormat } from "../../Sources/PagoEnLinea/FormatPrice";
@@ -57,7 +56,6 @@ export default function BonoCompany(props){
 			<View style={styles.mainView}>
 				<HeaderView props={props} />
 				<ScrollView>
-					<BonoImage />
 					<View></View>
 					<View style={styles.textBoxBono}>
 						<Text style={styles.titles}>Bono Sorteo Parcela</Text>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, TextInput } from "react-native";
+import { SafeAreaView, View, Text, TextInput, Image, requireNativeComponent} from "react-native";
 import styles from "../../Utils/Style";
 import HeaderView from "../../components/Layouts/Header";
 import MainImage from "../../components/Layouts/MainImage";
@@ -60,9 +60,9 @@ export default function BingoCompany(props){
 		return (
 			<SafeAreaView style={styles.mainView}>
 				<HeaderView props={props} />
-				<ScrollView>
+				<Image source={{uri: "gs://jornadas2020.appspot.com/Sources/telebingo-01.jpg" }} />
+				{/* <ScrollView>
 					<MainImage />
-					<View></View>
 					<View style={styles.textBoxBono}>
 						<Text style={styles.titles}>Bingo</Text>
 					</View>
@@ -145,7 +145,7 @@ export default function BingoCompany(props){
 							<Text style={styles.bonoSubmit}>Volver</Text>
 						</TouchableOpacity>
 					</View>
-				</ScrollView>
+				</ScrollView> */}
 			</SafeAreaView>
 		);
 	}
