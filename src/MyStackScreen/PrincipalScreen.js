@@ -19,6 +19,7 @@ export default function PrincipalScreen(props) {
 	const [formData, setFormData] = useState(defaultValue());
 	const [formError, setFormError] = useState({});
 	const [loading, setLoading] = useState(false);
+	const [loadingR, setLoadingR] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 
 	const login = () => {
@@ -69,16 +70,16 @@ export default function PrincipalScreen(props) {
 
 	const recuperarPassword =() =>{
 		const email = formData.email;
-		setLoading(true)
+		setLoadingR(true)
 		firebase
 		.auth()
 		.sendPasswordResetEmail(email)
 		.then(()=>{
-			setLoading(false)
-			toastRef.current.show('Se ha enviado un correo a su cuenta, por favor siga los pasos.  ')
+			setLoadingR(false)
+			toastRef.current.show('Se le ha enviado un correo, por favor siga los pasos.  ')
 		})
 		.catch(()=>{
-			setLoading(false)
+			setLoadingR(false)
 			toastRef.current.show('Correo electrónico no encontrado.')
 		})
 
@@ -143,6 +144,8 @@ export default function PrincipalScreen(props) {
 			<Text onPress={recuperarPassword} style={styles.recuperar}>¿Olvidaste tu contraseña? </Text>
 			<Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
 			<Loading isVisible={loading} text="Iniciando Sesión" />
+			<Loading isVisible={loadingR} text="Pocesando Solicitud..." />
+			
 			<Toast
 				ref={toastRef}
 				position="center"
