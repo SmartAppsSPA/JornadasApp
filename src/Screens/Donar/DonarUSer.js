@@ -13,11 +13,11 @@ import usePreference from "../../Hooks/usePreferences";
 import firebase from "../../../Firebase/Firebase";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
-import {Input, Icon} from  'react-native-elements';
-import Loading from '../../Utils/Loading';
+import { Input, Icon } from "react-native-elements";
+import Loading from "../../Utils/Loading";
 
 export default function DonarUser(props) {
-	const {toastRef} = props;
+	const { toastRef } = props;
 	const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
 	const { userFbData } = usePreference();
@@ -34,7 +34,7 @@ export default function DonarUser(props) {
 			if (!apellido) errors.apellido = true;
 			if (!aporte) errors.aporte = true;
 		} else {
-			setLoading(true)
+			setLoading(true);
 			const key = firebase.database().ref().push().key;
 			firebase
 				.database()
@@ -68,6 +68,7 @@ export default function DonarUser(props) {
 					setLoading(false);
 					toastRef.current.show("Su donación ha sido exitosa.");
 					handleReset();
+					navigation.navigate('Home')
 				})
 				.catch((err) => {
 					toastRef.current.show("Ha ocurrido un problema.");
@@ -85,10 +86,10 @@ export default function DonarUser(props) {
 	return (
 		<SafeAreaView style={styles.mainView}>
 			<View style={styles.headerContainer}>
-			<HeaderView props={props} />
+				<HeaderView props={props} />
 			</View>
 			<View style={styles.imageContainer}>
-			<MainImage />
+				<MainImage />
 			</View>
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Aporte</Text>
@@ -100,19 +101,20 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					errorMessage={
-						formError.nombre? "Ingrese un nombre." : null
-					}
 					textContentType="username"
-					placeholder="Ingrese nombre..."
+					placeholder="Fran..."
 					defaultValue={nombre}
 					onChange={(e) => setNombre(e.nativeEvent.text)}
 					rightIcon={
-						<Icon
-							type="Fontawesome5"
-							name="edit"
-							iconStyle={styles.iconRight}
-						/>
+						formError.nombre ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
 				<Text style={styles.inputTitle}>apellido(s)</Text>
@@ -121,19 +123,20 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					errorMessage={
-						formError.apellido ? "Ingrese un apellido" : null
-					}
 					textContentType="middleName"
-					placeholder="Ingrese apellido..."
+					placeholder="Zun..."
 					defaultValue={apellido}
 					onChange={(e) => setApellido(e.nativeEvent.text)}
 					rightIcon={
-						<Icon
-							type="Fontawesome5"
-							name="edit"
-							iconStyle={styles.iconRight}
-						/>
+						formError.apellido ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
 				<Text style={styles.inputTitle}>Aporte</Text>
@@ -142,17 +145,20 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					errorMessage={formError.aporte ? "Ingrese un monto." : null}
 					placeholder="Ingrese Aporte..."
 					keyboardType="numeric"
 					defaultValue={aporte}
 					onChange={(e) => setAporte(e.nativeEvent.text)}
 					rightIcon={
-						<Icon
-							type="Fontawesome5"
-							name="edit"
-							iconStyle={styles.iconRight}
-						/>
+						formError.aporte ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
 			</View>
@@ -169,7 +175,7 @@ export default function DonarUser(props) {
 					<Icon raised name="arrow-left" type="font-awesome" color="#03255F" />
 				</TouchableOpacity>
 			</View>
-			<Loading isVisible={loading} text="procesando."/>
+			<Loading isVisible={loading} text="procesando." />
 		</SafeAreaView>
 	);
 }

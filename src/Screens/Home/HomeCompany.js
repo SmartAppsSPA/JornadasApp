@@ -100,14 +100,14 @@ export default function HomeCompany(props) {
 					</TouchableOpacity>
 					{userFbData.subtipo ? (
 						<TouchableOpacity
-							onPress={() => navigation.navigate("Panel De Control")}
-							style={styles.buttonYellow}
-						>
-							<Text style={styles.textBlue}>
-								<Icon name="door-open" size={20} color="#f5c300" />
-								{`\nCerrar Sesión`}
-							</Text>
-						</TouchableOpacity>
+						onPress={() => navigation.navigate("Panel De Control")}
+						style={styles.buttonYellow}
+					>
+						<Text style={styles.textYellow}>
+							<Icon name="tools" size={20} color="#03255F" />
+							{`\nPanel De Control`}
+						</Text>
+					</TouchableOpacity>
 					) : (
 						<TouchableOpacity style={styles.buttonYellow}>
 							<Text></Text>

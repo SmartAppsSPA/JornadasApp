@@ -49,7 +49,7 @@ export default function DonarCompany(props) {
 			if (!telefono) errors.telefono = true;
 			if (!representante) errors.representante = true;
 		} else if (!validateEmail(email)) {
-			toastRef.current.show("Debe ingresar una direccion de correo valida.");
+			toastRef.current.show("Correo electrónico incorrecto.");
 			errors.email = true;
 		} else {
 			setLoading(true);
@@ -92,8 +92,10 @@ export default function DonarCompany(props) {
 				})
 				.then((response) => {
 					setLoading(false);
+					setChecked(false);
 					toastRef.current.show("Su donación ha sido exitosa.");
 					handleReset();
+					navigation.navigate('Home');
 				})
 				.catch((err) => {
 					toastRef.current.show("Ha ocurrido un problema.");
@@ -110,7 +112,7 @@ export default function DonarCompany(props) {
 		setRepresentante(userFbData.representante);
 		setAporte("");
 	};
-console.log(checked)
+	console.log(checked);
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.headerContainer}>
@@ -123,48 +125,48 @@ console.log(checked)
 				<Text style={styles.title}>Aporte Empresa</Text>
 			</View>
 			<View style={styles.inputContainer}>
-				<Text style={styles.inputTitle}>Email</Text>
+				<Text style={styles.inputTitle}>Correo Electrónico </Text>
 				<Input
 					name="email"
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					errorMessage={
-						formError.email
-							? "Debe ingresar una dirección de correo valida."
-							: null
-					}
-					placeholder="Ingrese email ..."
+					placeholder="ejemplo@empresa.com..."
 					defaultValue={email}
 					onChange={(e) => setEmail(e.nativeEvent.text)}
 					rightIcon={
-						<Icon
-							type="Fontawesome5"
-							name="edit"
-							iconStyle={styles.iconRight}
-						/>
+						formError.email ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
-				<Text style={styles.inputTitle}>Telefono De Contacto</Text>
+				<Text style={styles.inputTitle}>Teléfono de Contacto</Text>
 				<Input
 					name="telefono"
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					errorMessage={
-						formError.telefono ? "Ingrese Telefono de contacto" : null
-					}
-					placeholder="+56 9 ..."
+					placeholder="+56 9 1111 1111..."
 					defaultValue={telefono}
 					keyboardType="phone-pad"
 					keyboardAppearance="dark"
 					onChange={(e) => setTelefono(e.nativeEvent.text)}
 					rightIcon={
-						<Icon
-							type="Fontawesome5"
-							name="edit"
-							iconStyle={styles.iconRight}
-						/>
+						formError.telefono ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
 				<Text style={styles.inputTitle}>Nombre De Contacto</Text>
@@ -173,19 +175,20 @@ console.log(checked)
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					errorMessage={
-						formError.representante ? "Ingrese Nombre De Contacto" : null
-					}
 					textContentType="nickname"
-					placeholder="Ingrese representante..."
+					placeholder="fran.. zun..."
 					defaultValue={representante}
 					onChange={(e) => setRepresentante(e.nativeEvent.text)}
 					rightIcon={
-						<Icon
-							type="Fontawesome5"
-							name="edit"
-							iconStyle={styles.iconRight}
-						/>
+						formError.representante ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
 				<Text style={styles.inputTitle}>Aporte</Text>
@@ -194,23 +197,26 @@ console.log(checked)
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					errorMessage={formError.aporte ? "Ingrese un monto." : null}
 					placeholder="Ingrese su Aporte..."
 					keyboardType="numeric"
 					defaultValue={aporte}
 					onChange={(e) => setAporte(e.nativeEvent.text)}
 					rightIcon={
-						<Icon
-							type="Fontawesome5"
-							name="edit"
-							iconStyle={styles.iconRight}
-						/>
+						formError.aporte ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
 				<CheckBox
 					center
 					title="Solicitar certificado de donación. "
-					onPress={()=>setChecked(!checked)}
+					onPress={() => setChecked(!checked)}
 					checked={checked}
 				/>
 			</View>

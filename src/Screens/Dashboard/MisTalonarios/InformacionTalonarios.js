@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+	View,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	SafeAreaView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../../components/Layouts/Header";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import firebase from "../../../../Firebase/Firebase";
 import Divider from "react-native-divider";
+import { sub } from "react-native-reanimated";
 
 export default function InformacionAlcancia(props) {
 	const navigation = useNavigation();
 	const content = props.route.params.content;
 	const uid = props.route.params.uid;
 	const key = props.route.params.key;
+	const subtipo = props.route.params.subtipo;
 	const [recovered, setRecovered] = useState(false);
 	const [resetTalonario, setResetTalonario] = useState(false);
 	const indice_talonario = content.talonario_numero - 1;
@@ -80,9 +88,9 @@ export default function InformacionAlcancia(props) {
 		}
 	};
 
-	if (content) {
+	if (content && subtipo) {
 		return (
-			<View>
+			<SafeAreaView>
 				<Header />
 				<Text style={styles.infoTitle}>Información Talonarios</Text>
 				<View style={styles.infoView}>
@@ -128,132 +136,168 @@ export default function InformacionAlcancia(props) {
 						<Text style={styles.textValue}> {content.correlativo}</Text>
 					</View>
 				</View>
-				{content.tercero ? (
+				{subtipo === "Leo/Leon" ? (
 					<View>
-						<Text style={styles.infoTitle}>Información de Tercero</Text>
-						<View style={styles.infoView}>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Nombre: </Text>
-								<Text style={styles.textValue}>{content.tercero.nombre}</Text>
-							</View>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Email: </Text>
-								<Text style={styles.textValue}>{content.tercero.correo}</Text>
-							</View>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Dirección:</Text>
-								<Text style={styles.textValue}>
-									{content.tercero.direccion}
-								</Text>
-							</View>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Teléfono:</Text>
-								<Text style={styles.textValue}>{content.tercero.telefono}</Text>
-							</View>
-							{content.recuperado === false ? (
-								<View>
-									<Divider borderColor="#696969" color="#696969" orientation="center" >Control</Divider>
+						{content.tercero ? (
+							<View>
+								<Text style={styles.infoTitle}>Información de Tercero</Text>
+								<View style={styles.infoView}>
 									<View style={styles.textBox}>
-										<Text style={[styles.textKey, { marginVertical: 17.5 }]}>
-											Reiniciar
+										<Text style={styles.textKey}>Nombre: </Text>
+										<Text style={styles.textValue}>
+											{content.tercero.nombre}
 										</Text>
-										<TouchableOpacity
-											onPress={resetCounterBox}
-											style={[styles.reset, { marginVertical: 15 }]}
-										>
-											<Icon
-												type="FontAwesome5"
-												name="eraser"
-												size={25}
-												color="red"
-												style={styles.icon}
-											/>
-										</TouchableOpacity>
 									</View>
 									<View style={styles.textBox}>
-										<Text style={[styles.textKey, { marginVertical: 17.5 }]}>
-											Recuperada
+										<Text style={styles.textKey}>Email: </Text>
+										<Text style={styles.textValue}>
+											{content.tercero.correo}
 										</Text>
-										<TouchableOpacity
-											onPress={recovering}
-											style={[styles.recovered, { marginVertical: 15 }]}
-										>
-											<Icon
-												type="FontAwesome5"
-												name="check-circle"
-												size={25}
-												color="green"
-												style={styles.icon}
-											/>
-										</TouchableOpacity>
 									</View>
+									<View style={styles.textBox}>
+										<Text style={styles.textKey}>Dirección:</Text>
+										<Text style={styles.textValue}>
+											{content.tercero.direccion}
+										</Text>
+									</View>
+									<View style={styles.textBox}>
+										<Text style={styles.textKey}>Teléfono:</Text>
+										<Text style={styles.textValue}>
+											{content.tercero.telefono}
+										</Text>
+									</View>
+									{content.recuperado === false ? (
+										<View>
+											<Divider
+												borderColor="#696969"
+												color="#696969"
+												orientation="center"
+											>
+												Control
+											</Divider>
+											<View style={styles.textBox}>
+												<Text
+													style={[styles.textKey, { marginVertical: 17.5 }]}
+												>
+													Reiniciar
+												</Text>
+												<TouchableOpacity
+													onPress={resetCounterBox}
+													style={[styles.reset, { marginVertical: 15 }]}
+												>
+													<Icon
+														type="FontAwesome5"
+														name="eraser"
+														size={25}
+														color="red"
+														style={styles.icon}
+													/>
+												</TouchableOpacity>
+											</View>
+											<View style={styles.textBox}>
+												<Text
+													style={[styles.textKey, { marginVertical: 17.5 }]}
+												>
+													Recuperada
+												</Text>
+												<TouchableOpacity
+													onPress={recovering}
+													style={[styles.recovered, { marginVertical: 15 }]}
+												>
+													<Icon
+														type="FontAwesome5"
+														name="check-circle"
+														size={25}
+														color="green"
+														style={styles.icon}
+													/>
+												</TouchableOpacity>
+											</View>
+										</View>
+									) : null}
 								</View>
-							) : null}
-						</View>
-					</View>
-				) : null}
-				{content.externo ? (
-					<View>
-						<Text style={styles.infoTitle}>Información de Externo</Text>
-						<View style={styles.infoView}>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Nombre: </Text>
-								<Text style={styles.textValue}>{content.externo.nombre}</Text>
 							</View>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Email: </Text>
-								<Text style={styles.textValue}>{content.externo.correo}</Text>
-							</View>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Dirección:</Text>
-								<Text style={styles.textValue}>
-									{content.externo.direccion}
-								</Text>
-							</View>
-							<View style={styles.textBox}>
-								<Text style={styles.textKey}>Teléfono:</Text>
-								<Text style={styles.textValue}>{content.externo.telefono}</Text>
-							</View>
-							{content.recuperado === false ? (
-								<View>
-									<Divider borderColor="#696969" color="#696969" orientation="center" >Control</Divider>
+						) : null}
+						{content.externo ? (
+							<View>
+								<Text style={styles.infoTitle}>Información de Externo</Text>
+								<View style={styles.infoView}>
 									<View style={styles.textBox}>
-										<Text style={[styles.textKey, { marginVertical: 17.5 }]}>
-											Reiniciar
+										<Text style={styles.textKey}>Nombre: </Text>
+										<Text style={styles.textValue}>
+											{content.externo.nombre}
 										</Text>
-										<TouchableOpacity
-											onPress={resetCounterBox}
-											style={[styles.reset, { marginVertical: 15 }]}
-										>
-											<Icon
-												type="FontAwesome5"
-												name="eraser"
-												size={25}
-												color="red"
-												style={styles.icon}
-											/>
-										</TouchableOpacity>
 									</View>
 									<View style={styles.textBox}>
-										<Text style={[styles.textKey, { marginVertical: 17.5 }]}>
-											Recuperada
+										<Text style={styles.textKey}>Email: </Text>
+										<Text style={styles.textValue}>
+											{content.externo.correo}
 										</Text>
-										<TouchableOpacity
-											onPress={recovering}
-											style={[styles.recovered, { marginVertical: 15 }]}
-										>
-											<Icon
-												type="FontAwesome5"
-												name="check-circle"
-												size={25}
-												color="green"
-												style={styles.icon}
-											/>
-										</TouchableOpacity>
 									</View>
+									<View style={styles.textBox}>
+										<Text style={styles.textKey}>Dirección:</Text>
+										<Text style={styles.textValue}>
+											{content.externo.direccion}
+										</Text>
+									</View>
+									<View style={styles.textBox}>
+										<Text style={styles.textKey}>Teléfono:</Text>
+										<Text style={styles.textValue}>
+											{content.externo.telefono}
+										</Text>
+									</View>
+									{content.recuperado === false ? (
+										<View>
+											<Divider
+												borderColor="#696969"
+												color="#696969"
+												orientation="center"
+											>
+												Control
+											</Divider>
+											<View style={styles.textBox}>
+												<Text
+													style={[styles.textKey, { marginVertical: 17.5 }]}
+												>
+													Reiniciar
+												</Text>
+												<TouchableOpacity
+													onPress={resetCounterBox}
+													style={[styles.reset, { marginVertical: 15 }]}
+												>
+													<Icon
+														type="FontAwesome5"
+														name="eraser"
+														size={25}
+														color="red"
+														style={styles.icon}
+													/>
+												</TouchableOpacity>
+											</View>
+											<View style={styles.textBox}>
+												<Text
+													style={[styles.textKey, { marginVertical: 17.5 }]}
+												>
+													Recuperada
+												</Text>
+												<TouchableOpacity
+													onPress={recovering}
+													style={[styles.recovered, { marginVertical: 15 }]}
+												>
+													<Icon
+														type="FontAwesome5"
+														name="check-circle"
+														size={25}
+														color="green"
+														style={styles.icon}
+													/>
+												</TouchableOpacity>
+											</View>
+										</View>
+									) : null}
 								</View>
-							) : null}
-						</View>
+							</View>
+						) : null}
 					</View>
 				) : null}
 				<TouchableOpacity
@@ -264,10 +308,10 @@ export default function InformacionAlcancia(props) {
 						type="FontAwesome5"
 						name="arrow-circle-left"
 						size={40}
-						color="#03255f"
+						color="#34495E"
 					/>
 				</TouchableOpacity>
-			</View>
+			</SafeAreaView>
 		);
 	} else {
 		return null;
@@ -277,13 +321,16 @@ export default function InformacionAlcancia(props) {
 const styles = StyleSheet.create({
 	infoTitle: {
 		marginVertical: 10,
+		marginHorizontal: 10,
 		fontWeight: "bold",
 		color: "#fff",
 		fontSize: 20,
 		textAlign: "center",
 		justifyContent: "center",
-		backgroundColor: "#696969",
+		backgroundColor: "#34495E",
 		height: 30,
+		borderRadius: 15,
+		overflow: "hidden",
 	},
 	infoView: {
 		paddingVertical: 10,

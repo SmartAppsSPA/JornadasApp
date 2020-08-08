@@ -1,25 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
 	View,
 	Text,
 	TouchableOpacity,
 	StyleSheet,
-	TextInput,
+	SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../../components/Layouts/Header";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { ScrollView } from "react-native-gesture-handler";
-import { validateEmail } from "../../../Utils/validation";
 import firebase from "../../../../Firebase/Firebase";
+import { Input } from "react-native-elements";
+import Loading from "../../../Utils/Loading";
+import Toast from "react-native-easy-toast";
 
 export default function InformacionAlcancia(props) {
+	const toastRef = useRef();
 	const navigation = useNavigation();
-	// hacemos destructurinde  props para obtener los datos de la alcancia seleccionada y el uid del usuario.
+	const [loading, setLoading] = useState(false);
 	const content = props.route.params.content;
 	const uid = props.route.params.uid;
 	const key = props.route.params.key;
-	//se declaran los useState.
 	const [errorForm, setErrorForm] = useState(false);
 	const [nombre, setNombre] = useState("");
 	const [correo, setCorreo] = useState("");
@@ -36,12 +38,14 @@ export default function InformacionAlcancia(props) {
 			!telefono ||
 			content.asignada_tercero === true
 		) {
+			toastRef.current.show("Debe Completar Todos Los campos obligatorios.");
 			if (content.asignada_tercero === true)
 				alert("esta alcancia ya asido asignada"), console.log("ERROR 0");
 			if (!nombre) (errors.nombre = true), console.log("ERROR1");
 			if (!direccion) (errors.direccion = true), console.log("ERROR3");
 			if (!telefono) (errors.telefono = true), console.log("ERROR4");
 		} else {
+			setLoading(true);
 			firebase
 				.database()
 				.ref()
@@ -71,10 +75,17 @@ export default function InformacionAlcancia(props) {
 						telefono: telefono,
 						rut: rut,
 					},
+				})
+				.then((response) => {
+					setLoading(false);
+					toastRef.current.show("Éxito al asignar ");
+					handleReset();
+					navigation.navigate("Alcancias");
+				})
+				.catch((err) => {
+					setLoading(false);
+					toastRef.current.show("Algo anda mal, intenta nuevamente.");
 				});
-			console.log("Exito Al Asignar");
-			handleReset();
-			navigation.navigate("Alcancias");
 		}
 		setErrorForm(errors);
 	};
@@ -89,60 +100,91 @@ export default function InformacionAlcancia(props) {
 
 	if (!content.asignada_tercero) {
 		return (
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
 				<Header />
 				<ScrollView>
 					<Text style={styles.title}>
 						Asignar Alcancía: {content.alcancia_numero} {`\n`} codigo:{" "}
 						{content.codigo_barra}
 					</Text>
-					<View style={styles.infoView}>
+					<View style={styles.inputContainer}>
 						<Text style={styles.subTitle}>Formulario entrega de Alcancía</Text>
-						<Text style={styles.textKey}>Nombre y Apellido</Text>
-						<TextInput
+						<Text style={styles.textKey}>Nombre y Apellido*</Text>
+						<Input
 							name="nombre"
-							placeholder="Ingrese Nombre y Apellido"
+							placeholder="Toque para escribir..."
 							defaultValue={nombre}
 							onChange={(e) => setNombre(e.nativeEvent.text)}
-							style={[styles.textInput, errorForm.nombre && styles.error]}
+							containerStyle={styles.input}
+							inputStyle={styles.inputText}
+							inputContainerStyle={styles.inputUnderContainer}						
+							rightIcon={errorForm.nombre ?
+								<Icon								
+								type="FontAwesome5"
+								name="exclamation-circle"
+								color="red"
+							/> : null
+							}
 						/>
-						<Text style={styles.textKey}>Correo</Text>
-						<TextInput
+						<Text style={styles.textKey}>Correo electrónico</Text>
+						<Input
 							name="correo"
-							placeholder="Ingrese correo electronico de contacto"
+							placeholder="Toque para escribir..."
 							defaultValue={correo}
 							onChange={(e) => setCorreo(e.nativeEvent.text)}
-							style={[styles.textInput, errorForm.correo && styles.error]}
+							containerStyle={styles.input}
+							inputStyle={styles.inputText}
+							inputContainerStyle={styles.inputUnderContainer}
 						/>
-						<Text style={styles.textKey}>Dirección</Text>
-						<TextInput
+						<Text style={styles.textKey}>Dirección*</Text>
+						<Input
 							name="direccion"
-							placeholder="Ingrese una Dirección"
+							placeholder="Ciudad, Calle #0000..."
 							defaultValue={direccion}
 							onChange={(e) => setDireccion(e.nativeEvent.text)}
-							style={[styles.textInput, errorForm.direccion && styles.error]}
+							containerStyle={styles.input}
+							inputStyle={styles.inputText}
+							inputContainerStyle={styles.inputUnderContainer}
+							rightIcon={errorForm.nombre ?
+								<Icon								
+								type="FontAwesome5"
+								name="exclamation-circle"
+								color="red"
+							/> : null
+							}
 						/>
-						<Text style={styles.textKey}>Teléfono</Text>
-						<TextInput
+						<Text style={styles.textKey}>Teléfono*</Text>
+						<Input
 							name="telefono"
 							keyboardType="phone-pad"
-							placeholder="+56 9..."
+							placeholder="+56 9 1111 1111..."
 							defaultValue={telefono}
 							onChange={(e) => setTelefono(e.nativeEvent.text)}
-							style={[styles.textInput, errorForm.telefono && styles.error]}
+							containerStyle={styles.input}
+							inputStyle={styles.inputText}
+							inputContainerStyle={styles.inputUnderContainer}
+							rightIcon={errorForm.nombre ?
+								<Icon								
+								type="FontAwesome5"
+								name="exclamation-circle"
+								color="red"
+							/> : null
+							}
 						/>
 						<Text style={styles.textKey}>Rut</Text>
-						<TextInput
+						<Input
 							name="Rut"
-							placeholder="1.111.111-1"
+							placeholder="1.111.111-1..."
 							defaultValue={rut}
 							onChange={(e) => setRut(e.nativeEvent.text)}
-							style={[styles.textInput, errorForm.rut && styles.error]}
+							containerStyle={styles.input}
+							inputStyle={styles.inputText}
+							inputContainerStyle={styles.inputUnderContainer}
 						/>
 						<TouchableOpacity onPress={submit} style={styles.submitBtn}>
 							<Text style={styles.textBtn}>Asignar</Text>
 						</TouchableOpacity>
-						<Text style={styles.note}>Todos los campos son obligatorios.</Text>
+						<Text style={styles.note}> * Campos obligatorios. </Text>
 					</View>
 					<TouchableOpacity
 						onPress={() => navigation.navigate("Alcancias")}
@@ -152,17 +194,40 @@ export default function InformacionAlcancia(props) {
 							type="FontAwesome5"
 							name="arrow-circle-left"
 							size={40}
-							color="#03255f"
+							color="#FFF"
 						/>
 					</TouchableOpacity>
 				</ScrollView>
-			</View>
+				<Loading isVisible={loading} text="Asignando..." />
+				<Toast
+					ref={toastRef}
+					position="center"
+					style={{ backgroundColor: "#696969", opacity: 0.9, borderRadius: 20 }}
+					fadeInduration={1000}
+					fadeOutDuration={1000}
+					textStyle={{ fontWeight: "bold", color: "#FFF", textAlign: "center" }}
+				/>
+			</SafeAreaView>
 		);
 	} else {
 		return (
-			<View>
-				<Text>Esta alcancia ya fue asignada</Text>
-			</View>
+			<SafeAreaView style={styles.container}>
+				<Header />
+				<ScrollView>
+					<Text style={styles.title}>La Alcancía ya fue asignada.</Text>
+					<TouchableOpacity
+						onPress={() => navigation.navigate("Alcancias")}
+						style={styles.backButton}
+					>
+						<Icon
+							type="FontAwesome5"
+							name="arrow-circle-left"
+							size={40}
+							color="#FFF"
+						/>
+					</TouchableOpacity>
+				</ScrollView>
+			</SafeAreaView>
 		);
 	}
 }
@@ -173,56 +238,62 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		flex: 0.5,
-		marginVertical: 5,
-		marginTop: 10,
+		marginVertical: 10,
+		marginHorizontal: 10,
 		fontWeight: "bold",
 		color: "#fff",
 		fontSize: 20,
 		textAlign: "center",
-		backgroundColor: "#696969",
+		backgroundColor: "#34495E",
+		borderRadius: 15,
+		overflow: "hidden",
 	},
-	infoView: {
-		flex: 8,
-		paddingVertical: 10,
+	inputContainer: {
+		flex: 5,
 		marginVertical: 10,
-		backgroundColor: "#fff",
-		borderWidth: 0.05,
-		borderRadius: 5,
+		marginHorizontal: 50,
+		alignItems: "center",
+		borderRadius: 15,
+		borderColor: "#FFF",
+		borderWidth: 1.5,
+		overflow: "hidden",
+		backgroundColor: "#D6DBDF",
 	},
 	subTitle: {
-		fontSize: 22,
+		fontSize: 15,
 		alignSelf: "center",
 		fontWeight: "bold",
 		color: "#03255f",
-		marginBottom: 30,
+		marginVertical: 10,
 	},
 	textKey: {
-		marginVertical: 8,
-		paddingHorizontal: 50,
-		marginLeft: 3,
-		fontSize: 15,
+		marginLeft: 15,
+		fontSize: 10,
 		fontWeight: "bold",
 		color: "#03255f",
+		alignSelf: "flex-start",
 	},
-	textInput: {
-		color: "#696970",
+	input: {
+		width: "95%",
+		backgroundColor: "#FFF",
+		margin: 8,
+		borderRadius: 20,
+	},
+	inputText: {
+		fontSize: 12,
+		color: "#03255F",
 		fontWeight: "bold",
-		borderBottomColor: "#696969",
-		borderBottomWidth: 1,
-		width: 300,
-		textAlign: "left",
-		alignSelf: "center",
 	},
-	error: {
-		borderBottomColor: "red",
+	inputUnderContainer: {
+		borderBottomWidth: 0,
 	},
 	submitBtn: {
-		marginVertical: 30,
+		marginVertical: 10,
 		width: 100,
 		height: 25,
 		justifyContent: "center",
 		alignSelf: "center",
-		backgroundColor: "#03255f",
+		backgroundColor: "#34495E",
 		borderRadius: 20,
 		borderColor: "#696969",
 	},
@@ -233,10 +304,11 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	note: {
+		fontSize: 10,
 		fontWeight: "700",
 		textAlign: "center",
-		color: "#696969",
-		marginVertical: 10,
+		color: "red",
+		marginBottom: 10,
 	},
 	backButton: {
 		flex: 1,

@@ -8,8 +8,8 @@ const Stack = createStackNavigator();
 export default function MisAlcancias() {
     return (
         <Stack.Navigator headerMode="none" initialRouteName='Alcancias'>
-            <Stack.Screen name='Alcancias' component={Alcancias} options={{title: 'Alcancias'}}/>
-            <Stack.Screen name='InformacionAlcancia' component={InformacionAlcancia} options={{title: 'Informacion'}}/>
+            <Stack.Screen name='Alcancias' component={Alcancias} options={{title: 'Mis Alcancías'}}/>
+            <Stack.Screen name='InformacionAlcancia' component={InformacionAlcancia} options={{title: 'Información'}}/>
         </Stack.Navigator>
     )
 }

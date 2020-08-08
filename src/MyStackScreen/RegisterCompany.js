@@ -114,14 +114,19 @@ export default function Register(props) {
 							})
 						}
 						rightIcon={
-							<Icon
-								type="material-community"
-								name="domain"
-								iconStyle={styles.iconRight}
-							/>
-						}
-						errorMessage={
-							formErrorCom.nombreCom ? "Debe ingresar el nombre de la empresa" : null
+							formErrorCom.nombreCom ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="material-community"
+									name="domain"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 					/>
 					<Input
@@ -137,14 +142,19 @@ export default function Register(props) {
 							})
 						}
 						rightIcon={
-							<Icon
-								type="material-community"
-								name="contacts"
-								iconStyle={styles.iconRight}
-							/>
-						}
-						errorMessage={
-							formErrorCom.representante ? "Debe ingresar el nombre de un representante" : null
+							formErrorCom.representante ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="material-community"
+									name="contacts"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 					/>
 					<Input
@@ -160,21 +170,26 @@ export default function Register(props) {
 							})
 						}
 						rightIcon={
-							<Icon
-								type="material-community"
-								name="dialpad"
-								iconStyle={styles.iconRight}
-							/>
-						}
-						errorMessage={
-							formErrorCom.rutEmpresa ? "Debe ingresar el rut de la empresa" : null
+							formErrorCom.rutEmpresa ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="material-community"
+									name="dialpad"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 					/>
 					<Input
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
-						placeholder="Correo Electronico"
+						placeholder="Correo Electrónico"
 						placeholderTextColor="#969696"
 						onChange={(e) =>
 							setFormCompanytData({
@@ -183,14 +198,19 @@ export default function Register(props) {
 							})
 						}
 						rightIcon={
-							<Icon
-								type="material-community"
-								name="at"
-								iconStyle={styles.iconRight}
-							/>
-						}
-						errorMessage={
-							formErrorCom.email ? "Correo electronico incorrecto.." : null
+							formErrorCom.email ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="material-community"
+									name="at"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 					/>
 					<Input
@@ -207,16 +227,19 @@ export default function Register(props) {
 							})
 						}
 						rightIcon={
-							<Icon
-								type="material-community"
-								name="cellphone-android"
-								iconStyle={styles.iconRight}
-							/>
-						}
-						errorMessage={
-							formErrorCom.telefono
-								? "Debe ingresar un teléfono de contacto"
-								: null
+							formErrorCom.telefono ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="material-community"
+									name="cellphone-android"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 					/>
 					<Input
@@ -233,15 +256,20 @@ export default function Register(props) {
 							})
 						}
 						rightIcon={
-							<Icon
-								type="material-community"
-								name={showPassword ? "eye-off-outline" : "eye-outline"}
-								iconStyle={styles.iconRight}
-								onPress={() => setShowPassword(!showPassword)}
-							/>
-						}
-						errorMessage={
-							formErrorCom.password ? "Debe ingresar una contraseña" : null
+							formErrorCom.password ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="material-community"
+									name={showPassword ? "eye-off-outline" : "eye-outline"}
+									iconStyle={styles.iconRight}
+									onPress={() => setShowPassword(!showPassword)}
+								/>
+							)
 						}
 					/>
 					<Input
@@ -256,15 +284,23 @@ export default function Register(props) {
 								...formCompanyData,
 								repeatPassword: e.nativeEvent.text,
 							})
-						}rightIcon={
-							<Icon
-								type="material-community"
-								name={showRepeatPassword ? "eye-off-outline" : "eye-outline"}
-								iconStyle={styles.iconRight}
-								onPress={() => setshowRepeatPassword(!showRepeatPassword)}
-							/>
 						}
-						errorMessage={formErrorCom.repeatPassword ? "Confirme su contraseña" : null}
+						rightIcon={
+							formErrorCom.repeatPassword ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="material-community"
+									name={showRepeatPassword ? "eye-off-outline" : "eye-outline"}
+									iconStyle={styles.iconRight}
+									onPress={() => setshowRepeatPassword(!showRepeatPassword)}
+								/>
+							)
+						}
 					/>
 				</View>
 				<TouchableOpacity

@@ -5,6 +5,7 @@ import {
 	ScrollView,
 	TouchableOpacity,
 	StyleSheet,
+	SafeAreaView,
 } from "react-native";
 import usePreference from "../../../Hooks/usePreferences";
 import firebase from "../../../../Firebase/Firebase";
@@ -33,7 +34,7 @@ export default function talonarios() {
 		});
 
 		return (
-			<View style={styles.mainView}>
+			<SafeAreaView style={styles.mainView}>
 				<Header />
 				<Text style={styles.infoTitle}>Asignar talonarios</Text>
 				<ScrollView>
@@ -65,7 +66,7 @@ export default function talonarios() {
 										type="FontAwesome5"
 										name="arrow-circle-right"
 										size={50}
-										color="#03255f"
+										color="#34495E"
 										style={styles.icon}
 									/>
 								</TouchableOpacity>
@@ -73,19 +74,23 @@ export default function talonarios() {
 						) : null;
 					})}
 				</ScrollView>
-			</View>
+			</SafeAreaView>
 		);
 	} else {
 		return (
-			<View style={styles.mainView}>
+			<SafeAreaView style={styles.mainView}>
 				<Header />
-				<View style={{ alignItems: "center", marginTop: 30 }}>
-					<Text style={[styles.titles, { margin: 15 }]}>Mis talonarios</Text>
-					<Text style={{ fontWeight: "bold", color: "#03255F", fontSize: 15 }}>
-						No tiene Talonarios asignados.
-					</Text>
-				</View>
-			</View>
+				<Text style={styles.infoTitle}>Asignar talonarios</Text>
+				<ScrollView>
+					<View style={{ alignItems: "center", marginTop: 30 }}>
+						<Text
+							style={{ fontWeight: "bold", color: "#03255F", fontSize: 15 }}
+						>
+							No tiene Talonarios asignados.
+						</Text>
+					</View>
+				</ScrollView>
+			</SafeAreaView>
 		);
 	}
 }
@@ -93,13 +98,16 @@ export default function talonarios() {
 const styles = StyleSheet.create({
 	infoTitle: {
 		marginVertical: 10,
+		marginHorizontal: 10,
 		fontWeight: "bold",
 		color: "#fff",
 		fontSize: 20,
 		textAlign: "center",
 		justifyContent: "center",
-		backgroundColor: "#696969",
+		backgroundColor: "#34495E",
 		height: 30,
+		borderRadius: 15,
+		overflow: "hidden",
 	},
 	infoView: {
 		paddingVertical: 10,

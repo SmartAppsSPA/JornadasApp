@@ -6,53 +6,58 @@ import MisAlcancias from "./MisAlcancias/MisAlcancias";
 import MisTalonarios from "./MisTalonarios/MisTalonarios";
 import AsignarAlcancias from "./AsignarAlcancias/AsignarAlcancias";
 import AsignarTalonarios from "./AsignarTalonarios/AsignarTalonarios";
-// import Home from "./Home/Home";
+import usePreference from "../../Hooks/usePreferences";
 
 const Tab = createBottomTabNavigator();
 
 export default function Dashboard() {
-	return (
-		<Tab.Navigator
-			tabBarOptions={{
-				inactiveTintColor: "#696969",
-				activeTintColor: "#03255F",
-			}}
-			screenOptions={({ route }) => ({
-				tabBarIcon: ({ color }) => screenOptions(route, color),
-			})}
-		>
-			{/* <Tab.Screen name="Home" component={Home} options={{ title: "Home" }} /> */}
-			<Tab.Screen
-				name="MisAlcancias"
-				component={MisAlcancias}
-				options={{ title: "Mis Alcancias" }}
-			/>
-			<Tab.Screen
-				name="MisTalonarios"
-				component={MisTalonarios}
-				options={{ title: "Mis Talonarios" }}
-			/>
-			<Tab.Screen
-				name="AsignarAlcancias"
-				component={AsignarAlcancias}
-				options={{ title: "Asignar Alcancias" }}
-			/>
-			<Tab.Screen
-				name="AsignarTalonarios"
-				component={AsignarTalonarios}
-				options={{ title: "Asignar Talonarios" }}
-			/>
-		</Tab.Navigator>
-	);
+	const { userFbData } = usePreference();
+	if (userFbData) {
+		return (
+			<Tab.Navigator
+				tabBarOptions={{
+					inactiveTintColor: "#696969",
+					activeTintColor: "#03255F",
+				}}
+				screenOptions={({ route }) => ({
+					tabBarIcon: ({ color }) => screenOptions(route, color),
+				})}
+			>
+				<Tab.Screen
+					name="MisAlcancias"
+					component={MisAlcancias}
+					options={{ title: "Mis Alcancías" }}
+				/>
+				<Tab.Screen
+					name="MisTalonarios"
+					component={MisTalonarios}
+					options={{ title: "Mis Talonarios" }}
+				/>
+				{userFbData.subtipo === "Leo/Leon" ? (
+					<Tab.Screen
+						name="AsignarAlcancias"
+						component={AsignarAlcancias}
+						options={{ title: "Asignar Alcancías" }}
+					/>
+				) : null}
+				{userFbData.subtipo === "Leo/Leon" ? (
+					<Tab.Screen
+						name="AsignarTalonarios"
+						component={AsignarTalonarios}
+						options={{ title: "Asignar Talonarios" }}
+					/>
+				) : null}
+			</Tab.Navigator>
+		);
+	} else {
+		return null;
+	}
 }
 
 function screenOptions(route, color) {
 	let iconName;
 
 	switch (route.name) {
-        // case "Home":
-		// 	iconName = "home";
-		// 	break;
 		case "MisAlcancias":
 			iconName = "donate";
 			break;

@@ -5,7 +5,7 @@ import {
 	View,
 	StyleSheet,
 	SafeAreaView,
-	Dimensions
+	Dimensions,
 } from "react-native";
 import { Icon, Input } from "react-native-elements";
 import { validateEmail } from "./validation";
@@ -34,7 +34,7 @@ export default function PrincipalScreen(props) {
 			);
 		} else if (!validateEmail(formData.email)) {
 			errors.email = true;
-			toastRef.current.show("Formato de correo Incorrecto.");
+			toastRef.current.show("Correo electrónico incorrecto.");
 		} else {
 			setLoading(true);
 			firebase
@@ -46,6 +46,7 @@ export default function PrincipalScreen(props) {
 				})
 				.catch(() => {
 					setLoading(false);
+					toastRef.current.show("Usuario no encontrado, verifique sus datos.");
 					setFormError({
 						email: true,
 						password: true,
@@ -66,6 +67,23 @@ export default function PrincipalScreen(props) {
 		};
 	}
 
+	const recuperarPassword =() =>{
+		const email = formData.email;
+		setLoading(true)
+		firebase
+		.auth()
+		.sendPasswordResetEmail(email)
+		.then(()=>{
+			setLoading(false)
+			toastRef.current.show('Se ha enviado un correo a su cuenta, por favor siga los pasos.  ')
+		})
+		.catch(()=>{
+			setLoading(false)
+			toastRef.current.show('Correo electrónico no encontrado.')
+		})
+
+	}
+
 	return (
 		<SafeAreaView style={styles.background}>
 			<View style={styles.logoContainer}>
@@ -76,18 +94,19 @@ export default function PrincipalScreen(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					placeholder="Correo Electronico"
+					placeholder="Correo electrónico"
 					placeholderTextColor="#969696"
 					onChange={(e) => onChange(e, "email")}
-					errorMessage={
-						formError.email? "Correo electronico incorrecto.." : null
-					}
 					rightIcon={
-						<Icon
-							type="material-community"
-							name="at"
-							iconStyle={styles.iconRight}
-						/>
+						formError.email ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="material-community"
+								name="at"
+								iconStyle={styles.iconRight}
+							/>
+						)
 					}
 				/>
 				<Input
@@ -98,16 +117,17 @@ export default function PrincipalScreen(props) {
 					placeholderTextColor="#969696"
 					secureTextEntry={showPassword ? false : true}
 					onChange={(e) => onChange(e, "password")}
-					errorMessage={
-						formError.password? "Contraseña incorrecta." : null
-					}
 					rightIcon={
-						<Icon
-							type="material-community"
-							name={showPassword ? "eye-off-outline" : "eye-outline"}
-							iconStyle={styles.iconRight}
-							onPress={() => setShowPassword(!showPassword)}
-						/>
+						formError.password ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="material-community"
+								name={showPassword ? "eye-off-outline" : "eye-outline"}
+								iconStyle={styles.iconRight}
+								onPress={() => setShowPassword(!showPassword)}
+							/>
+						)
 					}
 				/>
 			</View>
@@ -120,6 +140,7 @@ export default function PrincipalScreen(props) {
 			>
 				<Text style={styles.text}>Registrarse</Text>
 			</TouchableOpacity>
+			<Text onPress={recuperarPassword} style={styles.recuperar}>¿Olvidaste tu contraseña? </Text>
 			<Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
 			<Loading isVisible={loading} text="Iniciando Sesión" />
 			<Toast
@@ -194,6 +215,10 @@ const styles = StyleSheet.create({
 		marginBottom: 5,
 		borderRadius: 10,
 	},
+	recuperar:{
+		color: '#c1c1c1',
+		marginTop:10,
+	},	
 	smartApps: {
 		fontSize: 12,
 		color: "white",

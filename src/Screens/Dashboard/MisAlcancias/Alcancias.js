@@ -5,6 +5,7 @@ import {
 	ScrollView,
 	TouchableOpacity,
 	StyleSheet,
+	SafeAreaView,
 } from "react-native";
 import usePreference from "../../../Hooks/usePreferences";
 import firebase from "../../../../Firebase/Firebase";
@@ -33,15 +34,15 @@ export default function Alcancias() {
 		});
 
 		return (
-			<View style={styles.mainView}>
+			<SafeAreaView style={styles.mainView}>
 				<Header />
-				<Text style={styles.infoTitle}>Mis Alcancias</Text>
+				<Text style={styles.infoTitle}>Mis Alcancías</Text>
 				<ScrollView>
 					{alcanciasToArray.map((alcancia, i) => {
 						return (
 							<View key={i} style={styles.infoView}>
 								<View style={styles.textBox}>
-									<Text style={styles.textKey}>Numero De Alcancia:</Text>
+									<Text style={styles.textKey}>Numero De Alcancía:</Text>
 									<Text style={styles.textValue}>
 										{alcancia.alcancia_numero}
 									</Text>
@@ -55,15 +56,19 @@ export default function Alcancias() {
 									<View style={styles.textBox}>
 										<Text style={styles.textKey}>Recuperada: </Text>
 										{alcancia.recuperada === true ? (
-											<Text style={[styles.textValue, {color: 'green'}]}>Si</Text>
+											<Text style={[styles.textValue, { color: "green" }]}>
+												Si
+											</Text>
 										) : (
-											<Text style={[styles.textValue, {color: 'red'}]}>No</Text>
+											<Text style={[styles.textValue, { color: "red" }]}>
+												No
+											</Text>
 										)}
 									</View>
 								) : (
 									<View style={styles.textBox}>
 										<Text style={styles.textKey}>Asignada: </Text>
-										<Text style={[styles.textValue, {color: 'red'}]}>No</Text>
+										<Text style={[styles.textValue, { color: "red" }]}>No</Text>
 									</View>
 								)}
 								<TouchableOpacity
@@ -72,7 +77,7 @@ export default function Alcancias() {
 											content: alcancia,
 											uid: userFbData.uid,
 											key: i,
-
+											subtipo: userFbData.subtipo,
 										})
 									}
 									key={i}
@@ -82,7 +87,7 @@ export default function Alcancias() {
 										type="FontAwesome5"
 										name="arrow-circle-right"
 										size={50}
-										color="#03255f"
+										color="#34495E"
 										style={styles.icon}
 									/>
 								</TouchableOpacity>
@@ -90,19 +95,23 @@ export default function Alcancias() {
 						);
 					})}
 				</ScrollView>
-			</View>
+			</SafeAreaView>
 		);
 	} else {
 		return (
-			<View style={styles.mainView}>
+			<SafeAreaView style={styles.mainView}>
 				<Header />
-				<View style={{ alignItems: "center", marginTop: 30 }}>
-					<Text style={[styles.titles, { margin: 15 }]}>Mis Alcancias</Text>
-					<Text style={{ fontWeight: "bold", color: "#03255F", fontSize: 15 }}>
-						No tiene alcancias asignadas.
-					</Text>
-				</View>
-			</View>
+				<Text style={styles.infoTitle}>Mis Alcancías</Text>
+				<ScrollView>
+					<View style={{ alignItems: "center", marginTop: 30 }}>
+						<Text
+							style={{ fontWeight: "bold", color: "#03255F", fontSize: 15 }}
+						>
+							No tiene alcancías asignadas.
+						</Text>
+					</View>
+				</ScrollView>
+			</SafeAreaView>
 		);
 	}
 }
@@ -110,13 +119,16 @@ export default function Alcancias() {
 const styles = StyleSheet.create({
 	infoTitle: {
 		marginVertical: 10,
+		marginHorizontal: 10,
 		fontWeight: "bold",
 		color: "#fff",
 		fontSize: 20,
 		textAlign: "center",
 		justifyContent: "center",
-		backgroundColor: "#696969",
+		backgroundColor: "#34495E",
 		height: 30,
+		borderRadius: 15,
+		overflow: "hidden",
 	},
 	infoView: {
 		paddingVertical: 10,
@@ -147,10 +159,8 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-end",
 		justifyContent: "center",
 		borderRadius: 25,
+		marginTop: 15,
 		marginLeft: 20,
 		position: "absolute",
-	},
-	icon: {
-		marginTop: 3,
 	},
 });

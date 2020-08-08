@@ -52,7 +52,7 @@ export default function BonoUser(props) {
 			if (!apellido) errors.apellido = true;
 			if (!email) errors.email = true;
 		} else if (!validateEmail(email)) {
-			toastRef.current.show("Debe ingresar una dirección de correo valida.");
+			toastRef.current.show("Correo electrónico incorrecto.");
 			errors.email = true;
 		} else {
 			setLoading(true);
@@ -77,6 +77,7 @@ export default function BonoUser(props) {
 					setLoading(false);
 					toastRef.current.show("Su compra ha sido exitosa.");
 					handleReset();
+					navigation.navigate("Home");
 				})
 				.catch((err) => {
 					toastRef.current.show("Ha ocurrido un problema.");
@@ -111,16 +112,23 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
-						errorMessage={formError.nombre ? "Ingrese un Nombre" : null}
 						textContentType="name"
-						placeholder="Ingrese un nombre..."
+						placeholder="Fran... "
 						defaultValue={nombre}
 						rightIcon={
-							<Icon
-								type="Fontawesome5"
-								name="edit"
-								iconStyle={styles.iconRight}
-							/>
+							formError.nombre ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="Fontawesome5"
+									name="edit"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 						onChange={(e) => setNombre(e.nativeEvent.text)}
 					/>
@@ -130,39 +138,49 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
-						errorMessage={formError.apellido ? "Ingrese un Apellido" : null}
 						textContentType="middleName"
-						placeholder="Ingrese apellido..."
+						placeholder="Zun... "
 						defaultValue={apellido}
 						rightIcon={
-							<Icon
-								type="font-awesome-5"
-								name="edit"
-								iconStyle={styles.iconRight}
-							/>
+							formError.apellido ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="font-awesome-5"
+									name="edit"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 						onChange={(e) => setApellido(e.nativeEvent.text)}
 					/>
-					<Text style={styles.inputTitle}>Correo Electronico</Text>
+					<Text style={styles.inputTitle}>Correo electrónico</Text>
 					<Input
 						name="email"
 						textContentType="emailAddress"
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
-						errorMessage={
-							formError.email
-								? "Debe ingresar una direccion de correo valida."
-								: null
-						}
-						placeholder="Ingrese email de contacto..."
+						placeholder="ejemplo@gmail.com"
 						defaultValue={email}
 						rightIcon={
-							<Icon
-								type="Fontawesome5"
-								name="edit"
-								iconStyle={styles.iconRight}
-							/>
+							formError.email ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="Fontawesome5"
+									name="edit"
+									iconStyle={styles.iconRight}
+								/>
+							)
 						}
 						onChange={(e) => setEmail(e.nativeEvent.text)}
 					/>
