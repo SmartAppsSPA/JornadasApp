@@ -4,7 +4,6 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	Image,
 	TouchableOpacity,
 	Dimensions,
 } from "react-native";
@@ -185,14 +184,20 @@ export default function BonoUser(props) {
 						onChange={(e) => setEmail(e.nativeEvent.text)}
 					/>
 				</View>
+				<TouchableOpacity
+					onPress={() => handleReset()}
+					style={styles.buttonFormReset}
+				><Text style={styles.formReset}>Reiniciar Formulario</Text>
+				</TouchableOpacity>
 				<View style={styles.quantityContainer}>
 					<Text style={styles.title}>Cantidad</Text>
 					<View style={styles.quantity}>
-						<TouchableOpacity onPress={() => handleCantidad(cantidad - 1)}>
+					<TouchableOpacity onPress={() => handleCantidad(cantidad - 1)}>
 							<Icon
 								type="material-community"
 								name="minus-circle"
-								iconStyle={styles.iconRight}
+								color="white"
+								size={35}
 							/>
 						</TouchableOpacity>
 						<Text style={styles.numero}>{cantidad}</Text>
@@ -200,15 +205,16 @@ export default function BonoUser(props) {
 							<Icon
 								type="material-community"
 								name="plus-circle"
-								iconStyle={styles.iconRight}
+								color="white"
+								size={35}
 							/>
 						</TouchableOpacity>
 					</View>
 					<TouchableOpacity
-						onPress={() => handleReset(cantidad)}
+						onPress={() => setCantidad(1)}
 						style={styles.buttonReset}
 					>
-						<Text style={styles.textReset}>Borrar</Text>
+					<Text style={styles.textReset}>Reiniciar</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.submitContainer}>
@@ -260,6 +266,7 @@ const styles = StyleSheet.create({
 	},
 	quantityContainer: {
 		flex: 2,
+		backgroundColor: "grey",
 	},
 	submitContainer: {
 		flex: 1,
@@ -307,13 +314,6 @@ const styles = StyleSheet.create({
 	iconRight: {
 		color: "#c1c1c1",
 	},
-	error: {
-		borderColor: "#940c0c",
-		borderWidth: 1,
-		borderBottomColor: "#940c0c",
-		borderBottomWidth: 1,
-		borderRadius: 5,
-	},
 	quantity: {
 		flexDirection: "row",
 		justifyContent: "center",
@@ -329,24 +329,42 @@ const styles = StyleSheet.create({
 	},
 	numero: {
 		width: 75,
-		height: 35,
-		fontSize: 30,
-		color: "#03255F",
+		height: 45,
+		fontSize: 45,
+		color: "white",
 		fontWeight: "bold",
 		textAlign: "center",
-		marginTop: -5,
+		marginTop: -15,
 		justifyContent: "center",
 	},
 	buttonReset: {
-		width: 60,
-		height: 30,
+		width:150,
+		height: 25,
+		marginBottom: 10,
+		backgroundColor: "#03255F",
+		alignItems: "center",
+		alignSelf: "center",
+		justifyContent: "center",
+		borderRadius: 30,
+	},
+	textReset: {
+		fontSize: 15,
+		color: "#FFF",
+		fontWeight: "bold",
+		marginTop: -3,
+	},
+	buttonFormReset: {
+		flexDirection: 'row',
+		width: 150,
+		height: 25,
+		marginVertical: 10,
 		backgroundColor: "#03255F",
 		alignItems: "center",
 		alignSelf: "center",
 		justifyContent: "center",
 		borderRadius: 20,
 	},
-	textReset: {
+	formReset: {
 		fontSize: 15,
 		color: "#FFF",
 		fontWeight: "bold",
@@ -360,7 +378,7 @@ const styles = StyleSheet.create({
 	buttonPagar: {
 		width: 150,
 		height: 40,
-		backgroundColor: "#F5C300",
+		backgroundColor: "green",
 		alignSelf: "center",
 		alignItems: "center",
 		justifyContent: "center",

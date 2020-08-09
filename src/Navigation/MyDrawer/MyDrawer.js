@@ -93,14 +93,14 @@ function Menu(props) {
 						<DrawerMenu
 							iconName="delicious"
 							titleName="Bingo"
-							// navigation={() => props.navigation.navigate("Bingo")}
+							navigation={() => props.navigation.navigate("Bingo")}
 						/>
 					) : null}
 					{userFbData.tipo === "User" ? (
 						<DrawerMenu
 							iconName="table"
 							titleName="Mis Bingos"
-							// navigation={() => props.navigation.navigate("Mis Bingos")}
+							navigation={() => props.navigation.navigate("Mis Bingos")}
 						/>
 					) : null}
 					{userFbData.subtipo ? (

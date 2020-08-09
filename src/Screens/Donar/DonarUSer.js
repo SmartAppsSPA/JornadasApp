@@ -17,7 +17,7 @@ import { Input, Icon } from "react-native-elements";
 import Loading from "../../Utils/Loading";
 
 export default function DonarUser(props) {
-	const { toastRef } = props;
+	const { toastRef, userData } = props;
 	const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
 	const { userFbData } = usePreference();
@@ -25,6 +25,8 @@ export default function DonarUser(props) {
 	const [nombre, setNombre] = useState(userFbData.nombre);
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [aporte, setAporte] = useState();
+
+	console.log(props);
 
 	const submit = () => {
 		let errors = [];
@@ -68,7 +70,7 @@ export default function DonarUser(props) {
 					setLoading(false);
 					toastRef.current.show("Su donación ha sido exitosa.");
 					handleReset();
-					navigation.navigate('Home')
+					navigation.navigate("Home");
 				})
 				.catch((err) => {
 					toastRef.current.show("Ha ocurrido un problema.");
@@ -162,6 +164,12 @@ export default function DonarUser(props) {
 					}
 				/>
 			</View>
+			<TouchableOpacity
+				onPress={() => handleReset()}
+				style={styles.buttonFormReset}
+			>
+				<Text style={styles.formReset}>Reiniciar Formulario</Text>
+			</TouchableOpacity>
 			<View style={styles.submitContainer}>
 				<TouchableOpacity onPress={submit} style={styles.buttonPagar}>
 					<Text style={styles.textSubmit}>Donar</Text>
@@ -250,10 +258,27 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: "bold",
 	},
+	buttonFormReset: {
+		flexDirection: "row",
+		width: 150,
+		height: 25,
+		marginVertical: 10,
+		backgroundColor: "#03255F",
+		alignItems: "center",
+		alignSelf: "center",
+		justifyContent: "center",
+		borderRadius: 20,
+	},
+	formReset: {
+		fontSize: 15,
+		color: "#FFF",
+		fontWeight: "bold",
+		marginTop: -3,
+	},
 	buttonPagar: {
 		width: 150,
 		height: 40,
-		backgroundColor: "#F5C300",
+		backgroundColor: "green",
 		alignSelf: "center",
 		alignItems: "center",
 		justifyContent: "center",

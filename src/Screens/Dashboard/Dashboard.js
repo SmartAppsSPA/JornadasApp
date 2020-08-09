@@ -33,14 +33,14 @@ export default function Dashboard() {
 					component={MisTalonarios}
 					options={{ title: "Mis Talonarios" }}
 				/>
-				{userFbData.subtipo === "Leo/Leon" ? (
+				{userFbData.subtipo === "Leo/Leon"  || userFbData.subtipo === "Admin" ? (
 					<Tab.Screen
 						name="AsignarAlcancias"
 						component={AsignarAlcancias}
 						options={{ title: "Asignar Alcancías" }}
 					/>
 				) : null}
-				{userFbData.subtipo === "Leo/Leon" ? (
+				{userFbData.subtipo === "Leo/Leon" || userFbData.subtipo === "Admin" ? (
 					<Tab.Screen
 						name="AsignarTalonarios"
 						component={AsignarTalonarios}

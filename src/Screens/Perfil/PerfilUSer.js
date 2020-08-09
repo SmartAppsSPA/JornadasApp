@@ -18,7 +18,7 @@ export default function PerfilUSer(props) {
 	const { toastRef } = props;
 	const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
-	const { userFbData } = usePreference();
+	const { userFbData, setUserFbData } = usePreference();
 	const [formError, setFormError] = useState({});
 	const [nombre, setNombre] = useState(userFbData.nombre);
 	const [apellido, setApellido] = useState(userFbData.apellido);
@@ -50,10 +50,10 @@ export default function PerfilUSer(props) {
 				.catch((err) => {
 					setLoading(false);
 					toastRef.current.show("Algo anda mal.");
+					setFormError(errors);
+					setUserFbData(userFbData)
 				});
 		}
-		setFormError(errors);
-		console.log(errors);
 	};
 
 	function handleReset() {

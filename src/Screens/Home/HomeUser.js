@@ -34,12 +34,14 @@ export default function HomeUser(props) {
 				</View>
 				<View style={styles.buttonsContainer1}>
 					<TouchableOpacity
-						onPress={() => navigation.navigate("Donar")}
+						onPress={() => navigation.navigate("Donar", {
+							userData: userFbData,
+						})}
 						style={styles.buttonYellow}
 					>
 						<Text style={styles.textYellow}>
 							<Icon name="donate" size={20} color="#03255F" />
-							{`\nAlcancia Digital`}
+							{`\nAlcancía\nDigital`}
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
@@ -57,7 +59,7 @@ export default function HomeUser(props) {
 					>
 						<Text style={styles.textYellow}>
 							<Icon name="edit" size={20} color="#03255F" />
-							{`\nBono Rifa`}
+							{`\nBono\nSorteo`}
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -68,7 +70,7 @@ export default function HomeUser(props) {
 					>
 						<Text style={styles.textBlue}>
 							<Icon name="hand-holding-usd" size={20} color="#F5C300" />
-							{`\nMis Donaciones`}
+							{`\n\Mis\nDonaciones`}
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
@@ -96,7 +98,7 @@ export default function HomeUser(props) {
 					>
 						<Text style={styles.textBlue}>
 							<Icon name="receipt" size={20} color="#F5C300" />
-							{`\nMis Bonos`}
+							{`\nMis\nBonos`}
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -107,7 +109,7 @@ export default function HomeUser(props) {
 					>
 						<Text style={styles.textYellow}>
 							<Icon name="table" size={20} color="#03255f" />
-							{`\nMis Bingos`}
+							{`\nMis\nBingos`}
 						</Text>
 					</TouchableOpacity>
 					{userFbData.subtipo ? (
@@ -117,7 +119,7 @@ export default function HomeUser(props) {
 						>
 							<Text style={styles.textBlue}>
 								<Icon name="tools" size={20} color="#F5C300" />
-								{`\nPanel De Control`}
+								{`\nPanel\nDe Control`}
 							</Text>
 						</TouchableOpacity>
 					) : (
@@ -128,7 +130,7 @@ export default function HomeUser(props) {
 					<TouchableOpacity onPress={Logout} style={styles.buttonYellow}>
 						<Text style={styles.textYellow}>
 							<Icon name="door-open" size={20} color="#03255F" />
-							{`\nCerrar Sesión`}
+							{`\nCerrar\nSesión`}
 						</Text>
 					</TouchableOpacity>
 				</View>

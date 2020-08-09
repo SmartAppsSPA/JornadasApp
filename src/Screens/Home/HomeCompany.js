@@ -42,10 +42,13 @@ export default function HomeCompany(props) {
 					>
 						<Text style={styles.textBlue}>
 							<Icon name="donate" size={20} color="#F5C300" />
-							{`\nAlcancia Digital`}
+							{`\nAlcancía\nDigital`}
 						</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.buttonYellow}>
+					<TouchableOpacity
+						style={styles.buttonYellow}
+						//onPress={() => navigation.navigate("Bono")}
+					>
 						<Text style={styles.textYellow}></Text>
 					</TouchableOpacity>
 				</View>
@@ -56,7 +59,7 @@ export default function HomeCompany(props) {
 					>
 						<Text style={styles.textBlue}>
 							<Icon name="hand-holding-usd" size={20} color="#F5C300" />
-							{`\nMis Donaciones`}
+							{`\nMis\nDonaciones`}
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
@@ -95,19 +98,19 @@ export default function HomeCompany(props) {
 					<TouchableOpacity onPress={Logout} style={styles.buttonBlue}>
 						<Text style={styles.textBlue}>
 							<Icon name="door-open" size={20} color="#f5c300" />
-							{`\nCerrar Sesión`}
+							{`\nCerrar\nSesión`}
 						</Text>
 					</TouchableOpacity>
 					{userFbData.subtipo ? (
 						<TouchableOpacity
-						onPress={() => navigation.navigate("Panel De Control")}
-						style={styles.buttonYellow}
-					>
-						<Text style={styles.textYellow}>
-							<Icon name="tools" size={20} color="#03255F" />
-							{`\nPanel De Control`}
-						</Text>
-					</TouchableOpacity>
+							onPress={() => navigation.navigate("Panel De Control")}
+							style={styles.buttonYellow}
+						>
+							<Text style={styles.textYellow}>
+								<Icon name="tools" size={20} color="#03255F" />
+								{`\nPanel\nDe Control`}
+							</Text>
+						</TouchableOpacity>
 					) : (
 						<TouchableOpacity style={styles.buttonYellow}>
 							<Text></Text>
@@ -135,19 +138,19 @@ const styles = StyleSheet.create({
 	buttonsContainer1: {
 		flexDirection: "row",
 		justifyContent: "center",
-		backgroundColor: '#A9D0F5',
+		backgroundColor: "#A9D0F5",
 		marginHorizontal: 28,
 	},
 	buttonsContainer2: {
 		flexDirection: "row",
 		justifyContent: "center",
-		backgroundColor: '#F5F6CE',
+		backgroundColor: "#F5F6CE",
 		marginHorizontal: 28,
 	},
 	buttonsContainer3: {
 		flexDirection: "row",
 		justifyContent: "center",
-		backgroundColor: '#A9D0F5',
+		backgroundColor: "#A9D0F5",
 		marginHorizontal: 28,
 	},
 	buttonBlue: {
@@ -181,4 +184,3 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 	},
 });
-

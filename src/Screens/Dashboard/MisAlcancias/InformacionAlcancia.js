@@ -134,7 +134,7 @@ export default function InformacionAlcancia(props) {
 						</Text>
 					</View>
 				</View>
-				{subtipo === "Leo/Leon" ? (
+				{subtipo === "Leo/Leon" || subtipo === "Admin" ? (
 					<View>
 						{content.tercero ? (
 							<View>

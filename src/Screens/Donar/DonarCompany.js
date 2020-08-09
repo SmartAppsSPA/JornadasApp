@@ -23,8 +23,6 @@ export default function DonarCompany(props) {
 	const navigation = useNavigation();
 	const { userFbData } = usePreference();
 	const [formError, setFormError] = useState({});
-	const [nombre, setNombre] = useState(userFbData.nombre);
-	const [rutEmpresa, setRutEmpresa] = useState(userFbData.rutEmpresa);
 	const [email, setEmail] = useState(userFbData.email);
 	const [telefono, setTelefono] = useState(userFbData.telefono);
 	const [representante, setRepresentante] = useState(userFbData.representante);
@@ -34,16 +32,12 @@ export default function DonarCompany(props) {
 	const submit = () => {
 		let errors = [];
 		if (
-			!nombre ||
-			!rutEmpresa ||
 			!aporte ||
 			!email ||
 			!telefono ||
 			!representante
 		) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
-			if (!nombre) errors.nombre = true;
-			if (!rutEmpresa) errors.rutEmpresa = true;
 			if (!aporte) errors.aporte = true;
 			if (!email) errors.email = true;
 			if (!telefono) errors.telefono = true;
@@ -60,8 +54,8 @@ export default function DonarCompany(props) {
 				.child(`Users/${userFbData.uid}/aportes/${key}/`)
 				.set({
 					aporte: aporte,
-					nombre: nombre,
-					rutEmpresa: rutEmpresa,
+					nombre: userFbData.nombre,
+					rutEmpresa: userFbData.rutEmpresa,
 					email: email,
 					telefono: telefono,
 					representante: representante,
@@ -105,14 +99,13 @@ export default function DonarCompany(props) {
 	};
 
 	const handleReset = () => {
-		setNombre(userFbData.nombre);
-		setRutEmpresa(userFbData.rutEmpresa);
 		setEmail(userFbData.email);
 		setTelefono(userFbData.telefono);
 		setRepresentante(userFbData.representante);
 		setAporte("");
+		setChecked(false)
 	};
-	console.log(checked);
+	
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.headerContainer}>
@@ -220,6 +213,12 @@ export default function DonarCompany(props) {
 					checked={checked}
 				/>
 			</View>
+			<TouchableOpacity
+				onPress={()=>handleReset(userFbData)}
+				style={styles.buttonFormReset}
+			>
+				<Text style={styles.formReset}>Reiniciar Formulario</Text>
+			</TouchableOpacity>
 			<View style={styles.submitContainer}>
 				<TouchableOpacity onPress={submit} style={styles.buttonPagar}>
 					<Text style={styles.textSubmit}>Donar</Text>
@@ -308,10 +307,27 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: "bold",
 	},
+	buttonFormReset: {
+		flexDirection: "row",
+		width: 150,
+		height: 25,
+		marginVertical: 10,
+		backgroundColor: "#03255F",
+		alignItems: "center",
+		alignSelf: "center",
+		justifyContent: "center",
+		borderRadius: 20,
+	},
+	formReset: {
+		fontSize: 15,
+		color: "#FFF",
+		fontWeight: "bold",
+		marginTop: -3,
+	},
 	buttonPagar: {
 		width: 150,
 		height: 40,
-		backgroundColor: "#F5C300",
+		backgroundColor: "green",
 		alignSelf: "center",
 		alignItems: "center",
 		justifyContent: "center",
