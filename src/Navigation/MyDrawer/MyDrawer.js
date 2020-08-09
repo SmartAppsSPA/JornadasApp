@@ -23,6 +23,7 @@ import PerfilScreen from "../../Screens/Perfil/PerfilScreen";
 import firebase from "../../../Firebase/Firebase";
 import Dashboard from "../../Screens/Dashboard/Dashboard";
 import MisBingos from "../../Screens/MisBingos/MisBingos";
+import PagoAporte from "../../Sources/PagoEnLinea/PagoAporte";
 
 
 function DrawerMenu(props) {
@@ -60,6 +61,11 @@ function Menu(props) {
 					</View>
 				</View>
 				<ScrollView>
+					<DrawerMenu
+						iconName="chrome"
+						titleName="Pago aporte"
+						navigation={() => props.navigation.navigate("Pago Aporte")}
+					/>
 					<DrawerMenu
 						iconName="home"
 						titleName="Inicio"
@@ -145,6 +151,7 @@ function MyDrawer(props) {
 				<Drawer.Screen name="Mis Bingos" component={MisBingos} />
 				<Drawer.Screen name="Panel De Control" component={Dashboard} />
 				<Drawer.Screen name="Perfil" component={PerfilScreen} />
+				<Drawer.Screen name='Pago Aporte' component={PagoAporte}/>
 				{/* <Drawer.Screen name="Cerrar Sesión" component={Logout} /> */}
 			</Drawer.Navigator>
 		</NavigationContainer>
