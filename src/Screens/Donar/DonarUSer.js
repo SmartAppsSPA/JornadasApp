@@ -15,9 +15,10 @@ import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 import { Input, Icon } from "react-native-elements";
 import Loading from "../../Utils/Loading";
+import axios from "axios";
 
 export default function DonarUser(props) {
-	const { toastRef, userData } = props;
+	const { toastRef } = props;
 	const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
 	const { userFbData } = usePreference();
@@ -25,8 +26,28 @@ export default function DonarUser(props) {
 	const [nombre, setNombre] = useState(userFbData.nombre);
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [aporte, setAporte] = useState();
+	const [transbank, setTransbank] = useState(null);
+	const [ordenCompra, setOrdenCompra] = useState(0);
 
-	console.log(props);
+	const generarPeticion = () => {
+		axios({
+			method: "post",
+			url: "https://appjornadasmagallanicas.cl/api/api/transactions",
+			data: {
+				orden_compra: 22,
+				sessionID: userFbData.nombre,
+				monto: aporte,
+				cantidad: 1,
+				nombre: nombre,
+				apellido: apellido,
+				email: userFbData.email,
+			},
+		}).then((response) => {
+			setTransbank(response.data);
+			console.log(transbank);
+			navigation.navigate("Pago Aporte", { transbank: response.data });
+		});
+	};
 
 	const submit = () => {
 		let errors = [];
@@ -68,9 +89,8 @@ export default function DonarUser(props) {
 				})
 				.then((response) => {
 					setLoading(false);
-					toastRef.current.show("Su donación ha sido exitosa.");
+					generarPeticion();
 					handleReset();
-					navigation.navigate("Home");
 				})
 				.catch((err) => {
 					toastRef.current.show("Ha ocurrido un problema.");
@@ -84,6 +104,7 @@ export default function DonarUser(props) {
 		setApellido(userFbData.apellido);
 		setAporte("");
 	};
+
 
 	return (
 		<SafeAreaView style={styles.mainView}>
@@ -171,7 +192,10 @@ export default function DonarUser(props) {
 				<Text style={styles.formReset}>Reiniciar Formulario</Text>
 			</TouchableOpacity>
 			<View style={styles.submitContainer}>
-				<TouchableOpacity onPress={submit} style={styles.buttonPagar}>
+				<TouchableOpacity
+					onPress={submit}
+					style={styles.buttonPagar}
+				>
 					<Text style={styles.textSubmit}>Donar</Text>
 				</TouchableOpacity>
 			</View>
