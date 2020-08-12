@@ -43,7 +43,7 @@ export default function PagoAporte(props) {
 				</View>
 				<View style={styles.backContainer}>
 					<TouchableOpacity
-						onPress={() => navigation.goBack()}
+						onPress={() => navigation.navigate('Home')}
 						style={styles.comeBack}
 					>
 						<Icon

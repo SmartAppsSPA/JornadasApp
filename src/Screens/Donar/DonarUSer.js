@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Input, Icon } from "react-native-elements";
 import Loading from "../../Utils/Loading";
 import axios from "axios";
+import { sub } from "react-native-reanimated";
 
 export default function DonarUser(props) {
 	const { toastRef } = props;
@@ -30,31 +31,31 @@ export default function DonarUser(props) {
 	const [ordenCompra, setOrdenCompra] = useState();
 	let orderToArray = [];
 
-	const ordenesCompra = () => {
-		firebase
-			.database()
-			.ref("Transbank/ordenes_de_compra")
-			.orderByChild('orden_compra')
-			.limitToLast(1)
-			.once("value", (response) => {
-				Object.keys(response.val()).forEach((key, i) => {
-				orderToArray[i] = response.val()[key].orden_compra;
-				console.log(response.val()[key].orden_compra)
-				});
-			})
-			.then(() => {
-				setOrdenCompra(orderToArray);
-				console.log(ordenCompra);
-			});
-	};
+	// const ordenesCompra = () => {
+	// 	firebase
+	// 		.database() 
+	// 		.ref("Transbank/ordenes_de_compra")
+	// 		.orderByChild('orden_compra')
+	// 		.limitToLast(1)
+	// 		.once("value", (snapshot) => {
+	// 			Object.keys(snapshot.val()).forEach((key, i) => {
+	// 			orderToArray[i] = snapshot.val()[key].orden_compra;
+	// 			});
+	// 		})
+	// 		.then(() => {
+	// 			setOrdenCompra(parseInt(orderToArray)+1);
+	// 			console.log(ordenCompra)
+	// 		});
+	// };
 
 	const generarPeticion = () => {
 		axios({
 			method: "post",
 			url: "https://appjornadasmagallanicas.cl/api/api/transactions",
 			data: {
-				orden_compra: parseInt(ordenCompra) + 1,
+				orden_compra: ordenCompra,
 				sessionID: userFbData.nombre,
+				tipo: 'Aporte',
 				monto: aporte,
 				cantidad: 1,
 				nombre: nombre,
@@ -77,10 +78,23 @@ export default function DonarUser(props) {
 			if (!aporte) errors.aporte = true;
 		} else {
 			setLoading(true);
-			ordenesCompra();
+			firebase
+			.database() 
+			.ref("Transbank/ordenes_de_compra")
+			.orderByChild('orden_compra')
+			.limitToLast(1)
+			.once("value", (snapshot) => {
+				Object.keys(snapshot.val()).forEach((key, i) => {
+				orderToArray[i] = snapshot.val()[key].orden_compra;
+				});
+			})
+			.then(() => {
+				setOrdenCompra(parseInt(orderToArray)+1);
+				console.log(ordenCompra)
+			});
 			console.log(ordenCompra);
 			if (ordenCompra) {
-				let key = parseInt(ordenCompra) + 1;
+				let key = ordenCompra;
 				firebase
 					.database()
 					.ref()
