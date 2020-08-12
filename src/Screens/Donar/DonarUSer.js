@@ -34,15 +34,17 @@ export default function DonarUser(props) {
 		firebase
 			.database()
 			.ref("Transbank/ordenes_de_compra")
+			.orderByChild('orden_compra')
 			.limitToLast(1)
 			.once("value", (response) => {
 				Object.keys(response.val()).forEach((key, i) => {
-					orderToArray[i] = response.val()[key];
+				orderToArray[i] = response.val()[key].orden_compra;
+				console.log(response.val()[key].orden_compra)
 				});
 			})
 			.then(() => {
-				setOrdenCompra(orderToArray[0].orden_compra);
-				alert(ordenCompra);
+				setOrdenCompra(orderToArray);
+				console.log(ordenCompra);
 			});
 	};
 
@@ -51,7 +53,7 @@ export default function DonarUser(props) {
 			method: "post",
 			url: "https://appjornadasmagallanicas.cl/api/api/transactions",
 			data: {
-				orden_compra: ordenCompra + 1,
+				orden_compra: parseInt(ordenCompra) + 1,
 				sessionID: userFbData.nombre,
 				monto: aporte,
 				cantidad: 1,
@@ -77,8 +79,8 @@ export default function DonarUser(props) {
 			setLoading(true);
 			ordenesCompra();
 			console.log(ordenCompra);
-			if (!ordenCompra) {
-				let key = ordenCompra + 1;
+			if (ordenCompra) {
+				let key = parseInt(ordenCompra) + 1;
 				firebase
 					.database()
 					.ref()
@@ -229,7 +231,7 @@ export default function DonarUser(props) {
 				<Text style={styles.formReset}>Reiniciar Formulario</Text>
 			</TouchableOpacity>
 			<View style={styles.submitContainer}>
-				<TouchableOpacity onPress={ordenesCompra} style={styles.buttonPagar}>
+				<TouchableOpacity onPress={submit} style={styles.buttonPagar}>
 					<Text style={styles.textSubmit}>Donar</Text>
 				</TouchableOpacity>
 			</View>
