@@ -27,14 +27,31 @@ export default function DonarUser(props) {
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [aporte, setAporte] = useState();
 	const [transbank, setTransbank] = useState(null);
-	const [ordenCompra, setOrdenCompra] = useState(0);
+	const [ordenCompra, setOrdenCompra] = useState();
+	let orderToArray = [];
+
+	const ordenesCompra = () => {
+		firebase
+			.database()
+			.ref("Transbank/ordenes_de_compra")
+			.limitToLast(1)
+			.once("value", (response) => {
+				Object.keys(response.val()).forEach((key, i) => {
+					orderToArray[i] = response.val()[key];
+				});
+			})
+			.then(() => {
+				setOrdenCompra(orderToArray[0].orden_compra);
+				alert(ordenCompra);
+			});
+	};
 
 	const generarPeticion = () => {
 		axios({
 			method: "post",
 			url: "https://appjornadasmagallanicas.cl/api/api/transactions",
 			data: {
-				orden_compra: 22,
+				orden_compra: ordenCompra + 1,
 				sessionID: userFbData.nombre,
 				monto: aporte,
 				cantidad: 1,
@@ -58,43 +75,64 @@ export default function DonarUser(props) {
 			if (!aporte) errors.aporte = true;
 		} else {
 			setLoading(true);
-			const key = firebase.database().ref().push().key;
-			firebase
-				.database()
-				.ref()
-				.child(`Users/${userFbData.uid}/aportes/${key}/`)
-				.set({
-					aporte: aporte,
-					nombre: nombre,
-					apellido: apellido,
-					fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-					id: key,
-					estado_de_pago: "",
-					forma_de_pago: "",
-					uid: userFbData.uid,
-				});
-			firebase
-				.database()
-				.ref()
-				.child(`Donaciones/${key}/`)
-				.set({
-					aporte: aporte,
-					nombre: nombre,
-					apellido: apellido,
-					fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-					id: key,
-					estado_de_pago: "",
-					forma_de_pago: "",
-					uid: userFbData.uid,
-				})
-				.then((response) => {
-					setLoading(false);
-					generarPeticion();
-					handleReset();
-				})
-				.catch((err) => {
-					toastRef.current.show("Ha ocurrido un problema.");
-				});
+			ordenesCompra();
+			console.log(ordenCompra);
+			if (!ordenCompra) {
+				let key = ordenCompra + 1;
+				firebase
+					.database()
+					.ref()
+					.child(`Transbank/ordenes_de_compra/${key}/`)
+					.set({
+						aporte: aporte,
+						nombre: nombre,
+						apellido: apellido,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						orden_compra: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "",
+						uid: userFbData.uid,
+					});
+				firebase
+					.database()
+					.ref()
+					.child(`Users/${userFbData.uid}/aportes/${key}/`)
+					.set({
+						aporte: aporte,
+						nombre: nombre,
+						apellido: apellido,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						orden_compra: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "",
+						uid: userFbData.uid,
+					});
+
+				firebase
+					.database()
+					.ref()
+					.child(`Donaciones/${key}/`)
+					.set({
+						aporte: aporte,
+						nombre: nombre,
+						apellido: apellido,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						orden_compra: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "",
+						uid: userFbData.uid,
+					})
+					.then((response) => {
+						generarPeticion();
+						handleReset();
+						setLoading(false);
+					})
+					.catch((err) => {
+						toastRef.current.show("Ha ocurrido un problema.");
+					});
+			} else {
+				toastRef.current.show("Ha ocurrido un problema.");
+			}
 		}
 		setFormError(errors);
 	};
@@ -104,7 +142,6 @@ export default function DonarUser(props) {
 		setApellido(userFbData.apellido);
 		setAporte("");
 	};
-
 
 	return (
 		<SafeAreaView style={styles.mainView}>
@@ -192,10 +229,7 @@ export default function DonarUser(props) {
 				<Text style={styles.formReset}>Reiniciar Formulario</Text>
 			</TouchableOpacity>
 			<View style={styles.submitContainer}>
-				<TouchableOpacity
-					onPress={submit}
-					style={styles.buttonPagar}
-				>
+				<TouchableOpacity onPress={ordenesCompra} style={styles.buttonPagar}>
 					<Text style={styles.textSubmit}>Donar</Text>
 				</TouchableOpacity>
 			</View>
