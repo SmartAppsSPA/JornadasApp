@@ -7,11 +7,12 @@ import {
 	Image,
 	ScrollView,
 	StatusBar,
+	StyleSheet,
+	Dimensions
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import styled from "./Style";
 //Screens
 import HomeScreen from '../../Screens/Home/HomeScreen';
 import DonarScreen from "../../Screens/Donar/DonarScreen";
@@ -29,12 +30,12 @@ import PagoAporte from "../../Sources/PagoEnLinea/PagoAporte";
 function DrawerMenu(props) {
 	return (
 		<TouchableOpacity onPress={props.navigation} {...props}>
-			<View style={styled.menuContainer}>
-				<View style={styled.iconoContainer}>
+			<View style={styles.menuContainer}>
+				<View style={styles.iconoContainer}>
 					<Icon size={25} name={props.iconName} style={{ color: "#03255F" }} />
 				</View>
-				<View style={styled.tituloContainer}>
-					<Text style={styled.tituloTxt}>{props.titleName}</Text>
+				<View style={styles.tituloContainer}>
+					<Text style={styles.tituloTxt}>{props.titleName}</Text>
 				</View>
 			</View>
 		</TouchableOpacity>
@@ -51,12 +52,12 @@ function Menu(props) {
 
 	if (userFbData) {
 		return (
-			<View style={styled.container}>
-				<View style={styled.bgContainer}>
-					<View style={styled.userContainer}>
+			<View style={styles.container}>
+				<View style={styles.bgContainer}>
+					<View style={styles.userContainer}>
 						<Image
 							source={require("../../../assets/logo_jornadas_leones.png")}
-							style={styled.userImagen}
+							style={styles.userImagen}
 						/>
 					</View>
 				</View>
@@ -141,7 +142,7 @@ function MyDrawer(props) {
 	return (
 		<NavigationContainer>
 			<StatusBar />
-			<Drawer.Navigator drawerContent={(props) => <Menu {...props} />}>
+			<Drawer.Navigator drawerContent={(props) => <Menu {...props}  />} drawerStyle={styles.drawer}>
 				<Drawer.Screen name="Home" component={HomeScreen} />
 				<Drawer.Screen name="Donar" component={DonarScreen} />
 				<Drawer.Screen name="Bono" component={BonoScreen} />
@@ -159,3 +160,83 @@ function MyDrawer(props) {
 }
 
 export default MyDrawer;
+
+const { width } = Dimensions.get("window");
+
+const styles = StyleSheet.create({
+	drawer:{
+		width: width*0.55,
+	},
+	container: {
+		backgroundColor: "white",
+		width: width*0.55,
+	  },
+	
+	  bgContainer: {
+		borderBottomWidth: 0.5,
+		backgroundColor: "#03255F",
+	  },
+	
+	  userContainer: {
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop: 20,
+		backgroundColor: "#03255F",
+		marginBottom: 20,
+		width: 200,
+	  },
+	
+	  userImagen: {
+		width: 200,
+		height: 70,
+	  },
+	
+	  userNombre: {
+		marginVertical: 10,
+	  },
+	
+	  userTitulo: {
+		textAlign: "center",
+		fontWeight: "bold",
+		fontSize: 16,
+	  },
+	
+	  userSubTitulo: {
+		textAlign: "center",
+		fontSize: 11,
+		color: "#a537fd",
+		paddingVertical: 5,
+	  },
+	  menuContainer: {
+		flexDirection: "row",
+		justifyContent: "center",
+		marginLeft: 15,
+		marginVertical: 12,
+		width: 200,
+	  },
+	
+	  iconoContainer: {
+		flex: 1.5,
+		justifyContent: "center",
+		marginLeft: 10,
+	  },
+	
+	  tituloContainer: {
+		flex: 8.5,
+		justifyContent: "center",
+		marginLeft: 20,
+	  },
+	
+	  tituloTxt: {
+		fontSize: 10,
+		color: "#03255F",
+		fontWeight: "bold",
+	  },
+	  difuminado: {
+		flex: 1,
+		backgroundColor: "rgba(0, 0, 0, 0.5)",
+	  },
+	  fondoImagen: {
+		position: "absolute",
+	  },
+});

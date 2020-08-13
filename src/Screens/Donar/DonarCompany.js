@@ -7,7 +7,6 @@ import {
 	Dimensions,
 } from "react-native";
 import HeaderView from "../../components/Layouts/Header";
-import MainImage from "../../components/Layouts/MainImage";
 import usePreference from "../../Hooks/usePreferences";
 import firebase from "../../../Firebase/Firebase";
 import moment from "moment";
@@ -16,6 +15,8 @@ import { validateEmail } from "../../Utils/validation";
 import { Input, Icon, CheckBox } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Loading from "../../Utils/Loading";
+import axios from "axios";
+import AlcanciaImage from "../../components/Layouts/AlcanciaImage";
 
 export default function DonarCompany(props) {
 	const { toastRef } = props;
@@ -28,15 +29,13 @@ export default function DonarCompany(props) {
 	const [representante, setRepresentante] = useState(userFbData.representante);
 	const [aporte, setAporte] = useState();
 	const [checked, setChecked] = useState(false);
+	const [transbank, setTransbank] = useState(null);
+	const [numeroOrden, setNumeroOrden] = useState();
 
 	const submit = () => {
+		let orderToArray = [];
 		let errors = [];
-		if (
-			!aporte ||
-			!email ||
-			!telefono ||
-			!representante
-		) {
+		if (!aporte || !email || !telefono || !representante) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
 			if (!aporte) errors.aporte = true;
 			if (!email) errors.email = true;
@@ -47,53 +46,109 @@ export default function DonarCompany(props) {
 			errors.email = true;
 		} else {
 			setLoading(true);
-			const key = firebase.database().ref().push().key;
 			firebase
 				.database()
-				.ref()
-				.child(`Users/${userFbData.uid}/aportes/${key}/`)
-				.set({
-					aporte: aporte,
-					nombre: userFbData.nombre,
-					rutEmpresa: userFbData.rutEmpresa,
-					email: email,
-					telefono: telefono,
-					representante: representante,
-					fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-					id: key,
-					estado_de_pago: "",
-					forma_de_pago: "",
-					uid: userFbData.uid,
-					certificado: checked,
+				.ref("Transbank")
+				.orderByChild("numero_orden")
+				.limitToLast(1)
+				.on("value", (snapshot) => {
+					setNumeroOrden(snapshot.val());
 				});
-			firebase
-				.database()
-				.ref()
-				.child(`Donaciones/${key}/`)
-				.set({
-					aporte: aporte,
-					nombre: nombre,
-					rutEmpresa: rutEmpresa,
-					email: email,
-					telefono: telefono,
-					representante: representante,
-					fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-					id: key,
-					estado_de_pago: "",
-					forma_de_pago: "",
-					uid: userFbData.uid,
-					certificado: checked,
-				})
-				.then((response) => {
-					setLoading(false);
-					setChecked(false);
-					toastRef.current.show("Su donación ha sido exitosa.");
-					handleReset();
-					navigation.navigate('Home');
-				})
-				.catch((err) => {
-					toastRef.current.show("Ha ocurrido un problema.");
+			if (numeroOrden) {
+				console.log(numeroOrden);
+				Object.keys(numeroOrden).forEach((key, i) => {
+					orderToArray[i] = numeroOrden[key];
 				});
+				let key = parseInt(orderToArray[0].numero_orden) + 1;
+				console.log(key);
+				firebase
+					.database()
+					.ref()
+					.child(`Transbank/orden_${key}`)
+					.set({
+						aporte: aporte,
+						nombre: userFbData.nombre,
+						rutEmpresa: userFbData.rutEmpresa,
+						email: email,
+						telefono: telefono,
+						representante: representante,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						numero_orden: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "",
+						uid: userFbData.uid,
+						certificado: checked,
+					});
+				firebase
+					.database()
+					.ref()
+					.child(`Users/${userFbData.uid}/aportes/${key}/`)
+					.set({
+						aporte: aporte,
+						nombre: userFbData.nombre,
+						rutEmpresa: userFbData.rutEmpresa,
+						email: email,
+						telefono: telefono,
+						representante: representante,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						numero_orden: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "",
+						uid: userFbData.uid,
+						certificado: checked,
+					});
+				firebase
+					.database()
+					.ref()
+					.child(`Donaciones/${key}/`)
+					.set({
+						aporte: aporte,
+						nombre: userFbData.nombre,
+						rutEmpresa: userFbData.rutEmpresa,
+						email: email,
+						telefono: telefono,
+						representante: representante,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						numero_orden: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "",
+						uid: userFbData.uid,
+						certificado: checked,
+					})
+					.then((res) => {
+						axios({
+							method: "post",
+							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
+							data: {
+								orden_compra: key,
+								sessionID: userFbData.nombre,
+								item: "Aporte",
+								tipo: "Empresa",
+								monto: aporte,
+								cantidad: 1,
+								nombre: representante,
+								apellido: representante,
+								email: userFbData.email,
+							},
+						}).then((response) => {
+							setTransbank(response.data);
+							console.log(transbank);
+							navigation.navigate("Pago Aporte", { transbank: response.data });
+						});
+						handleReset();
+						setLoading(false);
+					})
+					.catch((err) => {
+						setLoading(false);
+						toastRef.current.show(
+							"Ha ocurrido un problema, intente nuevamente."
+						);
+					});
+			} else {
+				setLoading(false);
+				console.log("CATCH2");
+				toastRef.current.show("Ha ocurrido un problema, intente nuevamente.");
+			}
 		}
 		setFormError(errors);
 	};
@@ -103,16 +158,16 @@ export default function DonarCompany(props) {
 		setTelefono(userFbData.telefono);
 		setRepresentante(userFbData.representante);
 		setAporte("");
-		setChecked(false)
+		setChecked(false);
 	};
-	
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.headerContainer}>
 				<HeaderView props={props} />
 			</View>
 			<View style={styles.imageContainer}>
-				<MainImage />
+				<AlcanciaImage/>
 			</View>
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Aporte Empresa</Text>
@@ -214,7 +269,7 @@ export default function DonarCompany(props) {
 				/>
 			</View>
 			<TouchableOpacity
-				onPress={()=>handleReset(userFbData)}
+				onPress={() => handleReset(userFbData)}
 				style={styles.buttonFormReset}
 			>
 				<Text style={styles.formReset}>Reiniciar Formulario</Text>

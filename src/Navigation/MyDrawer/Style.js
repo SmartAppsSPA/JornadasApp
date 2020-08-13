@@ -1,7 +1,7 @@
 export default {
   container: {
     backgroundColor: "white",
-    flex: 1,
+    width: 200,
   },
 
   bgContainer: {
@@ -15,10 +15,11 @@ export default {
     marginTop: 20,
     backgroundColor: "#03255F",
     marginBottom: 20,
+    width: 200,
   },
 
   userImagen: {
-    width: 260,
+    width: 200,
     height: 70,
   },
 
@@ -43,6 +44,7 @@ export default {
     justifyContent: "center",
     marginLeft: 15,
     marginVertical: 12,
+    width: 200,
   },
 
   iconoContainer: {
@@ -68,9 +70,5 @@ export default {
   },
   fondoImagen: {
     position: "absolute",
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
   },
 };

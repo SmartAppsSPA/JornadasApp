@@ -8,7 +8,6 @@ import {
 	SafeAreaView,
 } from "react-native";
 import HeaderView from "../../components/Layouts/Header";
-import MainImage from "../../components/Layouts/MainImage";
 import usePreference from "../../Hooks/usePreferences";
 import firebase from "../../../Firebase/Firebase";
 import moment from "moment";
@@ -16,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Input, Icon } from "react-native-elements";
 import Loading from "../../Utils/Loading";
 import axios from "axios";
-import { sub } from "react-native-reanimated";
+import AlcanciaImage from "../../components/Layouts/AlcanciaImage";
 
 export default function DonarUser(props) {
 	const { toastRef } = props;
@@ -28,48 +27,10 @@ export default function DonarUser(props) {
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [aporte, setAporte] = useState();
 	const [transbank, setTransbank] = useState(null);
-	const [ordenCompra, setOrdenCompra] = useState();
-	let orderToArray = [];
+	const [numeroOrden, setNumeroOrden] = useState();
 
-	// const ordenesCompra = () => {
-	// 	firebase
-	// 		.database() 
-	// 		.ref("Transbank/ordenes_de_compra")
-	// 		.orderByChild('orden_compra')
-	// 		.limitToLast(1)
-	// 		.once("value", (snapshot) => {
-	// 			Object.keys(snapshot.val()).forEach((key, i) => {
-	// 			orderToArray[i] = snapshot.val()[key].orden_compra;
-	// 			});
-	// 		})
-	// 		.then(() => {
-	// 			setOrdenCompra(parseInt(orderToArray)+1);
-	// 			console.log(ordenCompra)
-	// 		});
-	// };
-
-	const generarPeticion = () => {
-		axios({
-			method: "post",
-			url: "https://appjornadasmagallanicas.cl/api/api/transactions",
-			data: {
-				orden_compra: ordenCompra,
-				sessionID: userFbData.nombre,
-				tipo: 'Aporte',
-				monto: aporte,
-				cantidad: 1,
-				nombre: nombre,
-				apellido: apellido,
-				email: userFbData.email,
-			},
-		}).then((response) => {
-			setTransbank(response.data);
-			console.log(transbank);
-			navigation.navigate("Pago Aporte", { transbank: response.data });
-		});
-	};
-
-	const submit = () => {
+	function submit() {
+		let orderToArray = [];
 		let errors = [];
 		if (!nombre || !apellido || !aporte) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
@@ -79,32 +40,30 @@ export default function DonarUser(props) {
 		} else {
 			setLoading(true);
 			firebase
-			.database() 
-			.ref("Transbank/ordenes_de_compra")
-			.orderByChild('orden_compra')
-			.limitToLast(1)
-			.once("value", (snapshot) => {
-				Object.keys(snapshot.val()).forEach((key, i) => {
-				orderToArray[i] = snapshot.val()[key].orden_compra;
+				.database()
+				.ref("Transbank")
+				.orderByChild("numero_orden")
+				.limitToLast(1)
+				.on("value", (snapshot) => {
+					setNumeroOrden(snapshot.val());
 				});
-			})
-			.then(() => {
-				setOrdenCompra(parseInt(orderToArray)+1);
-				console.log(ordenCompra)
-			});
-			console.log(ordenCompra);
-			if (ordenCompra) {
-				let key = ordenCompra;
+			if (numeroOrden) {
+				console.log(numeroOrden);
+				Object.keys(numeroOrden).forEach((key, i) => {
+					orderToArray[i] = numeroOrden[key];
+				});
+				let key = parseInt(orderToArray[0].numero_orden) + 1;
+				console.log(key);
 				firebase
 					.database()
 					.ref()
-					.child(`Transbank/ordenes_de_compra/${key}/`)
+					.child(`Transbank/orden_${key}`)
 					.set({
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-						orden_compra: key,
+						numero_orden: key,
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
@@ -112,13 +71,13 @@ export default function DonarUser(props) {
 				firebase
 					.database()
 					.ref()
-					.child(`Users/${userFbData.uid}/aportes/${key}/`)
+					.child(`Users/${userFbData.uid}/aportes/${key}`)
 					.set({
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-						orden_compra: key,
+						numero_orden: key,
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
@@ -127,31 +86,51 @@ export default function DonarUser(props) {
 				firebase
 					.database()
 					.ref()
-					.child(`Donaciones/${key}/`)
+					.child(`Donaciones/${key}`)
 					.set({
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-						orden_compra: key,
+						numero_orden: key,
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
 					})
-					.then((response) => {
-						generarPeticion();
+					.then((res) => {
+						axios({
+							method: "post",
+							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
+							data: {
+								orden_compra: key,
+								sessionID: userFbData.nombre,
+								item: "Aporte",
+								tipo: "Usuario",
+								monto: aporte,
+								cantidad: 1,
+								nombre: nombre,
+								apellido: apellido,
+								email: userFbData.email,
+							},
+						}).then((response) => {
+							setTransbank(response.data);
+							console.log(transbank);
+							navigation.navigate("Pago Aporte", { transbank: response.data });
+						});
 						handleReset();
 						setLoading(false);
 					})
 					.catch((err) => {
-						toastRef.current.show("Ha ocurrido un problema.");
+						setLoading(false);
+						toastRef.current.show("Ha ocurrido un problema, intente nuevamente.");
 					});
 			} else {
-				toastRef.current.show("Ha ocurrido un problema.");
+				setLoading(false);
+				toastRef.current.show("Ha ocurrido un problema, intente nuevamente.");
 			}
 		}
 		setFormError(errors);
-	};
+	}
 
 	const handleReset = () => {
 		setNombre(userFbData.nombre);
@@ -165,7 +144,7 @@ export default function DonarUser(props) {
 				<HeaderView props={props} />
 			</View>
 			<View style={styles.imageContainer}>
-				<MainImage />
+				<AlcanciaImage/>
 			</View>
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Aporte</Text>
