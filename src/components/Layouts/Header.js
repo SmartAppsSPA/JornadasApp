@@ -3,7 +3,6 @@ import { Image, StyleSheet } from "react-native";
 import { Header, Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
-
 export default function HeaderView() {
 	const navigation = useNavigation();
 	return (
@@ -33,8 +32,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#03255F",
 		justifyContent: "space-between",
 		height: 55,
-    paddingBottom: 17.5,
-    zIndex: 1000,
+		paddingBottom: 17.5,
+		zIndex: 1000,
 	},
 	headerImage: {
 		width: 150,

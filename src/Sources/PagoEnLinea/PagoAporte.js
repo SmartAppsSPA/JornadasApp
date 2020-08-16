@@ -4,6 +4,7 @@ import { View, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import HeaderView from "../../components/Layouts/Header";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function PagoAporte(props) {
 	const navigation = useNavigation();
@@ -14,47 +15,48 @@ export default function PagoAporte(props) {
 		if (!url) return;
 
 		if (url.includes("404")) {
-            alert('Tiempo de espera agotado.')
-
-        }
+			alert("Tiempo de espera agotado.");
+		}
 	};
 
 	if (transbank === null) {
 		return (
-			<>
+			<KeyboardAwareScrollView>
 				<HeaderView props={props} />
 				<WebView
 					source={{ uri: "https://appjornadasmagallanicas.cl/api/api/retorno" }}
 					onNavigationStateChange={handleWebViewNavigationStateChange}
 				/>
-			</>
+			</KeyboardAwareScrollView>
 		);
 	} else {
 		return (
 			<SafeAreaView style={styles.mainView}>
-				<View style={styles.HeaderContainer}>
-					<HeaderView props={props} />
-				</View>
-				<View style={styles.webviewContainer}>
-					<WebView
-						source={{ uri: `${transbank.url}?token_ws=${transbank.token_ws}` }}
-						onNavigationStateChange={handleWebViewNavigationStateChange}
-					/>
-				</View>
-				<View style={styles.backContainer}>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('Home')}
-						style={styles.comeBack}
-					>
-						<Icon
-							raised
-							name="arrow-left"
-							type="font-awesome"
-                            color="#03255F"
-                            size={15}
+					<View style={styles.HeaderContainer}>
+						<HeaderView props={props} />
+					</View>
+					<View style={styles.webviewContainer}>
+						<WebView
+							source={{
+								uri: `${transbank.url}?token_ws=${transbank.token_ws}`,
+							}}
+							onNavigationStateChange={handleWebViewNavigationStateChange}
 						/>
-					</TouchableOpacity>
-				</View>
+					</View>
+					<View style={styles.backContainer}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Home")}
+							style={styles.comeBack}
+						>
+							<Icon
+								raised
+								name="arrow-left"
+								type="font-awesome"
+								color="#03255F"
+								size={15}
+							/>
+						</TouchableOpacity>
+					</View>
 			</SafeAreaView>
 		);
 	}
@@ -69,11 +71,11 @@ const styles = StyleSheet.create({
 	},
 	webviewContainer: {
 		flex: 10,
-    },
-    backContainer:{
-        flex:1,
-        backgroundColor: '#03255f'
-    },
+	},
+	backContainer: {
+		flex: 1,
+		backgroundColor: "#03255f",
+	},
 	comeBack: {
 		alignSelf: "center",
 	},

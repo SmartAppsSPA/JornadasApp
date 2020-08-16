@@ -59,6 +59,8 @@ export default function DonarUser(props) {
 					.ref()
 					.child(`Transbank/orden_${key}`)
 					.set({
+						item: 'Aporte',
+						Tipo: 'Usuario',
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
@@ -156,6 +158,7 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					textContentType="username"
 					placeholder="Fran..."
 					defaultValue={nombre}
@@ -178,6 +181,7 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					textContentType="middleName"
 					placeholder="Zun..."
 					defaultValue={apellido}
@@ -200,6 +204,7 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					placeholder="Ingrese Aporte..."
 					keyboardType="numeric"
 					defaultValue={aporte}
@@ -241,7 +246,7 @@ export default function DonarUser(props) {
 	);
 }
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
 	container: {
@@ -258,9 +263,12 @@ const styles = StyleSheet.create({
 	},
 	inputContainer: {
 		flex: 5,
-		marginLeft: 50,
-		marginRight: 50,
+		width: width,
 		alignItems: "center",
+		borderRadius:20,
+		borderWidth:1,
+		borderColor: '#34495E',
+		backgroundColor: "#A9B4C0",
 	},
 	submitContainer: {
 		flex: 1,
@@ -283,10 +291,13 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	input: {
-		width: "100%",
+		width: width * 0.75,
+		height: height *0.05,
 		backgroundColor: "#FFF",
 		margin: 8,
-		borderRadius: 20,
+		borderRadius: 30,
+		borderWidth:1,
+		borderColor: '#34495E',
 	},
 	inputText: {
 		fontSize: 12,
@@ -313,9 +324,9 @@ const styles = StyleSheet.create({
 	},
 	buttonFormReset: {
 		flexDirection: "row",
-		width: 150,
-		height: 25,
-		marginVertical: 10,
+		width: width * 0.50,
+		height: height * 0.03,
+		marginTop: 20,
 		backgroundColor: "#03255F",
 		alignItems: "center",
 		alignSelf: "center",
@@ -329,14 +340,14 @@ const styles = StyleSheet.create({
 		marginTop: -3,
 	},
 	buttonPagar: {
-		width: 150,
-		height: 40,
+		width: width * 0.50,
+		height: height * 0.03,
 		backgroundColor: "green",
 		alignSelf: "center",
 		alignItems: "center",
 		justifyContent: "center",
 		borderRadius: 20,
-		margin: 20,
+		margin: 10,
 	},
 	comeBack: {
 		alignSelf: "flex-start",

@@ -105,6 +105,7 @@ export default function Register(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="Nombre o Razón Social"
 						placeholderTextColor="#969696"
 						onChange={(e) =>
@@ -133,6 +134,7 @@ export default function Register(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="Representante Legal"
 						placeholderTextColor="#969696"
 						onChange={(e) =>
@@ -161,6 +163,7 @@ export default function Register(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="Rut de La Empresa"
 						placeholderTextColor="#969696"
 						onChange={(e) =>
@@ -189,6 +192,7 @@ export default function Register(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="Correo Electrónico"
 						placeholderTextColor="#969696"
 						onChange={(e) =>
@@ -217,6 +221,7 @@ export default function Register(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="Teléfono De Contacto"
 						placeholderTextColor="#969696"
 						keyboardType="number-pad"
@@ -246,6 +251,7 @@ export default function Register(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="Contraseña"
 						placeholderTextColor="#969696"
 						secureTextEntry={showPassword ? false : true}
@@ -276,6 +282,7 @@ export default function Register(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="Repetir Contraseña"
 						placeholderTextColor="#969696"
 						secureTextEntry={showRepeatPassword ? false : true}

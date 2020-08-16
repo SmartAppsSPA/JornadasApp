@@ -88,7 +88,6 @@ export default function Alcancias() {
 										name="arrow-circle-right"
 										size={50}
 										color="#34495E"
-										style={styles.icon}
 									/>
 								</TouchableOpacity>
 							</View>

@@ -179,6 +179,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					placeholder="ejemplo@empresa.com..."
 					defaultValue={email}
 					onChange={(e) => setEmail(e.nativeEvent.text)}
@@ -200,6 +201,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					placeholder="+56 9 1111 1111..."
 					defaultValue={telefono}
 					keyboardType="phone-pad"
@@ -223,6 +225,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					textContentType="nickname"
 					placeholder="fran.. zun..."
 					defaultValue={representante}
@@ -245,6 +248,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					placeholder="Ingrese su Aporte..."
 					keyboardType="numeric"
 					defaultValue={aporte}

@@ -8,7 +8,8 @@ import {
 	ScrollView,
 	StatusBar,
 	StyleSheet,
-	Dimensions
+	Dimensions,
+	SafeAreaView
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -52,6 +53,7 @@ function Menu(props) {
 
 	if (userFbData) {
 		return (
+			<SafeAreaView>
 			<View style={styles.container}>
 				<View style={styles.bgContainer}>
 					<View style={styles.userContainer}>
@@ -62,11 +64,6 @@ function Menu(props) {
 					</View>
 				</View>
 				<ScrollView>
-					<DrawerMenu
-						iconName="chrome"
-						titleName="Pago aporte"
-						navigation={() => props.navigation.navigate("Pago Aporte")}
-					/>
 					<DrawerMenu
 						iconName="home"
 						titleName="Inicio"
@@ -129,6 +126,7 @@ function Menu(props) {
 					/>
 				</ScrollView>
 			</View>
+			</SafeAreaView>
 		);
 	} else {
 		return null;

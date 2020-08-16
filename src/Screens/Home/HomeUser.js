@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	View,
 	Text,
@@ -6,6 +6,9 @@ import {
 	TouchableOpacity,
 	SafeAreaView,
 	StyleSheet,
+	Modal,
+	Linking,
+	Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -17,26 +20,30 @@ import CarouselHome from "../../components/Layouts/Carousel";
 export default function HomeUser(props) {
 	const navigation = useNavigation();
 	const { userFbData, setUserFbData } = usePreference();
+	const [modalVisible, setModalVisible] = useState(false);
 
 	const Logout = () => {
 		firebase.auth().signOut();
 		setUserFbData(null);
 	};
 
+
 	if (userFbData) {
 		return (
 			<SafeAreaView style={styles.container}>
 				<View style={styles.headerContainer}>
-				<HeaderView props={props} />
+					<HeaderView props={props} />
 				</View>
 				<View style={styles.carouselContainer}>
-				<CarouselHome />
+					<CarouselHome />
 				</View>
 				<View style={styles.buttonsContainer1}>
 					<TouchableOpacity
-						onPress={() => navigation.navigate("Donar", {
-							userData: userFbData,
-						})}
+						onPress={() =>
+							navigation.navigate("Donar", {
+								userData: userFbData,
+							})
+						}
 						style={styles.buttonYellow}
 					>
 						<Text style={styles.textYellow}>
@@ -74,13 +81,18 @@ export default function HomeUser(props) {
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
+						onPress={() => setModalVisible(true)}
 						style={{
-							width: 110,
-							height: 110,
+							width: width * 0.3,
+							height: height * 0.17,
 							alignItems: "center",
 							justifyContent: "center",
 							marginLeft: 5,
 							marginRight: 5,
+							shadowRadius: 1,
+		shadowOpacity: 1.5,
+		shadowOffset: {width: 5 , height: 5,},
+		shadowColor: '#616161'
 						}}
 					>
 						<Image
@@ -134,6 +146,42 @@ export default function HomeUser(props) {
 						</Text>
 					</TouchableOpacity>
 				</View>
+				<Modal
+					animationType="slide"
+					transparent={true}
+					visible={modalVisible}
+					onRequestClose={() => {
+						Alert.alert("Modal has been closed.");
+					}}
+				>
+					<View style={styles.centeredView}>
+						<View style={styles.modalView}>
+							<View style={styles.modalContent}>
+								<Text style={styles.modalText}>Jornadas Magallanicas App.</Text>
+								<Text style={styles.modalText}>
+									© Copyrights 2020 Leones Cruz del Sur all rights reserved.
+								</Text>
+								<Text style={styles.modalText}>
+									Hecho con 🧡 por{" "}
+									<Text
+										onPress={() => Linking.openURL("http://smartapps.cl")}
+										style={styles.smartApps}
+									>
+										SmartApps Spa.
+									</Text>
+								</Text>
+								<TouchableOpacity
+									style={styles.openButton}
+									onPress={() => {
+										setModalVisible(!modalVisible);
+									}}
+								>
+									<Text style={styles.textStyle}>Cerrar</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+					</View>
+				</Modal>
 			</SafeAreaView>
 		);
 	} else {
@@ -141,50 +189,88 @@ export default function HomeUser(props) {
 	}
 }
 
+const { width, height } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 10,
+		width: width,
+		height: height,
 	},
 	headerContainer: {
 		flex: 1,
 	},
 	carouselContainer: {
-		flex: 3,
-		marginBottom: 20,
+		flex: 5,
+		zIndex: -2,
 	},
 	buttonsContainer1: {
+		flex: 2.50,
+		width: width,
+		alignSelf: "center",
 		flexDirection: "row",
 		justifyContent: "center",
-		backgroundColor: '#A9D0F5',
-		marginHorizontal: 28,
+		backgroundColor: "#A9D0F5",
+		borderTopWidth: 1.25,
+		borderLeftWidth: 1.25,
+		borderRightWidth: 1.25,
+		borderColor: "#34495E",
+		borderTopStartRadius: 30,
+		borderTopEndRadius: 30,
 	},
 	buttonsContainer2: {
+		flex: 2.50,
+		width: width,
+		alignSelf: "center",
 		flexDirection: "row",
 		justifyContent: "center",
-		backgroundColor: '#F5F6CE',
-		marginHorizontal: 28,
+		backgroundColor: "#F5F6CE",
+		borderLeftWidth: 1.25,
+		borderRightWidth: 1.25,
+		borderColor: "#34495E",
 	},
 	buttonsContainer3: {
+		flex: 2.50,
+		width: width,
+		alignSelf: "center",
 		flexDirection: "row",
 		justifyContent: "center",
-		backgroundColor: '#A9D0F5',
-		marginHorizontal: 28,
+		backgroundColor: "#A9D0F5",
+		borderBottomWidth: 1.25,
+		borderLeftWidth: 1.25,
+		borderRightWidth: 1.25,
+		borderColor: "#34495E",
+		borderBottomStartRadius: 30,
+		borderBottomEndRadius: 30,
+		marginBottom: 20,
 	},
 	buttonBlue: {
-		width: 110,
-		height: 110,
+		marginTop: 6,
+		width: width * 0.290,
+		height: height *0.155,
+		borderRadius: 10,
 		backgroundColor: "#03255F",
 		alignItems: "center",
 		justifyContent: "center",
 		margin: 4,
+		shadowRadius: 1,
+		shadowOpacity: 1.5,
+		shadowOffset: {width: 5 , height: 5,},
+		shadowColor: '#616161'
 	},
 	buttonYellow: {
-		width: 110,
-		height: 110,
+		marginTop: 6,
+		width: width * 0.290,
+		height: height *0.155,
+		borderRadius: 10,
 		backgroundColor: "#F5C300",
 		alignItems: "center",
 		justifyContent: "center",
 		margin: 4,
+		shadowRadius: 1,
+		shadowOpacity: 1.5,
+		shadowOffset: {width: 5 , height: 5,},
+		shadowColor: '#616161'
 	},
 	textBlue: {
 		fontSize: 13,
@@ -199,5 +285,63 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		justifyContent: "center",
 		textAlign: "center",
+	},
+
+	//modal
+	centeredView: {
+		flex: 2,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 22,
+	},
+	modalView: {
+		width: "80%",
+		height: "40%",
+		backgroundColor: "#03255f",
+		borderRadius: 20,
+		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
+		borderColor: "#a9d0f5",
+		borderWidth: 2,
+	},
+	modalContent: {
+		marginVertical: 25,
+		marginHorizontal: 10,
+	},
+	openButton: {
+		width: 100,
+		height: 30,
+		backgroundColor: "#f5c300",
+		borderRadius: 20,
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop: 2,
+		alignSelf: "center",
+	},
+	textStyle: {
+		marginTop: 6,
+		color: "#03255f",
+		fontWeight: "bold",
+		textAlign: "center",
+		marginBottom: 10,
+		fontSize: 15,
+	},
+	modalText: {
+		flex: 1,
+		textAlign: "center",
+		color: "#ffffff",
+		fontWeight: "bold",
+		fontSize: 20,
+	},
+	smartApps: {
+		color: "#F5F6CE",
+		fontSize: 20,
 	},
 });

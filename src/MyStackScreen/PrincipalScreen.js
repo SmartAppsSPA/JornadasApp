@@ -95,6 +95,7 @@ export default function PrincipalScreen(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					placeholder="Correo electrónico"
 					placeholderTextColor="#969696"
 					onChange={(e) => onChange(e, "email")}
@@ -114,6 +115,7 @@ export default function PrincipalScreen(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
 					placeholder="Contraseña"
 					placeholderTextColor="#969696"
 					secureTextEntry={showPassword ? false : true}

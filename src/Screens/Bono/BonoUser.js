@@ -17,6 +17,7 @@ import moment from "moment";
 import { Input, Icon } from "react-native-elements";
 import BonoImage from "../../components/Layouts/BonoImage";
 import Loading from "../../Utils/Loading";
+import axios from "axios";
 
 export default function BonoUser(props) {
 	const { toastRef } = props;
@@ -28,6 +29,8 @@ export default function BonoUser(props) {
 	const [nombre, setNombre] = useState(userFbData.nombre);
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [email, setEmail] = useState(userFbData.email);
+	const [transbank, setTransbank] = useState(null);
+	const [numeroOrden, setNumeroOrden] = useState();
 	const precio = 500;
 	const precioTotal = precio * cantidad;
 
@@ -44,6 +47,7 @@ export default function BonoUser(props) {
 	};
 
 	const comprar = () => {
+		let orderToArray = [];
 		let errors = {};
 		if (!nombre || !apellido || !email) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
@@ -55,32 +59,104 @@ export default function BonoUser(props) {
 			errors.email = true;
 		} else {
 			setLoading(true);
-			const key = firebase.database().ref().push().key;
 			firebase
 				.database()
-				.ref()
-				.child(`Users/${userFbData.uid}/bonos/${key}/`)
-				.set({
-					total: numberFormat(precioTotal),
-					nombre: nombre,
-					apellido: apellido,
-					email: email,
-					cantidad: cantidad,
-					fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-					id: key,
-					estado_de_pago: "",
-					forma_de_pago: "",
-					uid: userFbData.uid,
-				})
-				.then((response) => {
-					setLoading(false);
-					toastRef.current.show("Su compra ha sido exitosa.");
-					handleReset();
-					navigation.navigate("Home");
-				})
-				.catch((err) => {
-					toastRef.current.show("Ha ocurrido un problema.");
+				.ref("Transbank")
+				.orderByChild("numero_orden")
+				.limitToLast(1)
+				.on("value", (snapshot) => {
+					setNumeroOrden(snapshot.val());
 				});
+			if (numeroOrden) {
+				console.log(numeroOrden);
+				Object.keys(numeroOrden).forEach((key, i) => {
+					orderToArray[i] = numeroOrden[key];
+				});
+				let key = parseInt(orderToArray[0].numero_orden) + 1;
+				console.log(key);
+				firebase
+					.database()
+					.ref()
+					.child(`Transbank/orden_${key}`)
+					.set({
+						item: "Bono",
+						Tipo: "Usuario",
+						precio: precioTotal,
+						nombre: nombre,
+						apellido: apellido,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						numero_orden: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "",
+						uid: userFbData.uid,
+					});
+				firebase
+					.database()
+					.ref()
+					.child(`Users/${userFbData.uid}/bonos/${key}/`)
+					.set({
+						total: precioTotal,
+						nombre: nombre,
+						apellido: apellido,
+						email: email,
+						cantidad: cantidad,
+						numero_orden: key,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						id: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "Pendiente",
+						uid: userFbData.uid,
+					})
+					firebase
+					.database()
+					.ref()
+					.child(`Bono_digital/${key}/`)
+					.set({
+						total: precioTotal,
+						nombre: nombre,
+						apellido: apellido,
+						email: email,
+						cantidad: cantidad,
+						numero_orden: key,
+						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
+						id: key,
+						estado_de_pago: "Pendiente",
+						forma_de_pago: "Pendiente",
+						uid: userFbData.uid,
+					})
+					.then((res) => {
+						axios({
+							method: "post",
+							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
+							data: {
+								orden_compra: key,
+								sessionID: userFbData.nombre,
+								item: "Bono",
+								tipo: "Usuario",
+								monto: precioTotal,
+								cantidad: cantidad,
+								nombre: nombre,
+								apellido: apellido,
+								email: userFbData.email,
+							},
+						}).then((response) => {
+							setTransbank(response.data);
+							console.log(transbank);
+							navigation.navigate("Pago Aporte", { transbank: response.data });
+						});
+						handleReset();
+						setLoading(false);
+					})
+					.catch((err) => {
+						setLoading(false);
+						toastRef.current.show(
+							"Ha ocurrido un problema, intente nuevamente."
+						);
+					});
+			} else {
+				setLoading(false);
+				toastRef.current.show("Ha ocurrido un problema, intente nuevamente.");
+			}
 		}
 		setFormError(errors);
 	};
@@ -111,6 +187,7 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						textContentType="name"
 						placeholder="Fran... "
 						defaultValue={nombre}
@@ -137,6 +214,7 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						textContentType="middleName"
 						placeholder="Zun... "
 						defaultValue={apellido}
@@ -164,6 +242,7 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize='none'
 						placeholder="ejemplo@gmail.com"
 						defaultValue={email}
 						rightIcon={
@@ -187,26 +266,29 @@ export default function BonoUser(props) {
 				<TouchableOpacity
 					onPress={() => handleReset()}
 					style={styles.buttonFormReset}
-				><Text style={styles.formReset}>Reiniciar Formulario</Text>
+				>
+					<Text style={styles.formReset}>Reiniciar Formulario</Text>
 				</TouchableOpacity>
 				<View style={styles.quantityContainer}>
 					<Text style={styles.title}>Cantidad</Text>
 					<View style={styles.quantity}>
-					<TouchableOpacity onPress={() => handleCantidad(cantidad - 1)}>
+						<TouchableOpacity onPress={() => handleCantidad(cantidad - 1)}>
 							<Icon
 								type="material-community"
 								name="minus-circle"
 								color="white"
 								size={35}
+								iconStyle={styles.less}
 							/>
 						</TouchableOpacity>
 						<Text style={styles.numero}>{cantidad}</Text>
-						<TouchableOpacity onPress={() => handleCantidad(cantidad + 1)}>
+						<TouchableOpacity onPress={() => handleCantidad(cantidad + 1)} >
 							<Icon
 								type="material-community"
 								name="plus-circle"
 								color="white"
 								size={35}
+								iconStyle={styles.plus}
 							/>
 						</TouchableOpacity>
 					</View>
@@ -214,7 +296,7 @@ export default function BonoUser(props) {
 						onPress={() => setCantidad(1)}
 						style={styles.buttonReset}
 					>
-					<Text style={styles.textReset}>Reiniciar</Text>
+						<Text style={styles.textReset}>Reiniciar</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.submitContainer}>
@@ -243,7 +325,7 @@ export default function BonoUser(props) {
 	}
 }
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
 	container: {
@@ -260,13 +342,19 @@ const styles = StyleSheet.create({
 	},
 	inputContainer: {
 		flex: 5,
-		marginLeft: 50,
-		marginRight: 50,
+		width: width,
 		alignItems: "center",
+		borderRadius:20,
+		borderWidth:1,
+		borderColor: '#34495E',
+		backgroundColor: "#A9B4C0",
 	},
 	quantityContainer: {
 		flex: 2,
-		backgroundColor: "grey",
+		backgroundColor: "#A9B4C0",
+		borderRadius:20,
+		borderWidth:1,
+		borderColor: '#34495E',
 	},
 	submitContainer: {
 		flex: 1,
@@ -278,7 +366,7 @@ const styles = StyleSheet.create({
 		width: width * 0.99,
 		height: 200,
 		resizeMode: "contain",
-		borderRadius: 8,
+		borderRadius: 30,
 		alignSelf: "center",
 		justifyContent: "center",
 		marginTop: 3,
@@ -298,10 +386,13 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	input: {
-		width: "100%",
+		width: width * 0.75,
+		height: height *0.05,
 		backgroundColor: "#FFF",
 		margin: 8,
-		borderRadius: 20,
+		borderRadius: 30,
+		borderWidth:1,
+		borderColor: '#34495E',
 	},
 	inputText: {
 		fontSize: 12,
@@ -317,28 +408,34 @@ const styles = StyleSheet.create({
 	quantity: {
 		flexDirection: "row",
 		justifyContent: "center",
-		margin: 15,
+		margin: 10,
 	},
 	plus: {
 		alignItems: "center",
 		justifyContent: "center",
+		color: '#03255f',
 	},
 	less: {
 		alignItems: "center",
 		justifyContent: "center",
+		color: '#03255f',
 	},
 	numero: {
 		width: 75,
-		height: 45,
-		fontSize: 45,
-		color: "white",
+		height: 50,
+		fontSize: 35,
+		color: "#03255f",
 		fontWeight: "bold",
 		textAlign: "center",
-		marginTop: -15,
+		marginTop: -10,
 		justifyContent: "center",
+		borderRadius: 20,
+		borderWidth: 1,
+		backgroundColor: '#ffffff',
+		overflow: 'hidden',
 	},
 	buttonReset: {
-		width:150,
+		width: width * 0.50,
 		height: 25,
 		marginBottom: 10,
 		backgroundColor: "#03255F",
@@ -354,8 +451,8 @@ const styles = StyleSheet.create({
 		marginTop: -3,
 	},
 	buttonFormReset: {
-		flexDirection: 'row',
-		width: 150,
+		flexDirection: "row",
+		width: width * 0.50,
 		height: 25,
 		marginVertical: 10,
 		backgroundColor: "#03255F",
@@ -365,7 +462,6 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 	},
 	formReset: {
-		fontSize: 15,
 		color: "#FFF",
 		fontWeight: "bold",
 		marginTop: -3,
@@ -376,8 +472,8 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	buttonPagar: {
-		width: 150,
-		height: 40,
+		width: width * 0.50,
+		height: height * 0.03,
 		backgroundColor: "green",
 		alignSelf: "center",
 		alignItems: "center",
@@ -389,7 +485,7 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start",
 		borderRadius: 25,
 		marginLeft: 15,
-		marginTop: -80,
+		marginTop: -65,
 		position: "absolute",
 	},
 });
