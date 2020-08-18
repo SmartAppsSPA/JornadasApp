@@ -83,12 +83,30 @@ export default function Alcancias() {
 									key={i}
 									style={styles.backButton}
 								>
-									<Icon
-										type="FontAwesome5"
-										name="arrow-circle-right"
-										size={50}
-										color="#34495E"
-									/>
+									{alcancia.asignada_tercero === true ||
+									alcancia.asignada_externo === true ? (
+										<Icon
+											type="FontAwesome5"
+											name={
+												alcancia.recuperada === true
+													? "check-circle"
+													: "search"
+											}
+											size={50}
+											color={
+												alcancia.recuperada === true
+													? "green"
+													: "#34495E"
+											}
+										/>
+									) : (
+										<Icon
+											type="FontAwesome5"
+											name="question-circle"
+											size={50}
+											color="red"
+										/>
+									)}
 								</TouchableOpacity>
 							</View>
 						);

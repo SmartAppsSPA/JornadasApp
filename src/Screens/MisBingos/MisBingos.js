@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity, ImageBackground, Dimensions } from "react-native";
+import {
+	View,
+	Text,
+	ScrollView,
+	TouchableOpacity,
+	Image,
+	Dimensions,
+} from "react-native";
 import styles from "../../Utils/Style";
 import HeaderView from "../../components/Layouts/Header";
 import MainImage from "../../components/Layouts/MainImage";
 import usePreference from "../../Hooks/usePreferences";
 import firebase from "../../../Firebase/Firebase";
 import { useNavigation } from "@react-navigation/native";
-import {Icon} from 'react-native-elements';
+import { Icon } from "react-native-elements";
 
 export default function MisBingos(props) {
 	const navigation = useNavigation();
@@ -23,7 +30,7 @@ export default function MisBingos(props) {
 			});
 	}, []);
 
-	const { width, height } = Dimensions.get('window');
+	const { width, height } = Dimensions.get("window");
 
 	if (bingos) {
 		Object.keys(bingos).forEach((key, i) => {
@@ -32,24 +39,36 @@ export default function MisBingos(props) {
 
 		return (
 			<View style={styles.mainView}>
-			<HeaderView props={props} />
-				<ImageBackground
-				style={{width: width, height:height * 0.91}}
-				source={{uri:'https://firebasestorage.googleapis.com/v0/b/jornadas2020.appspot.com/o/Sources%2Ftelebingo%20jpg.jpg?alt=media&token=f6b9100a-63f4-460b-8df5-42f3fca67b6d'}}>
-				<View style={{marginLeft: 10}}>
-					<TouchableOpacity
-						onPress={() => navigation.navigate("Home")}
-						style={styles.comeBack}
-					>
-						<Icon
-							raised
-							name="arrow-left"
-							type="font-awesome"
-							color="#03255F"
-						/>
-					</TouchableOpacity>
+				<HeaderView props={props} />
+				<View
+					style={{
+						width: width,
+						height,
+						height: height,
+						backgroundColor:"#A9B4C0"
+					}}
+				>
+					<Image
+					style={{ width: width, height: height * 0.80, borderRadius: 30,borderWidth: 1, borderColor: '#03255f', marginTop: 10 }}
+						source={{
+							uri:
+								"https://firebasestorage.googleapis.com/v0/b/jornadas2020.appspot.com/o/Sources%2Ftelebingo%20jpg.jpg?alt=media&token=f6b9100a-63f4-460b-8df5-42f3fca67b6d",
+						}}
+					/>
+					<View style={{ alignSelf: 'center' }}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Home")}
+							style={styles.comeBack}
+						>
+							<Icon
+								raised
+								name="arrow-left"
+								type="font-awesome"
+								color="#03255F"
+							/>
+						</TouchableOpacity>
+					</View>
 				</View>
-					</ImageBackground>
 				{/* <MainImage />
 				<Text style={[styles.titles, { margin: 15 }]}>Mis Bingos</Text>
 				<ScrollView>
@@ -137,23 +156,35 @@ export default function MisBingos(props) {
 		return (
 			<View style={styles.mainView}>
 				<HeaderView props={props} />
-				<ImageBackground
-				style={{width: width, height:height * 0.91}}
-				source={{uri:'https://firebasestorage.googleapis.com/v0/b/jornadas2020.appspot.com/o/Sources%2Ftelebingo%20jpg.jpg?alt=media&token=f6b9100a-63f4-460b-8df5-42f3fca67b6d'}}>
-				<View style={{marginLeft: 10}}>
-					<TouchableOpacity
-						onPress={() => navigation.navigate("Home")}
-						style={styles.comeBack}
-					>
-						<Icon
-							raised
-							name="arrow-left"
-							type="font-awesome"
-							color="#03255F"
-						/>
-					</TouchableOpacity>
+				<View
+					style={{
+						width: width,
+						height,
+						height: height,
+						backgroundColor:"#A9B4C0"
+					}}
+				>
+					<Image
+					style={{ width: width, height: height * 0.80, borderRadius: 30,borderWidth: 1, borderColor: '#03255f', marginTop: 10 }}
+						source={{
+							uri:
+								"https://firebasestorage.googleapis.com/v0/b/jornadas2020.appspot.com/o/Sources%2Ftelebingo%20jpg.jpg?alt=media&token=f6b9100a-63f4-460b-8df5-42f3fca67b6d",
+						}}
+					/>
+					<View style={{ alignSelf: 'center' }}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Home")}
+							style={styles.comeBack}
+						>
+							<Icon
+								raised
+								name="arrow-left"
+								type="font-awesome"
+								color="#03255F"
+							/>
+						</TouchableOpacity>
+					</View>
 				</View>
-					</ImageBackground>
 				{/* <MainImage />
 				<View style={{ alignItems: "center", marginTop: 30 }}>
 					<Text style={styles.form}>Mis Donaciones</Text>

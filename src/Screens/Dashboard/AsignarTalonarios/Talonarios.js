@@ -64,9 +64,9 @@ export default function talonarios() {
 								>
 									<Icon
 										type="FontAwesome5"
-										name="arrow-circle-right"
+										name="plus-circle"
 										size={50}
-										color="#34495E"
+										color="green"
 										style={styles.icon}
 									/>
 								</TouchableOpacity>

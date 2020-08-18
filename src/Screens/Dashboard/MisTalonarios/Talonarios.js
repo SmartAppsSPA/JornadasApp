@@ -71,7 +71,7 @@ export default function Alcancias() {
 										<Text style={[styles.textValue, { color: "red" }]}>No</Text>
 									</View>
 								)}
-								<TouchableOpacity
+									<TouchableOpacity
 									onPress={() =>
 										navigation.navigate("InformacionTalonario", {
 											content: talonario,
@@ -83,14 +83,32 @@ export default function Alcancias() {
 									key={i}
 									style={styles.backButton}
 								>
-									<Icon
-										type="FontAwesome5"
-										name="arrow-circle-right"
-										size={50}
-										color="#34495E"
-										style={styles.icon}
-									/>
+									{talonario.asignado_tercero === true ||
+									talonario.asignado_externo === true ? (
+										<Icon
+											type="FontAwesome5"
+											name={
+												talonario.recuperado === true
+													? "check-circle"
+													: "search"
+											}
+											size={50}
+											color={
+												talonario.recuperado === true
+													? "green"
+													: "#34495E"
+											}
+										/>
+									) : (
+										<Icon
+											type="FontAwesome5"
+											name="question-circle"
+											size={50}
+											color="red"
+										/>
+									)}
 								</TouchableOpacity>
+								
 							</View>
 						);
 					})}

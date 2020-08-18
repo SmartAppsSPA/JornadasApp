@@ -269,6 +269,7 @@ const styles = StyleSheet.create({
 		borderWidth:1,
 		borderColor: '#34495E',
 		backgroundColor: "#A9B4C0",
+		paddingVertical: 25,
 	},
 	submitContainer: {
 		flex: 1,
@@ -325,7 +326,7 @@ const styles = StyleSheet.create({
 	buttonFormReset: {
 		flexDirection: "row",
 		width: width * 0.50,
-		height: height * 0.03,
+		height: height * 0.04,
 		marginTop: 20,
 		backgroundColor: "#03255F",
 		alignItems: "center",
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
 	},
 	buttonPagar: {
 		width: width * 0.50,
-		height: height * 0.03,
+		height: height * 0.04,
 		backgroundColor: "green",
 		alignSelf: "center",
 		alignItems: "center",

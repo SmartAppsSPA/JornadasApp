@@ -11,7 +11,7 @@ import Header from "../../../components/Layouts/Header";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import firebase from "../../../../Firebase/Firebase";
 import Divider from "react-native-divider";
-import { sub } from "react-native-reanimated";
+import moment from 'moment';
 
 export default function InformacionAlcancia(props) {
 	const navigation = useNavigation();
@@ -32,6 +32,7 @@ export default function InformacionAlcancia(props) {
 				.child(`Users/${uid}/talonarios/${key}/`)
 				.update({
 					recuperado: true,
+					fecha_recuperacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 				});
 			firebase
 				.database()
@@ -39,6 +40,7 @@ export default function InformacionAlcancia(props) {
 				.child(`Talonarios/${indice_talonario}/`)
 				.update({
 					recuperado: true,
+					fecha_recuperacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 				});
 			setRecovered(true);
 			navigation.navigate("Talonarios");
@@ -56,6 +58,7 @@ export default function InformacionAlcancia(props) {
 				.update({
 					recuperado: false,
 					reset: true,
+					fecha_reinicio: moment().format("DD-MM-YYYY h:mm:ss a"),
 					asignado_tercero: false,
 					tercero: {
 						nombre: null,
@@ -72,6 +75,7 @@ export default function InformacionAlcancia(props) {
 				.update({
 					recuperado: false,
 					reset: true,
+					fecha_reinicio: moment().format("DD-MM-YYYY h:mm:ss a"),
 					asignado_tercero: true,
 					tercero: {
 						nombre: null,

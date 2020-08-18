@@ -16,6 +16,7 @@ import HeaderView from "../../components/Layouts/Header";
 import firebase from "../../../Firebase/Firebase";
 import usePreference from "../../Hooks/usePreferences";
 import CarouselHome from "../../components/Layouts/Carousel";
+import { Row } from "native-base";
 
 export default function HomeUser(props) {
 	const navigation = useNavigation();
@@ -26,7 +27,6 @@ export default function HomeUser(props) {
 		firebase.auth().signOut();
 		setUserFbData(null);
 	};
-
 
 	if (userFbData) {
 		return (
@@ -82,25 +82,14 @@ export default function HomeUser(props) {
 					</TouchableOpacity>
 					<TouchableOpacity
 						onPress={() => setModalVisible(true)}
-						style={{
-							width: width * 0.3,
-							height: height * 0.17,
-							alignItems: "center",
-							justifyContent: "center",
-							marginLeft: 5,
-							marginRight: 5,
-							shadowRadius: 1,
-		shadowOpacity: 1.5,
-		shadowOffset: {width: 5 , height: 5,},
-		shadowColor: '#616161'
-						}}
+						style={styles.buttonBlue}
 					>
 						<Image
 							source={require("../../../assets/Cruz_de_malta.png")}
 							style={{
 								resizeMode: "stretch",
-								height: 100,
-								width: 100,
+								width: width * 0.20,
+								height: height * 0.11,
 							}}
 						/>
 					</TouchableOpacity>
@@ -145,6 +134,13 @@ export default function HomeUser(props) {
 							{`\nCerrar\nSesión`}
 						</Text>
 					</TouchableOpacity>
+				</View>
+				<View style={styles.redesContainer}>
+					{/* <Text style={styles.titleRedes}>Nuestras Redes Sociales</Text> */}
+					<Icon name="facebook" size={35} color="#3b5998" style={styles.socialIcon} onPress={() => Linking.openURL("https://www.facebook.com/lasjornadas/")}/>
+					<Icon name="instagram" size={35} color="#c13584" style={styles.socialIcon} onPress={() => Linking.openURL("https://www.instagram.com/jornadasporlarehabilitacion/?hl=es")} />
+					<Icon name="twitter" size={35} color="#00acee" style={styles.socialIcon} onPress={() => Linking.openURL("https://twitter.com/lasjornadas?lang=es")} />
+					<Icon name="youtube" size={35} color="#c4302b" style={styles.socialIcon} onPress={() => Linking.openURL("https://www.youtube.com/user/lasjornadas")} />
 				</View>
 				<Modal
 					animationType="slide"
@@ -195,7 +191,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 10,
 		width: width,
-		height: height,
+		// height: height,
 	},
 	headerContainer: {
 		flex: 1,
@@ -203,74 +199,85 @@ const styles = StyleSheet.create({
 	carouselContainer: {
 		flex: 5,
 		zIndex: -2,
+		marginBottom: 10,
+	},
+	redesContainer:{
+		flexDirection: 'row',
+		justifyContent: 'center',
+	},
+	socialIcon:{
+		marginHorizontal: 10,
+		marginBottom: 10,
 	},
 	buttonsContainer1: {
-		flex: 2.50,
+		// flex: 2.1,
 		width: width,
 		alignSelf: "center",
 		flexDirection: "row",
 		justifyContent: "center",
 		backgroundColor: "#A9D0F5",
-		borderTopWidth: 1.25,
-		borderLeftWidth: 1.25,
-		borderRightWidth: 1.25,
+		borderTopWidth: 0.75,
+		borderLeftWidth: 0.75,
+		borderRightWidth: 0.75,
 		borderColor: "#34495E",
 		borderTopStartRadius: 30,
 		borderTopEndRadius: 30,
 	},
 	buttonsContainer2: {
-		flex: 2.50,
+		// flex: 2.1,
 		width: width,
 		alignSelf: "center",
 		flexDirection: "row",
 		justifyContent: "center",
 		backgroundColor: "#F5F6CE",
-		borderLeftWidth: 1.25,
-		borderRightWidth: 1.25,
+		borderLeftWidth: 1,
+		borderRightWidth: 1,
 		borderColor: "#34495E",
 	},
 	buttonsContainer3: {
-		flex: 2.50,
+		// flex: 2.1,
 		width: width,
 		alignSelf: "center",
 		flexDirection: "row",
 		justifyContent: "center",
 		backgroundColor: "#A9D0F5",
-		borderBottomWidth: 1.25,
-		borderLeftWidth: 1.25,
-		borderRightWidth: 1.25,
+		borderBottomWidth: 0.75,
+		borderLeftWidth: 0.75,
+		borderRightWidth: 0.75,
 		borderColor: "#34495E",
 		borderBottomStartRadius: 30,
 		borderBottomEndRadius: 30,
 		marginBottom: 20,
 	},
 	buttonBlue: {
-		marginTop: 6,
-		width: width * 0.290,
-		height: height *0.155,
+		width: width * 0.25,
+		height: height * 0.135,
 		borderRadius: 10,
 		backgroundColor: "#03255F",
 		alignItems: "center",
 		justifyContent: "center",
-		margin: 4,
+		marginVertical: 12,
+		marginHorizontal:6,
 		shadowRadius: 1,
-		shadowOpacity: 1.5,
-		shadowOffset: {width: 5 , height: 5,},
-		shadowColor: '#616161'
+		shadowOpacity: 2,
+		shadowOffset: { width: -5, height: -3 },
+		shadowColor: "#696969",
+		elevation: 6,
 	},
 	buttonYellow: {
-		marginTop: 6,
-		width: width * 0.290,
-		height: height *0.155,
+		width: width * 0.25,
+		height: height * 0.135,
 		borderRadius: 10,
 		backgroundColor: "#F5C300",
 		alignItems: "center",
 		justifyContent: "center",
-		margin: 4,
-		shadowRadius: 1,
-		shadowOpacity: 1.5,
-		shadowOffset: {width: 5 , height: 5,},
-		shadowColor: '#616161'
+		marginVertical: 12,
+		marginHorizontal:6,
+		shadowRadius: 2,
+		shadowOpacity: 2,
+		shadowOffset: { width: -5, height: -3 },
+		shadowColor: "#616161",
+		elevation: 6,
 	},
 	textBlue: {
 		fontSize: 13,

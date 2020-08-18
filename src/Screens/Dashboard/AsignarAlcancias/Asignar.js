@@ -14,6 +14,7 @@ import firebase from "../../../../Firebase/Firebase";
 import { Input } from "react-native-elements";
 import Loading from "../../../Utils/Loading";
 import Toast from "react-native-easy-toast";
+import moment from 'moment';
 
 export default function InformacionAlcancia(props) {
 	const toastRef = useRef();
@@ -53,6 +54,7 @@ export default function InformacionAlcancia(props) {
 				.update({
 					reset: false,
 					asignada_tercero: true,
+					fecha_asignacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 					tercero: {
 						nombre: nombre,
 						correo: correo,
@@ -68,6 +70,7 @@ export default function InformacionAlcancia(props) {
 				.update({
 					reset: false,
 					asignada_tercero: true,
+					fecha_asignacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 					tercero: {
 						nombre: nombre,
 						correo: correo,

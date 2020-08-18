@@ -24,23 +24,23 @@ export default function PrincipalScreen(props) {
 
 	const login = () => {
 		let errors = {};
-		if (!formData.email || !formData.password) {
+		if (!formData.email.trim() || !formData.password) {
 			if (!formData.password) errors.password = true;
 			toastRef.current.show(
 				"Debe Completar todos los campos para iniciar sesión"
 			);
-			if (!formData.email) errors.email = true;
+			if (!formData.email.trim()) errors.email = true;
 			toastRef.current.show(
 				"Debe Completar todos los campos para iniciar sesión"
 			);
-		} else if (!validateEmail(formData.email)) {
+		} else if (!validateEmail(formData.email.trim())) {
 			errors.email = true;
 			toastRef.current.show("Correo electrónico incorrecto.");
 		} else {
 			setLoading(true);
 			firebase
 				.auth()
-				.signInWithEmailAndPassword(formData.email, formData.password)
+				.signInWithEmailAndPassword(formData.email.trim(), formData.password)
 				.then(() => {
 					setLoading(false);
 					console.log("OK");

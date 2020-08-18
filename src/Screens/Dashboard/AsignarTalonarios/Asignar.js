@@ -14,6 +14,7 @@ import firebase from "../../../../Firebase/Firebase";
 import { Input } from "react-native-elements";
 import Loading from "../../../Utils/Loading";
 import Toast from "react-native-easy-toast";
+import moment from 'moment';
 
 export default function Asignar(props) {
 	const toastRef = useRef();
@@ -21,6 +22,7 @@ export default function Asignar(props) {
 	const [loading, setLoading] = useState(false);
 	const content = props.route.params.content;
 	const uid = props.route.params.uid;
+	const key = props.route.params.key;
 	const [errorForm, setErrorForm] = useState(false);
 	const [nombre, setNombre] = useState("");
 	const [correo, setCorreo] = useState("");
@@ -53,6 +55,7 @@ export default function Asignar(props) {
 					reset: false,
 					recuperado: false,
 					asignado_tercero: true,
+					fecha_asignacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 					tercero: {
 						nombre: nombre,
 						correo: correo,
@@ -69,6 +72,7 @@ export default function Asignar(props) {
 					reset: false,
 					recuperado: false,
 					asignado_tercero: true,
+					fecha_asignacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 					tercero: {
 						nombre: nombre,
 						correo: correo,

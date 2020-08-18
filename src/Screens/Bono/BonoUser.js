@@ -29,6 +29,7 @@ export default function BonoUser(props) {
 	const [nombre, setNombre] = useState(userFbData.nombre);
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [email, setEmail] = useState(userFbData.email);
+	const [telefono, setTelefono] = useState(userFbData.telefono);
 	const [transbank, setTransbank] = useState(null);
 	const [numeroOrden, setNumeroOrden] = useState();
 	const precio = 500;
@@ -49,11 +50,12 @@ export default function BonoUser(props) {
 	const comprar = () => {
 		let orderToArray = [];
 		let errors = {};
-		if (!nombre || !apellido || !email) {
+		if (!nombre || !apellido || !email || !telefono) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
 			if (!nombre) errors.nombre = true;
 			if (!apellido) errors.apellido = true;
 			if (!email) errors.email = true;
+			if (!telefono) errors.telefono = true;
 		} else if (!validateEmail(email)) {
 			toastRef.current.show("Correo electrónico incorrecto.");
 			errors.email = true;
@@ -84,6 +86,7 @@ export default function BonoUser(props) {
 						precio: precioTotal,
 						nombre: nombre,
 						apellido: apellido,
+						telefono: telefono,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden: key,
 						estado_de_pago: "Pendiente",
@@ -99,6 +102,7 @@ export default function BonoUser(props) {
 						nombre: nombre,
 						apellido: apellido,
 						email: email,
+						telefono: telefono,
 						cantidad: cantidad,
 						numero_orden: key,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
@@ -116,6 +120,7 @@ export default function BonoUser(props) {
 						nombre: nombre,
 						apellido: apellido,
 						email: email,
+						telefono: telefono,
 						cantidad: cantidad,
 						numero_orden: key,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
@@ -137,7 +142,8 @@ export default function BonoUser(props) {
 								cantidad: cantidad,
 								nombre: nombre,
 								apellido: apellido,
-								email: userFbData.email,
+								email: email,
+								telefono: telefono,
 							},
 						}).then((response) => {
 							setTransbank(response.data);
@@ -166,6 +172,7 @@ export default function BonoUser(props) {
 		setNombre(userFbData.nombre);
 		setApellido(userFbData.apellido);
 		setEmail(userFbData.email);
+		setTelefono(userFbData.telefono);
 	};
 
 	if (userFbData) {
@@ -262,6 +269,30 @@ export default function BonoUser(props) {
 						}
 						onChange={(e) => setEmail(e.nativeEvent.text)}
 					/>
+					<Text style={styles.inputTitle}>Teléfono de Contacto</Text>
+				<Input
+					name="telefono"
+					containerStyle={styles.input}
+					inputStyle={styles.inputText}
+					inputContainerStyle={styles.inputUnderContainer}
+					autoCapitalize='none'
+					placeholder="+56 9 1111 1111..."
+					defaultValue={telefono}
+					keyboardType="phone-pad"
+					keyboardAppearance="dark"
+					onChange={(e) => setTelefono(e.nativeEvent.text)}
+					rightIcon={
+						formError.telefono ? (
+							<Icon type="font-awesome" name="exclamation-circle" color="red" />
+						) : (
+							<Icon
+								type="Fontawesome5"
+								name="edit"
+								iconStyle={styles.iconRight}
+							/>
+						)
+					}
+				/>
 				</View>
 				<TouchableOpacity
 					onPress={() => handleReset()}
@@ -348,6 +379,7 @@ const styles = StyleSheet.create({
 		borderWidth:1,
 		borderColor: '#34495E',
 		backgroundColor: "#A9B4C0",
+		paddingVertical: 25,
 	},
 	quantityContainer: {
 		flex: 2,

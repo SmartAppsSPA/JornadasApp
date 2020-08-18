@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
 	},
 	detailBox: {
 		width: width * 0.95,
-		height: height * 0.1,
+		height: height * 0.2,
 		marginVertical: 10,
 	},
 	//sin Donaciones

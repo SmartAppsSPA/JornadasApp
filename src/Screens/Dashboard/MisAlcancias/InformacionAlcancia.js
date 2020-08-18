@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { numberFormat } from "../../../Sources/PagoEnLinea/FormatPrice";
 import firebase from "../../../../Firebase/Firebase";
 import Divider from "react-native-divider";
+import moment from 'moment';
 
 export default function InformacionAlcancia(props) {
 	const navigation = useNavigation();
@@ -27,9 +28,11 @@ export default function InformacionAlcancia(props) {
 		if (recovered === false) {
 			firebase.database().ref().child(`Users/${uid}/alcancias/${key}/`).update({
 				recuperada: true,
+				fecha_recuperacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 			});
 			firebase.database().ref().child(`Alcancias/${indice_alcancia}/`).update({
 				recuperada: true,
+				fecha_recuperacion: moment().format("DD-MM-YYYY h:mm:ss a"),
 			});
 			setRecovered(true);
 			navigation.navigate("Alcancias");
@@ -47,6 +50,7 @@ export default function InformacionAlcancia(props) {
 				.update({
 					recuperada: false,
 					reset: true,
+					fecha_reinicio: moment().format("DD-MM-YYYY h:mm:ss a"),
 					asignada_tercero: false,
 					tercero: {
 						nombre: null,
@@ -63,6 +67,7 @@ export default function InformacionAlcancia(props) {
 				.update({
 					recuperada: false,
 					reset: true,
+					fecha_reinicio: moment().format("DD-MM-YYYY h:mm:ss a"),
 					asignada_tercero: true,
 					tercero: {
 						nombre: null,

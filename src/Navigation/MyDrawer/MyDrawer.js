@@ -33,7 +33,7 @@ function DrawerMenu(props) {
 		<TouchableOpacity onPress={props.navigation} {...props}>
 			<View style={styles.menuContainer}>
 				<View style={styles.iconoContainer}>
-					<Icon size={25} name={props.iconName} style={{ color: "#03255F" }} />
+					<Icon size={22.5} name={props.iconName} style={{ color: "#03255F" }} />
 				</View>
 				<View style={styles.tituloContainer}>
 					<Text style={styles.tituloTxt}>{props.titleName}</Text>
@@ -71,7 +71,7 @@ function Menu(props) {
 					/>
 					<DrawerMenu
 						iconName="donate"
-						titleName="Alcancia Digital"
+						titleName="Alcancía Digital"
 						navigation={() => props.navigation.navigate("Donar")}
 					/>
 					<DrawerMenu
@@ -82,7 +82,7 @@ function Menu(props) {
 					{userFbData.tipo === "User" ? (
 						<DrawerMenu
 							iconName="edit"
-							titleName="Comprar Bono"
+							titleName="Bono Sorteo"
 							navigation={() => props.navigation.navigate("Bono")}
 						/>
 					) : null}
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
 	  menuContainer: {
 		flexDirection: "row",
 		justifyContent: "center",
-		marginLeft: 15,
+		marginLeft: 10,
 		marginVertical: 12,
 		width: 200,
 	  },
@@ -216,13 +216,13 @@ const styles = StyleSheet.create({
 	  iconoContainer: {
 		flex: 1.5,
 		justifyContent: "center",
-		marginLeft: 10,
+		marginLeft: 2,
 	  },
 	
 	  tituloContainer: {
 		flex: 8.5,
 		justifyContent: "center",
-		marginLeft: 20,
+		marginLeft: 12.5,
 	  },
 	
 	  tituloTxt: {

@@ -4,7 +4,6 @@ import { View, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import HeaderView from "../../components/Layouts/Header";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function PagoAporte(props) {
 	const navigation = useNavigation();
@@ -21,13 +20,13 @@ export default function PagoAporte(props) {
 
 	if (transbank === null) {
 		return (
-			<KeyboardAwareScrollView>
+			<SafeAreaView style={styles.mainView}>
 				<HeaderView props={props} />
 				<WebView
 					source={{ uri: "https://appjornadasmagallanicas.cl/api/api/retorno" }}
 					onNavigationStateChange={handleWebViewNavigationStateChange}
 				/>
-			</KeyboardAwareScrollView>
+			</SafeAreaView>
 		);
 	} else {
 		return (
