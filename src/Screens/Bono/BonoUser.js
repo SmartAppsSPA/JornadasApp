@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	SafeAreaView,
 	View,
@@ -35,6 +35,18 @@ export default function BonoUser(props) {
 	const precio = 500;
 	const precioTotal = precio * cantidad;
 
+	useEffect(() => {
+		firebase
+			.database()
+			.ref("Transbank")
+			.orderByChild("numero_orden")
+			.limitToLast(1)
+			.on("value", (snapshot) => {
+				setNumeroOrden(snapshot.val());
+				console.log(numeroOrden);
+			});
+	}, []);
+
 	const handleCantidad = (cantidad, max) => {
 		if (cantidad >= 1) {
 			setCantidad(cantidad);
@@ -50,13 +62,13 @@ export default function BonoUser(props) {
 	const comprar = () => {
 		let orderToArray = [];
 		let errors = {};
-		if (!nombre || !apellido || !email || !telefono) {
+		if (!nombre || !apellido || !email.trim() || !telefono) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
 			if (!nombre) errors.nombre = true;
 			if (!apellido) errors.apellido = true;
-			if (!email) errors.email = true;
+			if (!email.trim()) errors.email = true;
 			if (!telefono) errors.telefono = true;
-		} else if (!validateEmail(email)) {
+		} else if (!validateEmail(email.trim())) {
 			toastRef.current.show("Correo electrónico incorrecto.");
 			errors.email = true;
 		} else {
@@ -82,16 +94,19 @@ export default function BonoUser(props) {
 					.child(`Transbank/orden_${key}`)
 					.set({
 						item: "Bono",
+						cantidad: cantidad,
 						Tipo: "Usuario",
 						precio: precioTotal,
 						nombre: nombre,
 						apellido: apellido,
 						telefono: telefono,
+						email: email,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden: key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "",
+						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
+						plataforma: "App",
 					});
 				firebase
 					.database()
@@ -110,8 +125,8 @@ export default function BonoUser(props) {
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
-					})
-					firebase
+					});
+				firebase
 					.database()
 					.ref()
 					.child(`Bono_digital/${key}/`)
@@ -144,11 +159,12 @@ export default function BonoUser(props) {
 								apellido: apellido,
 								email: email,
 								telefono: telefono,
+								plataforma: "App",
 							},
 						}).then((response) => {
 							setTransbank(response.data);
 							console.log(transbank);
-							navigation.navigate("Pago Aporte", { transbank: response.data });
+							navigation.navigate("Pago Bono", { transbank: response.data });
 						});
 						handleReset();
 						setLoading(false);
@@ -194,7 +210,7 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
-						autoCapitalize='none'
+						autoCapitalize="none"
 						textContentType="name"
 						placeholder="Fran... "
 						defaultValue={nombre}
@@ -221,7 +237,7 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
-						autoCapitalize='none'
+						autoCapitalize="none"
 						textContentType="middleName"
 						placeholder="Zun... "
 						defaultValue={apellido}
@@ -249,7 +265,7 @@ export default function BonoUser(props) {
 						containerStyle={styles.input}
 						inputStyle={styles.inputText}
 						inputContainerStyle={styles.inputUnderContainer}
-						autoCapitalize='none'
+						autoCapitalize="none"
 						placeholder="ejemplo@gmail.com"
 						defaultValue={email}
 						rightIcon={
@@ -270,29 +286,33 @@ export default function BonoUser(props) {
 						onChange={(e) => setEmail(e.nativeEvent.text)}
 					/>
 					<Text style={styles.inputTitle}>Teléfono de Contacto</Text>
-				<Input
-					name="telefono"
-					containerStyle={styles.input}
-					inputStyle={styles.inputText}
-					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
-					placeholder="+56 9 1111 1111..."
-					defaultValue={telefono}
-					keyboardType="phone-pad"
-					keyboardAppearance="dark"
-					onChange={(e) => setTelefono(e.nativeEvent.text)}
-					rightIcon={
-						formError.telefono ? (
-							<Icon type="font-awesome" name="exclamation-circle" color="red" />
-						) : (
-							<Icon
-								type="Fontawesome5"
-								name="edit"
-								iconStyle={styles.iconRight}
-							/>
-						)
-					}
-				/>
+					<Input
+						name="telefono"
+						containerStyle={styles.input}
+						inputStyle={styles.inputText}
+						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize="none"
+						placeholder="+56 9 1111 1111..."
+						defaultValue={telefono}
+						keyboardType="phone-pad"
+						keyboardAppearance="dark"
+						onChange={(e) => setTelefono(e.nativeEvent.text)}
+						rightIcon={
+							formError.telefono ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="Fontawesome5"
+									name="edit"
+									iconStyle={styles.iconRight}
+								/>
+							)
+						}
+					/>
 				</View>
 				<TouchableOpacity
 					onPress={() => handleReset()}
@@ -313,7 +333,7 @@ export default function BonoUser(props) {
 							/>
 						</TouchableOpacity>
 						<Text style={styles.numero}>{cantidad}</Text>
-						<TouchableOpacity onPress={() => handleCantidad(cantidad + 1)} >
+						<TouchableOpacity onPress={() => handleCantidad(cantidad + 1)}>
 							<Icon
 								type="material-community"
 								name="plus-circle"
@@ -375,18 +395,18 @@ const styles = StyleSheet.create({
 		flex: 5,
 		width: width,
 		alignItems: "center",
-		borderRadius:20,
-		borderWidth:1,
-		borderColor: '#34495E',
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: "#34495E",
 		backgroundColor: "#A9B4C0",
 		paddingVertical: 25,
 	},
 	quantityContainer: {
 		flex: 2,
 		backgroundColor: "#A9B4C0",
-		borderRadius:20,
-		borderWidth:1,
-		borderColor: '#34495E',
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: "#34495E",
 	},
 	submitContainer: {
 		flex: 1,
@@ -419,12 +439,12 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		width: width * 0.75,
-		height: height *0.05,
+		height: height * 0.05,
 		backgroundColor: "#FFF",
 		margin: 8,
 		borderRadius: 30,
-		borderWidth:1,
-		borderColor: '#34495E',
+		borderWidth: 1,
+		borderColor: "#34495E",
 	},
 	inputText: {
 		fontSize: 12,
@@ -445,12 +465,12 @@ const styles = StyleSheet.create({
 	plus: {
 		alignItems: "center",
 		justifyContent: "center",
-		color: '#03255f',
+		color: "#03255f",
 	},
 	less: {
 		alignItems: "center",
 		justifyContent: "center",
-		color: '#03255f',
+		color: "#03255f",
 	},
 	numero: {
 		width: 75,
@@ -463,11 +483,11 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderRadius: 20,
 		borderWidth: 1,
-		backgroundColor: '#ffffff',
-		overflow: 'hidden',
+		backgroundColor: "#ffffff",
+		overflow: "hidden",
 	},
 	buttonReset: {
-		width: width * 0.50,
+		width: width * 0.5,
 		height: 25,
 		marginBottom: 10,
 		backgroundColor: "#03255F",
@@ -484,7 +504,7 @@ const styles = StyleSheet.create({
 	},
 	buttonFormReset: {
 		flexDirection: "row",
-		width: width * 0.50,
+		width: width * 0.5,
 		height: 25,
 		marginVertical: 10,
 		backgroundColor: "#03255F",
@@ -504,7 +524,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	buttonPagar: {
-		width: width * 0.50,
+		width: width * 0.5,
 		height: height * 0.03,
 		backgroundColor: "green",
 		alignSelf: "center",

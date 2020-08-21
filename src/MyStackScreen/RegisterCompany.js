@@ -24,27 +24,27 @@ export default function Register(props) {
 			isEmpty(formCompanyData.nombreCom) ||
 			isEmpty(formCompanyData.representante) ||
 			isEmpty(formCompanyData.rutEmpresa) ||
-			isEmpty(formCompanyData.email) ||
+			isEmpty(formCompanyData.email.trim()) ||
 			isEmpty(formCompanyData.telefono) ||
-			isEmpty(formCompanyData.password) ||
-			isEmpty(formCompanyData.repeatPassword)
+			isEmpty(formCompanyData.password.trim()) ||
+			isEmpty(formCompanyData.repeatPassword.trim())
 		) {
 			toastRef.current.show("Todos los campos son obligatorios.");
 			if (isEmpty(formCompanyData.nombreCom)) errors.nombreCom = true;
 			if (isEmpty(formCompanyData.representante)) errors.representante = true;
 			if (isEmpty(formCompanyData.rutEmpresa)) errors.rutEmpresa = true;
-			if (isEmpty(formCompanyData.email)) errors.email = true;
+			if (isEmpty(formCompanyData.email.trim())) errors.email = true;
 			if (isEmpty(formCompanyData.telefono)) errors.telefono = true;
-			if (isEmpty(formCompanyData.password)) errors.password = true;
-			if (isEmpty(formCompanyData.repeatPassword)) errors.repeatPassword = true;
-		} else if (!validateEmail(formCompanyData.email)) {
+			if (isEmpty(formCompanyData.password.trim())) errors.password = true;
+			if (isEmpty(formCompanyData.repeatPassword.trim())) errors.repeatPassword = true;
+		} else if (!validateEmail(formCompanyData.email.trim())) {
 			toastRef.current.show("El email ingresado no es correcto.");
 			errors.email = true;
-		} else if (formCompanyData.password !== formCompanyData.repeatPassword) {
+		} else if (formCompanyData.password.trim() !== formCompanyData.repeatPassword.trim()) {
 			toastRef.current.show("Las contraseñas no coinciden.");
 			errors.password = true;
 			errors.repeatPassword = true;
-		} else if (size(formCompanyData.password) < 6) {
+		} else if (size(formCompanyData.password.trim()) < 6) {
 			toastRef.current.show(
 				"La contraseña debe tener un minimo de 6 caracteres"
 			);
@@ -75,8 +75,8 @@ export default function Register(props) {
 							representante: formCompanyData.representante,
 							rutEmpresa: formCompanyData.rutEmpresa,
 							telefono: formCompanyData.telefono,
-							email: formCompanyData.email,
-							password: formCompanyData.password,
+							email: formCompanyData.email.trim(),
+							password: formCompanyData.password.trim(),
 						});
 				})
 				.catch(() => {

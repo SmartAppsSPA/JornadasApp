@@ -16,17 +16,14 @@ export default (props) => {
                 }}
             />
             <Text style={styles.exito}>
-                Su aporte de $5000 CLP.
+            Su compra por $5000 CLP. 
             </Text>
             <Text style={styles.exito}>
-                ha sido recibido con exito
+             no se ha podido llevar a cabo.
             </Text>
-            <FontAwesome name='check-square' size={50} color='green' />
+            <FontAwesome name='times-circle' size={50} color='red' />
             <Text style={styles.exito}>
-                Gracias por colaborar con
-            </Text>
-            <Text style={styles.exito}>
-                esta noble causa.
+            Por favor intenta nuevamente, gracias.
             </Text>
             <TouchableHighlight onPress={() => navigation.navigate('Home')} style={styles.button}><Text style={styles.textButton}>Volver al Inicio</Text></TouchableHighlight>
             <Text style={styles.smartApps}>

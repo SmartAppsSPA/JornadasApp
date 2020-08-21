@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	Text,
@@ -28,6 +28,18 @@ export default function DonarUser(props) {
 	const [aporte, setAporte] = useState();
 	const [transbank, setTransbank] = useState(null);
 	const [numeroOrden, setNumeroOrden] = useState();
+
+	useEffect(() => {
+        firebase
+			.database()
+			.ref("Transbank")
+			.orderByChild("numero_orden")
+			.limitToLast(1)
+			.on("value", (snapshot) => {
+                setNumeroOrden(snapshot.val());
+                console.log(numeroOrden);
+			});
+    }, [])
 
 	function submit() {
 		let orderToArray = [];
@@ -69,6 +81,8 @@ export default function DonarUser(props) {
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
+						plataforma: 'App',
+						email: userFbData.email,
 					});
 				firebase
 					.database()
@@ -83,6 +97,7 @@ export default function DonarUser(props) {
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
+						email: userFbData.email,
 					});
 
 				firebase
@@ -98,6 +113,7 @@ export default function DonarUser(props) {
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
+						email: userFbData.email,
 					})
 					.then((res) => {
 						axios({
@@ -113,6 +129,7 @@ export default function DonarUser(props) {
 								nombre: nombre,
 								apellido: apellido,
 								email: userFbData.email,
+								plataforma: 'App',
 							},
 						}).then((response) => {
 							setTransbank(response.data);

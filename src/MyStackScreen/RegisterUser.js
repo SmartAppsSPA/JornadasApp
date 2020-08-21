@@ -28,26 +28,26 @@ export default function Register(props) {
 		if (
 			isEmpty(formUserData.nombre) ||
 			isEmpty(formUserData.apellido) ||
-			isEmpty(formUserData.email) ||
+			isEmpty(formUserData.email.trim()) ||
 			isEmpty(formUserData.telefono) ||
-			isEmpty(formUserData.password) ||
-			isEmpty(formUserData.repeatPassword)
+			isEmpty(formUserData.password.trim()) ||
+			isEmpty(formUserData.repeatPassword.trim())
 		) {
 			toastRef.current.show("Todos los campos son obligatorios.");
 			if (isEmpty(formUserData.nombre)) errors.nombre = true;
 			if (isEmpty(formUserData.apellido)) errors.apellido = true;
-			if (isEmpty(formUserData.email)) errors.email = true;
+			if (isEmpty(formUserData.email.trim())) errors.email = true;
 			if (isEmpty(formUserData.telefono)) errors.telefono = true;
 			if (isEmpty(formUserData.password)) errors.password = true;
 			if (isEmpty(formUserData.repeatPassword)) errors.repeatPassword = true;
-		} else if (!validateEmail(formUserData.email)) {
+		} else if (!validateEmail(formUserData.email.trim())) {
 			toastRef.current.show("El email ingresado no es correcto.");
 			errors.email = true;
-		} else if (formUserData.password !== formUserData.repeatPassword) {
+		} else if (formUserData.password.trim() !== formUserData.repeatPassword.trim()) {
 			toastRef.current.show("Las contraseñas no coinciden.");
 			errors.password = true;
 			errors.repeatPassword = true;
-		} else if (size(formUserData.password) < 6) {
+		} else if (size(formUserData.password.trim()) < 6) {
 			toastRef.current.show(
 				"La contraseña debe tener un minimo de 6 caracteres"
 			);
@@ -76,9 +76,9 @@ export default function Register(props) {
 							tipo: "User",
 							nombre: formUserData.nombre,
 							apellido: formUserData.apellido,
-							email: formUserData.email,
+							email: formUserData.email.trim(),
 							telefono: formUserData.telefono,
-							password: formUserData.password,
+							password: formUserData.password.trim(),
 						});
 				})
 				.catch((err) => {

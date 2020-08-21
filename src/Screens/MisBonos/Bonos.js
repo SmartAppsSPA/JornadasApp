@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
 	imageContainer: {
 		flex: 3,
 		marginTop: 6,
+		zIndex: -1,
 	},
 	titleContainer: {
 		flex: 0.4,
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
 	infoView: {
 		paddingVertical: 2.5,
 		paddingHorizontal: 2.5,
-		marginVertical: 10,
+		marginVertical: 5,
 		backgroundColor: "#fff",
 		borderWidth: 0.05,
 		borderRadius: 10,
@@ -196,13 +197,14 @@ const styles = StyleSheet.create({
 	textKey: {
 		marginLeft: 2,
 		flex: 1,
-		fontSize: 15,
+		fontSize: 12.5,
 		fontWeight: "bold",
 		color: "#03255f",
+		marginLeft: 10,
 	},
 	textValue: {
-		flex: 4,
-		fontSize: 12.5,
+		flex: 3,
+		fontSize: 10,
 		fontWeight: "700",
 		color: "#696969",
 	},
@@ -228,8 +230,8 @@ const styles = StyleSheet.create({
 	},
 	detailBox: {
 		width: width * 0.95,
-		height: height * 0.2,
-		marginVertical: 10,
+		height: height * 0.12,
+		marginVertical: 0,
 	},
 	//sin Donaciones
 	container2: {

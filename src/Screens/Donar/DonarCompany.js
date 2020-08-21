@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	Text,
@@ -22,7 +22,7 @@ export default function DonarCompany(props) {
 	const { toastRef } = props;
 	const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
-	const { userFbData } = usePreference();
+	const { userFbData} = usePreference();
 	const [formError, setFormError] = useState({});
 	const [email, setEmail] = useState(userFbData.email);
 	const [telefono, setTelefono] = useState(userFbData.telefono);
@@ -32,16 +32,28 @@ export default function DonarCompany(props) {
 	const [transbank, setTransbank] = useState(null);
 	const [numeroOrden, setNumeroOrden] = useState();
 
+	useEffect(() => {
+		firebase
+			.database()
+			.ref("Transbank")
+			.orderByChild("numero_orden")
+			.limitToLast(1)
+			.on("value", (snapshot) => {
+				setNumeroOrden(snapshot.val());
+				console.log(numeroOrden);
+			});
+	}, []);
+
 	const submit = () => {
 		let orderToArray = [];
 		let errors = [];
-		if (!aporte || !email || !telefono || !representante) {
+		if (!aporte || !email.trim() || !telefono || !representante) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
 			if (!aporte) errors.aporte = true;
-			if (!email) errors.email = true;
+			if (!email.trim()) errors.email = true;
 			if (!telefono) errors.telefono = true;
 			if (!representante) errors.representante = true;
-		} else if (!validateEmail(email)) {
+		} else if (!validateEmail(email.trim())) {
 			toastRef.current.show("Correo electrónico incorrecto.");
 			errors.email = true;
 		} else {
@@ -78,6 +90,7 @@ export default function DonarCompany(props) {
 						forma_de_pago: "",
 						uid: userFbData.uid,
 						certificado: checked,
+						plataforma: "App",
 					});
 				firebase
 					.database()
@@ -129,6 +142,7 @@ export default function DonarCompany(props) {
 								nombre: representante,
 								apellido: representante,
 								email: userFbData.email,
+								plataforma: "App",
 							},
 						}).then((response) => {
 							setTransbank(response.data);
@@ -167,7 +181,7 @@ export default function DonarCompany(props) {
 				<HeaderView props={props} />
 			</View>
 			<View style={styles.imageContainer}>
-				<AlcanciaImage/>
+				<AlcanciaImage />
 			</View>
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Aporte Empresa</Text>
@@ -179,7 +193,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
+					autoCapitalize="none"
 					placeholder="ejemplo@empresa.com..."
 					defaultValue={email}
 					onChange={(e) => setEmail(e.nativeEvent.text)}
@@ -201,7 +215,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
+					autoCapitalize="none"
 					placeholder="+56 9 1111 1111..."
 					defaultValue={telefono}
 					keyboardType="phone-pad"
@@ -225,7 +239,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
+					autoCapitalize="none"
 					textContentType="nickname"
 					placeholder="fran.. zun..."
 					defaultValue={representante}
@@ -248,7 +262,7 @@ export default function DonarCompany(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
+					autoCapitalize="none"
 					placeholder="Ingrese su Aporte..."
 					keyboardType="numeric"
 					defaultValue={aporte}
@@ -315,9 +329,9 @@ const styles = StyleSheet.create({
 		flex: 5,
 		width: width,
 		alignItems: "center",
-		borderRadius:20,
-		borderWidth:1,
-		borderColor: '#34495E',
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: "#34495E",
 		backgroundColor: "#A9B4C0",
 		paddingVertical: 25,
 	},
@@ -343,12 +357,12 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		width: width * 0.75,
-		height: height *0.05,
+		height: height * 0.05,
 		backgroundColor: "#FFF",
 		margin: 8,
 		borderRadius: 30,
-		borderWidth:1,
-		borderColor: '#34495E',
+		borderWidth: 1,
+		borderColor: "#34495E",
 	},
 	inputText: {
 		fontSize: 12,
@@ -375,7 +389,7 @@ const styles = StyleSheet.create({
 	},
 	buttonFormReset: {
 		flexDirection: "row",
-		width: width * 0.50,
+		width: width * 0.5,
 		height: height * 0.04,
 		marginTop: 20,
 		backgroundColor: "#03255F",
@@ -391,7 +405,7 @@ const styles = StyleSheet.create({
 		marginTop: -3,
 	},
 	buttonPagar: {
-		width: width * 0.50,
+		width: width * 0.5,
 		height: height * 0.04,
 		backgroundColor: "green",
 		alignSelf: "center",

@@ -16,10 +16,10 @@ export default (props) => {
                 }}
             />
             <Text style={styles.exito}>
-                Su aporte de $5000 CLP.
+                Su compra por $5000 CLP.
             </Text>
             <Text style={styles.exito}>
-                ha sido recibido con exito
+                ha sido procesada con exito
             </Text>
             <FontAwesome name='check-square' size={50} color='green' />
             <Text style={styles.exito}>

@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
 	imageContainer: {
 		flex: 3,
 		marginTop: 6,
+		zIndex: -1,
 	},
 	titleContainer: {
 		flex: 0.4,
@@ -192,13 +193,14 @@ const styles = StyleSheet.create({
 	textKey: {
 		marginLeft: 2,
 		flex: 1,
-		fontSize: 15,
+		fontSize: 12.5,
 		fontWeight: "bold",
 		color: "#03255f",
+		marginLeft: 10,
 	},
 	textValue: {
-		flex: 4,
-		fontSize: 12.5,
+		flex: 3,
+		fontSize: 10,
 		fontWeight: "700",
 		color: "#696969",
 	},
@@ -208,7 +210,6 @@ const styles = StyleSheet.create({
 		height: 55,
 		borderRadius: 25,
 		marginLeft: 300,
-		marginTop: 8,
 		position: "absolute",
 	},
 	backButton: {
@@ -224,7 +225,7 @@ const styles = StyleSheet.create({
 	},
 	detailBox: {
 		width: width * 0.95,
-		height: height * 0.1,
+		height: height * 0.07,
 		marginVertical: 10,
 	},
 	//sin Donaciones

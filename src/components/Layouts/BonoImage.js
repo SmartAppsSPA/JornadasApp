@@ -28,9 +28,10 @@ const styles = StyleSheet.create({
 		backgroundColor: "#696969",
 		borderBottomEndRadius: 30,
 		borderBottomStartRadius: 30,
-		overflow: "hidden",
 		borderWidth: 1,
 		borderColor: "#34495E",
+		overflow: "hidden",
+		marginTop:3,
 	},
 	imageWrapper: {},
 	image: {

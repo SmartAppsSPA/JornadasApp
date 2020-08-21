@@ -26,7 +26,11 @@ import firebase from "../../../Firebase/Firebase";
 import Dashboard from "../../Screens/Dashboard/Dashboard";
 import MisBingos from "../../Screens/MisBingos/MisBingos";
 import PagoAporte from "../../Sources/PagoEnLinea/PagoAporte";
-
+import PagoBono from '../../Sources/PagoEnLinea/PagoBono';
+import Exito from '../../Sources/PagoEnLinea/Exito';
+import Fallo from "../../Sources/PagoEnLinea/Fallo";
+import ExitoBono from "../../Sources/PagoEnLinea/ExitoBono";
+import FalloBono from "../../Sources/PagoEnLinea/FalloBono";
 
 function DrawerMenu(props) {
 	return (
@@ -151,7 +155,13 @@ function MyDrawer(props) {
 				<Drawer.Screen name="Panel De Control" component={Dashboard} />
 				<Drawer.Screen name="Perfil" component={PerfilScreen} />
 				<Drawer.Screen name='Pago Aporte' component={PagoAporte}/>
-				{/* <Drawer.Screen name="Cerrar Sesión" component={Logout} /> */}
+				<Drawer.Screen name='Pago Bono' component={PagoBono}/>
+				<Drawer.Screen name="Exito" component={Exito}/> 
+				<Drawer.Screen name="Fallo" component={Fallo}/> 
+				<Drawer.Screen name="Exito Bono" component={ExitoBono}/> 
+				<Drawer.Screen name="Fallo Bono" component={FalloBono}/> 
+
+				
 			</Drawer.Navigator>
 		</NavigationContainer>
 	);

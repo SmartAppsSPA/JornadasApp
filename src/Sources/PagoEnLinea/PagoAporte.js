@@ -13,8 +13,10 @@ export default function PagoAporte(props) {
 		const { url } = newNavState;
 		if (!url) return;
 
-		if (url.includes("404")) {
-			alert("Tiempo de espera agotado.");
+		if (url.includes("exito")) {
+			navigation.navigate('Exito');
+		}else if (url.includes("fallo")) {
+			navigation.navigate('Fallo');
 		}
 	};
 
