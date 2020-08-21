@@ -22,7 +22,7 @@ export default function DonarCompany(props) {
 	const { toastRef } = props;
 	const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
-	const { userFbData} = usePreference();
+	const { userFbData } = usePreference();
 	const [formError, setFormError] = useState({});
 	const [email, setEmail] = useState(userFbData.email);
 	const [telefono, setTelefono] = useState(userFbData.telefono);
@@ -148,9 +148,9 @@ export default function DonarCompany(props) {
 							setTransbank(response.data);
 							console.log(transbank);
 							navigation.navigate("Pago Aporte", { transbank: response.data });
+							setLoading(false);
 						});
 						handleReset();
-						setLoading(false);
 					})
 					.catch((err) => {
 						setLoading(false);

@@ -30,16 +30,16 @@ export default function DonarUser(props) {
 	const [numeroOrden, setNumeroOrden] = useState();
 
 	useEffect(() => {
-        firebase
+		firebase
 			.database()
 			.ref("Transbank")
 			.orderByChild("numero_orden")
 			.limitToLast(1)
 			.on("value", (snapshot) => {
-                setNumeroOrden(snapshot.val());
-                console.log(numeroOrden);
+				setNumeroOrden(snapshot.val());
+				console.log(numeroOrden);
 			});
-    }, [])
+	}, []);
 
 	function submit() {
 		let orderToArray = [];
@@ -71,8 +71,8 @@ export default function DonarUser(props) {
 					.ref()
 					.child(`Transbank/orden_${key}`)
 					.set({
-						item: 'Aporte',
-						Tipo: 'Usuario',
+						item: "Aporte",
+						Tipo: "Usuario",
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
@@ -81,7 +81,7 @@ export default function DonarUser(props) {
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
-						plataforma: 'App',
+						plataforma: "App",
 						email: userFbData.email,
 					});
 				firebase
@@ -129,19 +129,21 @@ export default function DonarUser(props) {
 								nombre: nombre,
 								apellido: apellido,
 								email: userFbData.email,
-								plataforma: 'App',
+								plataforma: "App",
 							},
 						}).then((response) => {
 							setTransbank(response.data);
 							console.log(transbank);
 							navigation.navigate("Pago Aporte", { transbank: response.data });
+							setLoading(false);
 						});
 						handleReset();
-						setLoading(false);
 					})
 					.catch((err) => {
 						setLoading(false);
-						toastRef.current.show("Ha ocurrido un problema, intente nuevamente.");
+						toastRef.current.show(
+							"Ha ocurrido un problema, intente nuevamente."
+						);
 					});
 			} else {
 				setLoading(false);
@@ -163,7 +165,7 @@ export default function DonarUser(props) {
 				<HeaderView props={props} />
 			</View>
 			<View style={styles.imageContainer}>
-				<AlcanciaImage/>
+				<AlcanciaImage />
 			</View>
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Aporte</Text>
@@ -175,7 +177,7 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
+					autoCapitalize="none"
 					textContentType="username"
 					placeholder="Fran..."
 					defaultValue={nombre}
@@ -198,7 +200,7 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
+					autoCapitalize="none"
 					textContentType="middleName"
 					placeholder="Zun..."
 					defaultValue={apellido}
@@ -221,7 +223,7 @@ export default function DonarUser(props) {
 					containerStyle={styles.input}
 					inputStyle={styles.inputText}
 					inputContainerStyle={styles.inputUnderContainer}
-					autoCapitalize='none'
+					autoCapitalize="none"
 					placeholder="Ingrese Aporte..."
 					keyboardType="numeric"
 					defaultValue={aporte}
@@ -282,9 +284,9 @@ const styles = StyleSheet.create({
 		flex: 5,
 		width: width,
 		alignItems: "center",
-		borderRadius:20,
-		borderWidth:1,
-		borderColor: '#34495E',
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: "#34495E",
 		backgroundColor: "#A9B4C0",
 		paddingVertical: 25,
 	},
@@ -310,12 +312,12 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		width: width * 0.75,
-		height: height *0.05,
+		height: height * 0.05,
 		backgroundColor: "#FFF",
 		margin: 8,
 		borderRadius: 30,
-		borderWidth:1,
-		borderColor: '#34495E',
+		borderWidth: 1,
+		borderColor: "#34495E",
 	},
 	inputText: {
 		fontSize: 12,
@@ -342,7 +344,7 @@ const styles = StyleSheet.create({
 	},
 	buttonFormReset: {
 		flexDirection: "row",
-		width: width * 0.50,
+		width: width * 0.5,
 		height: height * 0.04,
 		marginTop: 20,
 		backgroundColor: "#03255F",
@@ -358,7 +360,7 @@ const styles = StyleSheet.create({
 		marginTop: -3,
 	},
 	buttonPagar: {
-		width: width * 0.50,
+		width: width * 0.5,
 		height: height * 0.04,
 		backgroundColor: "green",
 		alignSelf: "center",

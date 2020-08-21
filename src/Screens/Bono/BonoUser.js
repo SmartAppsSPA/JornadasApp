@@ -165,9 +165,9 @@ export default function BonoUser(props) {
 							setTransbank(response.data);
 							console.log(transbank);
 							navigation.navigate("Pago Bono", { transbank: response.data });
+							setLoading(false);
 						});
 						handleReset();
-						setLoading(false);
 					})
 					.catch((err) => {
 						setLoading(false);
