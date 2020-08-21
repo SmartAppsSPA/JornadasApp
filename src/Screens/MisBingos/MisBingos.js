@@ -7,7 +7,7 @@ import {
 	Image,
 	Dimensions,
 } from "react-native";
-import styles from "../../Utils/Style";
+
 import HeaderView from "../../components/Layouts/Header";
 import MainImage from "../../components/Layouts/MainImage";
 import usePreference from "../../Hooks/usePreferences";
@@ -38,7 +38,7 @@ export default function MisBingos(props) {
 		});
 
 		return (
-			<View style={styles.mainView}>
+			<View >
 				<HeaderView props={props} />
 				<View
 					style={{
@@ -58,7 +58,6 @@ export default function MisBingos(props) {
 					<View style={{ alignSelf: 'center' }}>
 						<TouchableOpacity
 							onPress={() => navigation.navigate("Home")}
-							style={styles.comeBack}
 						>
 							<Icon
 								raised
@@ -154,7 +153,7 @@ export default function MisBingos(props) {
 		);
 	} else {
 		return (
-			<View style={styles.mainView}>
+			<View >
 				<HeaderView props={props} />
 				<View
 					style={{
@@ -174,7 +173,6 @@ export default function MisBingos(props) {
 					<View style={{ alignSelf: 'center' }}>
 						<TouchableOpacity
 							onPress={() => navigation.navigate("Home")}
-							style={styles.comeBack}
 						>
 							<Icon
 								raised

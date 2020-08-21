@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, TextInput, Image, requireNativeComponent} from "react-native";
-import styles from "../../Utils/Style";
 import HeaderView from "../../components/Layouts/Header";
 import MainImage from "../../components/Layouts/MainImage";
 import { numberFormat } from "../../Sources/PagoEnLinea/FormatPrice";
@@ -58,7 +57,7 @@ export default function BingoCompany(props){
 	if (userFbData) {
 		
 		return (
-			<SafeAreaView style={styles.mainView}>
+			<SafeAreaView >
 				<HeaderView props={props} />
 				<Image source={{uri: "gs://jornadas2020.appspot.com/Sources/telebingo-01.jpg" }} />
 				{/* <ScrollView>

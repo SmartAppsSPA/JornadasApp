@@ -22,6 +22,7 @@
     "eslint-config-prettier": "^6.11.0",
     "expo": "^38.0.0",
     "expo-updates": "^0.2.11",
+    "fiction-expo-restart": "^1.0.4",
     "firebase": "^7.9.0",
     "git": "^0.1.5",
     "google-auth-library": "^6.0.2",
@@ -50,6 +51,7 @@
     "react-native-shadow": "^1.2.2",
     "react-native-web": "~0.11.7",
     "react-native-webview": "^10.4.0",
+    "react-native-x-carousel": "^1.0.1",
     "react-number-format": "^4.4.1",
     "yarn": "^1.22.4"
   },

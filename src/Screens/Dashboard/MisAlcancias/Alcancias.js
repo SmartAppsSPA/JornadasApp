@@ -54,7 +54,7 @@ export default function Alcancias() {
 								{alcancia.asignada_tercero === true ||
 								alcancia.asignada_externo === true ? (
 									<View style={styles.textBox}>
-										<Text style={styles.textKey}>Recuperada: </Text>
+										<Text style={styles.textKey}>Retirada: </Text>
 										{alcancia.recuperada === true ? (
 											<Text style={[styles.textValue, { color: "green" }]}>
 												Si
@@ -64,10 +64,14 @@ export default function Alcancias() {
 												No
 											</Text>
 										)}
+										<Text style={styles.textKey}>Entregada: </Text>
+										<Text style={[styles.textValue, { color: "green" }]}>
+											si
+										</Text>
 									</View>
 								) : (
 									<View style={styles.textBox}>
-										<Text style={styles.textKey}>Asignada: </Text>
+										<Text style={styles.textKey}>Entregada: </Text>
 										<Text style={[styles.textValue, { color: "red" }]}>No</Text>
 									</View>
 								)}
@@ -88,16 +92,10 @@ export default function Alcancias() {
 										<Icon
 											type="FontAwesome5"
 											name={
-												alcancia.recuperada === true
-													? "check-circle"
-													: "search"
+												alcancia.recuperada === true ? "check-circle" : "user"
 											}
 											size={50}
-											color={
-												alcancia.recuperada === true
-													? "green"
-													: "#34495E"
-											}
+											color={alcancia.recuperada === true ? "green" : "#34495E"}
 										/>
 									) : (
 										<Icon

@@ -96,23 +96,23 @@ export default function InformacionAlcancia(props) {
 					</View>
 					{content.asiganda_externo ? (
 						<View style={styles.textBox}>
-							<Text style={styles.textKey}>Asignada Externo:</Text>
+							<Text style={styles.textKey}>Entregada Externo:</Text>
 							<Text style={styles.textValue}> Si</Text>
 						</View>
 					) : (
 						<View style={styles.textBox}>
-							<Text style={styles.textKey}>Asignada Externo:</Text>
+							<Text style={styles.textKey}>Entregada Externo:</Text>
 							<Text style={styles.textValue}> No</Text>
 						</View>
 					)}
 					{content.asignada_tercero ? (
 						<View style={styles.textBox}>
-							<Text style={styles.textKey}>Asignada A Tercero:</Text>
+							<Text style={styles.textKey}>Entregada A Tercero:</Text>
 							<Text style={styles.textValue}> Si</Text>
 						</View>
 					) : (
 						<View style={styles.textBox}>
-							<Text style={styles.textKey}>Asignada A Tercero:</Text>
+							<Text style={styles.textKey}>Entregada A Tercero:</Text>
 							<Text style={styles.textValue}> No</Text>
 						</View>
 					)}
@@ -201,7 +201,7 @@ export default function InformacionAlcancia(props) {
 												<Text
 													style={[styles.textKey, { marginVertical: 17.5 }]}
 												>
-													Recuperada
+													Retirada
 												</Text>
 												<TouchableOpacity
 													onPress={recovering}

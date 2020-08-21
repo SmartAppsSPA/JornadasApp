@@ -54,7 +54,7 @@ export default function Alcancias() {
 								{talonario.asignado_tercero === true ||
 								talonario.asignado_externo === true ? (
 									<View style={styles.textBox}>
-										<Text style={styles.textKey}>recuperado: </Text>
+										<Text style={styles.textKey}>Retirado: </Text>
 										{talonario.recuperado === true ? (
 											<Text style={[styles.textValue, { color: "green" }]}>
 												Si
@@ -64,10 +64,12 @@ export default function Alcancias() {
 												No
 											</Text>
 										)}
+										<Text style={styles.textKey}>Entregado: </Text>
+									<Text style={[styles.textValue, { color: "green" }]}>si</Text>
 									</View>
 								) : (
 									<View style={styles.textBox}>
-										<Text style={styles.textKey}>Asignado: </Text>
+										<Text style={styles.textKey}>Entregado: </Text>
 										<Text style={[styles.textValue, { color: "red" }]}>No</Text>
 									</View>
 								)}
@@ -90,7 +92,7 @@ export default function Alcancias() {
 											name={
 												talonario.recuperado === true
 													? "check-circle"
-													: "search"
+													: "user"
 											}
 											size={50}
 											color={

@@ -7,7 +7,6 @@ import {
 	Image,
 	Dimensions,
 } from "react-native";
-import styles from "../../Utils/Style";
 import HeaderView from "../../components/Layouts/Header";
 import MainImage from "../../components/Layouts/MainImage";
 import { numberFormat } from "../../Sources/PagoEnLinea/FormatPrice";
@@ -89,7 +88,7 @@ export default function BonoUser(props) {
 
 	if (userFbData) {
 		return (
-			<SafeAreaView style={styles.mainView}>
+			<SafeAreaView >
 				<HeaderView props={props} />
 				<View
 					style={{
@@ -116,7 +115,6 @@ export default function BonoUser(props) {
 					<View style={{ alignSelf: "center" }}>
 						<TouchableOpacity
 							onPress={() => navigation.navigate("Home")}
-							style={styles.comeBack}
 						>
 							<Icon
 								raised

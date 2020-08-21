@@ -4,11 +4,8 @@ import {
 	Image,
 	Dimensions,
 	StyleSheet,
-	ScrollView,
 	Text,
 } from "react-native";
-// import Carousel from "react-native-carousel";
-
 import Carousel, { PaginationLight } from "react-native-x-carousel";
 
 const { width } = Dimensions.get("window");
