@@ -20,7 +20,8 @@
     "axios": "^0.19.2",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^6.11.0",
-    "expo": "^38.0.0",
+    "expo": "^38.0.9",
+    "expo-cli": "^3.25.1",
     "expo-updates": "^0.2.11",
     "fiction-expo-restart": "^1.0.4",
     "firebase": "^7.9.0",
@@ -53,7 +54,7 @@
     "react-native-webview": "^10.4.0",
     "react-native-x-carousel": "^1.0.1",
     "react-number-format": "^4.4.1",
-    "yarn": "^1.22.4"
+    "yarn": "^1.22.5"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
