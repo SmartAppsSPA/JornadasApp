@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Jornadas Magallanicas",
-    "slug": "JornadasMagallanicas",
+    "name": "Jornadas Magallanicas App",
+    "slug": "JornadasMagallanicasApp",
     "platforms": [
       "ios",
       "android",
