@@ -31,11 +31,6 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "#34495E",
 		overflow: "hidden",
-<<<<<<< HEAD
-		marginTop:-1,
-		zIndex: -2,
-=======
->>>>>>> 6019df54f31f3196b0bd1158d6d60e6c938f2f1f
 	},
 	image: {
 		width: width,
