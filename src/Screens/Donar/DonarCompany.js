@@ -78,6 +78,8 @@ export default function DonarCompany(props) {
 					.ref()
 					.child(`Transbank/orden_${key}`)
 					.set({
+						item: "Aporte",
+						tipo: "Empresa",
 						aporte: aporte,
 						nombre: userFbData.nombre,
 						rutEmpresa: userFbData.rutEmpresa,
@@ -115,6 +117,7 @@ export default function DonarCompany(props) {
 					.ref()
 					.child(`Donaciones/${key}/`)
 					.set({
+						tipo: "Empresa",
 						aporte: aporte,
 						nombre: userFbData.nombre,
 						rutEmpresa: userFbData.rutEmpresa,
@@ -127,6 +130,7 @@ export default function DonarCompany(props) {
 						forma_de_pago: "",
 						uid: userFbData.uid,
 						certificado: checked,
+						plataforma: "App",
 					})
 					.then((res) => {
 						axios({

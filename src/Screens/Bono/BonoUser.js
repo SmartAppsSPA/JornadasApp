@@ -95,7 +95,7 @@ export default function BonoUser(props) {
 					.set({
 						item: "Bono",
 						cantidad: cantidad,
-						Tipo: "Usuario",
+						tipo: "Usuario",
 						precio: precioTotal,
 						nombre: nombre,
 						apellido: apellido,
@@ -131,6 +131,7 @@ export default function BonoUser(props) {
 					.ref()
 					.child(`Bono_digital/${key}/`)
 					.set({
+						tipo: "Usuario",
 						total: precioTotal,
 						nombre: nombre,
 						apellido: apellido,
@@ -143,6 +144,7 @@ export default function BonoUser(props) {
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
+						plataforma: "App",
 					})
 					.then((res) => {
 						axios({

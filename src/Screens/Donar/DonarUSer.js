@@ -37,7 +37,6 @@ export default function DonarUser(props) {
 			.limitToLast(1)
 			.on("value", (snapshot) => {
 				setNumeroOrden(snapshot.val());
-				console.log(numeroOrden);
 			});
 	}, []);
 
@@ -60,22 +59,21 @@ export default function DonarUser(props) {
 					setNumeroOrden(snapshot.val());
 				});
 			if (numeroOrden) {
-				console.log(numeroOrden);
 				Object.keys(numeroOrden).forEach((key, i) => {
 					orderToArray[i] = numeroOrden[key];
 				});
 				let key = parseInt(orderToArray[0].numero_orden) + 1;
-				console.log(key);
 				firebase
 					.database()
 					.ref()
 					.child(`Transbank/orden_${key}`)
 					.set({
 						item: "Aporte",
-						Tipo: "Usuario",
+						tipo: "Usuario",
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
+						telefono: userFbData.telefono,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden: key,
 						estado_de_pago: "Pendiente",
@@ -92,6 +90,7 @@ export default function DonarUser(props) {
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
+						telefono: userFbData.telefono,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden: key,
 						estado_de_pago: "Pendiente",
@@ -105,17 +104,22 @@ export default function DonarUser(props) {
 					.ref()
 					.child(`Donaciones/${key}`)
 					.set({
+						tipo: "Usuario",
 						aporte: aporte,
 						nombre: nombre,
 						apellido: apellido,
+						telefono: userFbData.telefono,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden: key,
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "",
 						uid: userFbData.uid,
 						email: userFbData.email,
+						plataforma: "App",
 					})
 					.then((res) => {
+						const session_id = userFbData.uid;
+						console.log(session_id)
 						axios({
 							method: "post",
 							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
@@ -133,7 +137,6 @@ export default function DonarUser(props) {
 							},
 						}).then((response) => {
 							setTransbank(response.data);
-							console.log(transbank);
 							navigation.navigate("Pago Aporte", { transbank: response.data });
 							setLoading(false);
 						});

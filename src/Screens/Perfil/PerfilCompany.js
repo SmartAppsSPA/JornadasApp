@@ -11,7 +11,7 @@ import { Input, Icon } from "react-native-elements";
 import firebase from "../../../Firebase/Firebase";
 import { useNavigation } from "@react-navigation/native";
 import usePreference from "../../Hooks/usePreferences";
-import MainImage from "../../components/Layouts/MainImage";
+import ProfileImage from "../../components/Layouts/ProfileImage";
 import HeaderView from "../../components/Layouts/Header";
 import Loading from "../../Utils/Loading";
 import { Restart } from "fiction-expo-restart";
@@ -68,7 +68,7 @@ export default function PerfilCompany(props) {
 				<HeaderView props={props} />
 			</View>
 			<View style={styles.imageContainer}>
-				<MainImage />
+				<ProfileImage/>
 			</View>
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Perfil</Text>

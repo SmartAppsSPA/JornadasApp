@@ -6,10 +6,11 @@ import {
 	Image,
 	TouchableHighlight,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
-import { Restart } from "fiction-expo-restart";
 
 export default (props) => {
+	const navigation = useNavigation();
 	return (
 		<View style={styles.container}>
 			<Image
@@ -24,7 +25,7 @@ export default (props) => {
 			<Text style={styles.exito}>no se ha podido llevar a cabo.</Text>
 			<FontAwesome name="times-circle" size={50} color="red" />
 			<Text style={styles.exito}>Por favor intenta nuevamente, gracias.</Text>
-			<TouchableHighlight onPress={() => Restart()} style={styles.button}>
+			<TouchableHighlight onPress={() => navigation.navigate("Home")} style={styles.button}>
 				<Text style={styles.textButton}>Volver al Inicio</Text>
 			</TouchableHighlight>
 			<Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
