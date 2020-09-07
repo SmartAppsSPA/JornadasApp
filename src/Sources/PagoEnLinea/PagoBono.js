@@ -15,7 +15,7 @@ export default function PagoBono(props) {
 
 		if (url.includes("exito")) {
 			navigation.navigate('Exito Bono');
-		}else if (url.includes("fallo")) {
+		}else if (url.includes("fallido")) {
 			navigation.navigate('Fallo Bono');
 		}
 	};

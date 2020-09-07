@@ -15,7 +15,7 @@ export default function PagoAporte(props) {
 
 		if (url.includes("exito")) {
 			navigation.navigate('Exito');
-		}else if (url.includes("fallo")) {
+		}else if (url.includes("fallido")) {
 			navigation.navigate('Fallo');
 		}
 	};

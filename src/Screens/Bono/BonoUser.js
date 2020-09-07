@@ -152,16 +152,13 @@ export default function BonoUser(props) {
 							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
 							data: {
 								orden_compra: key,
-								sessionID: userFbData.nombre,
-								item: "Bono",
-								tipo: "Usuario",
+								sessionID: "BonoSorteoApp",
 								monto: precioTotal,
 								cantidad: cantidad,
 								nombre: nombre,
 								apellido: apellido,
 								email: email,
-								telefono: telefono,
-								plataforma: "App",
+								uid: userFbData.uid,
 							},
 						}).then((response) => {
 							setTransbank(response.data);

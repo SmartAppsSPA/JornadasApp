@@ -138,15 +138,13 @@ export default function DonarCompany(props) {
 							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
 							data: {
 								orden_compra: key,
-								sessionID: userFbData.nombre,
-								item: "Aporte",
-								tipo: "Empresa",
+								sessionID: "DonacionApp",
 								monto: aporte,
 								cantidad: 1,
 								nombre: representante,
 								apellido: representante,
 								email: userFbData.email,
-								plataforma: "App",
+								uid: userFbData.uid,
 							},
 						}).then((response) => {
 							setTransbank(response.data);
