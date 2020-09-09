@@ -90,7 +90,6 @@ export default function DonarCompany(props) {
 						numero_orden:  'JMAGALLANICAS-' + key,
 						numero: key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						certificado: checked,
 						plataforma: "App",
@@ -98,7 +97,7 @@ export default function DonarCompany(props) {
 				firebase
 					.database()
 					.ref()
-					.child(`Users/${userFbData.uid}/aportes/JMAGALLANICAS-${key}/`)
+					.child(`Users/${userFbData.uid}/aportes/${key}/`)
 					.set({
 						aporte: aporte,
 						nombre: userFbData.nombre,
@@ -109,7 +108,6 @@ export default function DonarCompany(props) {
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden:  'JMAGALLANICAS-' + key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						certificado: checked,
 					});
@@ -128,7 +126,6 @@ export default function DonarCompany(props) {
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden:  'JMAGALLANICAS-' + key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						certificado: checked,
 						plataforma: "App",

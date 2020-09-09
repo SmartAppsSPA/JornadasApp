@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
 	StyleSheet,
 	View,
@@ -8,10 +8,20 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
-import { Restart } from "fiction-expo-restart";
+import Loading from '../../Utils/Loading';
 
 export default (props) => {
 	const navigation = useNavigation();
+	const [loading, setLoading] = useState(false);
+	const time = ()=>{
+		setLoading(true)
+		setTimeout(()=>{
+			setLoading(false)
+			navigation.navigate('Home')
+		},7000)
+	}
+
+
 	return (
 		<View style={styles.container}>
 			<Image
@@ -27,10 +37,11 @@ export default (props) => {
 			<FontAwesome name="check-square" size={50} color="green" />
 			<Text style={styles.exito}>Gracias por colaborar con</Text>
 			<Text style={styles.exito}>esta noble causa.</Text>
-			<TouchableHighlight onPress={() => Restart()} style={styles.button}>
+			<TouchableHighlight onPress={() => time()} style={styles.button}>
 				<Text style={styles.textButton}>Volver al Inicio</Text>
 			</TouchableHighlight>
 			<Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
+			<Loading isVisible={loading} text="Cargando..." />
 		</View>
 	);
 };

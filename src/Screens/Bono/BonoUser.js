@@ -105,14 +105,13 @@ export default function BonoUser(props) {
 						numero_orden:  'JMAGALLANICAS-' + key,
 						numero: key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						plataforma: "App",
 					});
 				firebase
 					.database()
 					.ref()
-					.child(`Users/${userFbData.uid}/bonos/JMAGALLANICAS-${key}/`)
+					.child(`Users/${userFbData.uid}/bonos/${key}/`)
 					.set({
 						total: precioTotal,
 						nombre: nombre,
@@ -124,7 +123,6 @@ export default function BonoUser(props) {
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						id: key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 					});
 				firebase
@@ -143,7 +141,6 @@ export default function BonoUser(props) {
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						id: key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						plataforma: "App",
 					})
