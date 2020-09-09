@@ -13,12 +13,13 @@ export default function PagoBono(props) {
 		const { url } = newNavState;
 		if (!url) return;
 
-		if (url.includes("exito")) {
+		if (url.includes("procesa-pago")) {
 			navigation.navigate('Exito Bono');
 		}else if (url.includes("fallido")) {
 			navigation.navigate('Fallo Bono');
 		}
 	};
+
 
 	if (transbank === null) {
 		return (
@@ -28,6 +29,20 @@ export default function PagoBono(props) {
 					source={{ uri: "https://appjornadasmagallanicas.cl/api/api/retorno" }}
 					onNavigationStateChange={handleWebViewNavigationStateChange}
 				/>
+				<View style={styles.backContainer}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Home")}
+							style={styles.comeBack}
+						>
+							<Icon
+								raised
+								name="arrow-left"
+								type="font-awesome"
+								color="#03255F"
+								size={15}
+							/>
+						</TouchableOpacity>
+					</View>
 			</SafeAreaView>
 		);
 	} else {
@@ -43,20 +58,6 @@ export default function PagoBono(props) {
 							}}
 							onNavigationStateChange={handleWebViewNavigationStateChange}
 						/>
-					</View>
-					<View style={styles.backContainer}>
-						<TouchableOpacity
-							onPress={() => navigation.navigate("Home")}
-							style={styles.comeBack}
-						>
-							<Icon
-								raised
-								name="arrow-left"
-								type="font-awesome"
-								color="#03255F"
-								size={15}
-							/>
-						</TouchableOpacity>
 					</View>
 			</SafeAreaView>
 		);

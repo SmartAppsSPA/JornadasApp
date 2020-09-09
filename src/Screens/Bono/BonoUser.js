@@ -39,7 +39,7 @@ export default function BonoUser(props) {
 		firebase
 			.database()
 			.ref("Transbank")
-			.orderByChild("numero_orden")
+			.orderByChild("numero")
 			.limitToLast(1)
 			.on("value", (snapshot) => {
 				setNumeroOrden(snapshot.val());
@@ -76,7 +76,7 @@ export default function BonoUser(props) {
 			firebase
 				.database()
 				.ref("Transbank")
-				.orderByChild("numero_orden")
+				.orderByChild("numero")
 				.limitToLast(1)
 				.on("value", (snapshot) => {
 					setNumeroOrden(snapshot.val());
@@ -86,7 +86,7 @@ export default function BonoUser(props) {
 				Object.keys(numeroOrden).forEach((key, i) => {
 					orderToArray[i] = numeroOrden[key];
 				});
-				let key = parseInt(orderToArray[0].numero_orden) + 1;
+				let key = parseInt(orderToArray[0].numero_orden.split('-')[1]) + 1;
 				console.log(key);
 				firebase
 					.database()
@@ -102,7 +102,8 @@ export default function BonoUser(props) {
 						telefono: telefono,
 						email: email,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-						numero_orden: key,
+						numero_orden:  'JMAGALLANICAS-' + key,
+						numero: key,
 						estado_de_pago: "Pendiente",
 						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
@@ -111,7 +112,7 @@ export default function BonoUser(props) {
 				firebase
 					.database()
 					.ref()
-					.child(`Users/${userFbData.uid}/bonos/${key}/`)
+					.child(`Users/${userFbData.uid}/bonos/JMAGALLANICAS-${key}/`)
 					.set({
 						total: precioTotal,
 						nombre: nombre,
@@ -119,7 +120,7 @@ export default function BonoUser(props) {
 						email: email,
 						telefono: telefono,
 						cantidad: cantidad,
-						numero_orden: key,
+						numero_orden:  'JMAGALLANICAS-' + key,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						id: key,
 						estado_de_pago: "Pendiente",
@@ -138,7 +139,7 @@ export default function BonoUser(props) {
 						email: email,
 						telefono: telefono,
 						cantidad: cantidad,
-						numero_orden: key,
+						numero_orden:  'JMAGALLANICAS-' + key,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						id: key,
 						estado_de_pago: "Pendiente",
@@ -151,7 +152,7 @@ export default function BonoUser(props) {
 							method: "post",
 							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
 							data: {
-								orden_compra: key,
+								orden_compra:  'JMAGALLANICAS-' + key,
 								sessionID: "BonoSorteoApp",
 								monto: precioTotal,
 								cantidad: cantidad,

@@ -13,7 +13,7 @@ export default function PagoAporte(props) {
 		const { url } = newNavState;
 		if (!url) return;
 
-		if (url.includes("exito")) {
+		if (url.includes("procesa-pago")) {
 			navigation.navigate('Exito');
 		}else if (url.includes("fallido")) {
 			navigation.navigate('Fallo');
@@ -28,6 +28,20 @@ export default function PagoAporte(props) {
 					source={{ uri: "https://appjornadasmagallanicas.cl/api/api/retorno" }}
 					onNavigationStateChange={handleWebViewNavigationStateChange}
 				/>
+				<View style={styles.backContainer}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Home")}
+							style={styles.comeBack}
+						>
+							<Icon
+								raised
+								name="arrow-left"
+								type="font-awesome"
+								color="#03255F"
+								size={15}
+							/>
+						</TouchableOpacity>
+					</View>
 			</SafeAreaView>
 		);
 	} else {
@@ -43,20 +57,6 @@ export default function PagoAporte(props) {
 							}}
 							onNavigationStateChange={handleWebViewNavigationStateChange}
 						/>
-					</View>
-					<View style={styles.backContainer}>
-						<TouchableOpacity
-							onPress={() => navigation.navigate("Home")}
-							style={styles.comeBack}
-						>
-							<Icon
-								raised
-								name="arrow-left"
-								type="font-awesome"
-								color="#03255F"
-								size={15}
-							/>
-						</TouchableOpacity>
 					</View>
 			</SafeAreaView>
 		);

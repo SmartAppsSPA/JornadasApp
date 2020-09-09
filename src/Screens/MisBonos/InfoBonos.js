@@ -41,12 +41,8 @@ export default function InfoBonos(props) {
 						<Text style={styles.textValue}>{content.fecha}</Text>
 					</View>
 					<View style={styles.textBox}>
-						<Text style={styles.textKey}>Forma De Pago:</Text>
-						<Text style={styles.textValue}>{content.forma_pago}</Text>
-					</View>
-					<View style={styles.textBox}>
 						<Text style={styles.textKey}>Estado De La Transacción:</Text>
-						<Text style={styles.textValue}>{content.estado_pago}</Text>
+						<Text style={styles.textValue}>{content.estado_de_pago}</Text>
 					</View>
                     <View style={styles.textBox}>
 						<Text style={styles.textKey}>Orden De Pago:</Text>

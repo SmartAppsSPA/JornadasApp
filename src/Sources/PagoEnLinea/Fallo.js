@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+import { Restart } from "fiction-expo-restart";
 
 export default (props) => {
 	const navigation = useNavigation();
@@ -21,11 +22,11 @@ export default (props) => {
 					marginBottom: 20,
 				}}
 			/>
-			<Text style={styles.exito}>Su aporte por $5000 CLP.</Text>
+			<Text style={styles.exito}>Su aporte</Text>
 			<Text style={styles.exito}>no se ha podido llevar a cabo.</Text>
 			<FontAwesome name="times-circle" size={50} color="red" />
 			<Text style={styles.exito}>Por favor intenta nuevamente, gracias.</Text>
-			<TouchableHighlight onPress={() => navigation.navigate("Home")} style={styles.button}>
+			<TouchableHighlight onPress={() => Restart()} style={styles.button}>
 				<Text style={styles.textButton}>Volver al Inicio</Text>
 			</TouchableHighlight>
 			<Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>

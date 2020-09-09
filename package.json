@@ -22,6 +22,7 @@
     "eslint-config-prettier": "^6.11.0",
     "expo": "^38.0.9",
     "expo-cli": "^3.25.1",
+    "expo-file-system": "^9.1.0",
     "expo-updates": "^0.2.11",
     "fiction-expo-restart": "^1.0.4",
     "firebase": "^7.9.0",
@@ -54,6 +55,7 @@
     "react-native-webview": "^10.8.2",
     "react-native-x-carousel": "^1.0.1",
     "react-number-format": "^4.4.1",
+    "rn-fetch-blob": "^0.12.0",
     "yarn": "^1.22.5"
   },
   "devDependencies": {

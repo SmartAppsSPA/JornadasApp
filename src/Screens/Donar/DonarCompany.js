@@ -36,7 +36,7 @@ export default function DonarCompany(props) {
 		firebase
 			.database()
 			.ref("Transbank")
-			.orderByChild("numero_orden")
+			.orderByChild("numero")
 			.limitToLast(1)
 			.on("value", (snapshot) => {
 				setNumeroOrden(snapshot.val());
@@ -61,7 +61,7 @@ export default function DonarCompany(props) {
 			firebase
 				.database()
 				.ref("Transbank")
-				.orderByChild("numero_orden")
+				.orderByChild("numero")
 				.limitToLast(1)
 				.on("value", (snapshot) => {
 					setNumeroOrden(snapshot.val());
@@ -71,7 +71,7 @@ export default function DonarCompany(props) {
 				Object.keys(numeroOrden).forEach((key, i) => {
 					orderToArray[i] = numeroOrden[key];
 				});
-				let key = parseInt(orderToArray[0].numero_orden) + 1;
+				let key = parseInt(orderToArray[0].numero_orden.split('-')[1]) + 1;
 				console.log(key);
 				firebase
 					.database()
@@ -87,9 +87,10 @@ export default function DonarCompany(props) {
 						telefono: telefono,
 						representante: representante,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-						numero_orden: key,
+						numero_orden:  'JMAGALLANICAS-' + key,
+						numero: key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "",
+						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						certificado: checked,
 						plataforma: "App",
@@ -97,7 +98,7 @@ export default function DonarCompany(props) {
 				firebase
 					.database()
 					.ref()
-					.child(`Users/${userFbData.uid}/aportes/${key}/`)
+					.child(`Users/${userFbData.uid}/aportes/JMAGALLANICAS-${key}/`)
 					.set({
 						aporte: aporte,
 						nombre: userFbData.nombre,
@@ -106,9 +107,9 @@ export default function DonarCompany(props) {
 						telefono: telefono,
 						representante: representante,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-						numero_orden: key,
+						numero_orden:  'JMAGALLANICAS-' + key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "",
+						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						certificado: checked,
 					});
@@ -125,9 +126,9 @@ export default function DonarCompany(props) {
 						telefono: telefono,
 						representante: representante,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-						numero_orden: key,
+						numero_orden:  'JMAGALLANICAS-' + key,
 						estado_de_pago: "Pendiente",
-						forma_de_pago: "",
+						forma_de_pago: "Pendiente",
 						uid: userFbData.uid,
 						certificado: checked,
 						plataforma: "App",
@@ -137,7 +138,7 @@ export default function DonarCompany(props) {
 							method: "post",
 							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
 							data: {
-								orden_compra: key,
+								orden_compra:  'JMAGALLANICAS-' + key,
 								sessionID: "DonacionApp",
 								monto: aporte,
 								cantidad: 1,

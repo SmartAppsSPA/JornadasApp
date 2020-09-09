@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Jornadas Magallanicas App",
-    "slug": "JornadasMagallanicasApp",
+    "name": "Jornadas Magallanicas",
+    "slug": "JornadasMagallanicas",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/Cruz_de_malta_azul.png",
     "splash": {
@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "cl.SmartApps.JornadasMagallanicas",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1"
     },
     "android": {
       "package": "cl.SmartApps.JornadasMagallanicas",
