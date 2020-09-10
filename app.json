@@ -23,11 +23,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "cl.SmartApps.JornadasMagallanicas",
+      "bundleIdentifier": "cl.SmartApps.AppJornadasMagallanicas",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "cl.SmartApps.JornadasMagallanicas",
+      "package": "cl.SmartApps.AppJornadasMagallanicas",
       "versionCode": 1
     },
     "description": ""
