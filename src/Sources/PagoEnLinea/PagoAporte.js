@@ -9,7 +9,10 @@ import Loading from '../../Utils/Loading';
 export default function PagoAporte(props) {
   const navigation = useNavigation();
   const transbank = props.route.params.transbank;
+  const orden_de_compra= props.route.params.orden_de_compra;
   const [loading, setLoading] = useState(false);
+
+  console.log(orden_de_compra)
 
   const handleWebViewNavigationStateChange = (newNavState) => {
     const { url } = newNavState;
@@ -19,14 +22,14 @@ export default function PagoAporte(props) {
       setLoading(true)
       setTimeout(()=>{
         setLoading(false)
-        navigation.navigate('Exito')
-      },5000)  
+        navigation.navigate('Exito', { orden_de_compra: orden_de_compra })
+      },10000)  
     }else if (url.includes("fallido")) {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        navigation.navigate("Fallo");
-      }, 5000);
+        navigation.navigate("Fallo", { orden_de_compra: orden_de_compra });
+      }, 3000);
 	  }
   };
 
@@ -69,7 +72,7 @@ export default function PagoAporte(props) {
             onNavigationStateChange={handleWebViewNavigationStateChange}
           />
         </View>
-        <Loading isVisible={loading} text="Procesando..." />
+        <Loading isVisible={loading} text="Procesando pago..." />
       </SafeAreaView>
     );
   }

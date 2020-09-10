@@ -157,11 +157,12 @@ export default function BonoUser(props) {
 								apellido: apellido,
 								email: email,
 								uid: userFbData.uid,
+								telefono: telefono,
 							},
 						}).then((response) => {
 							setTransbank(response.data);
 							console.log(transbank);
-							navigation.navigate("Pago Bono", { transbank: response.data });
+							navigation.navigate("Pago Bono", { transbank: response.data, orden_de_compra: key });
 							setLoading(false);
 						});
 						handleReset();

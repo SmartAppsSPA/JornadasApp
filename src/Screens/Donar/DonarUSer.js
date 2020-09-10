@@ -117,8 +117,6 @@ export default function DonarUser(props) {
 						plataforma: "App",
 					})
 					.then((res) => {
-						const session_id = userFbData.uid;
-						console.log(session_id)
 						axios({
 							method: "post",
 							url: "https://appjornadasmagallanicas.cl/api/api/transactions",
@@ -134,7 +132,7 @@ export default function DonarUser(props) {
 							},
 						}).then((response) => {
 							setTransbank(response.data);
-							navigation.navigate("Pago Aporte", { transbank: response.data });
+							navigation.navigate("Pago Aporte", { transbank: response.data, orden_de_compra: key });
 							setLoading(false);
 						});
 						handleReset();

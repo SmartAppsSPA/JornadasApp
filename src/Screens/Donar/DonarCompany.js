@@ -147,7 +147,7 @@ export default function DonarCompany(props) {
 						}).then((response) => {
 							setTransbank(response.data);
 							console.log(transbank);
-							navigation.navigate("Pago Aporte", { transbank: response.data });
+							navigation.navigate("Pago Aporte", { transbank: response.data, orden_de_compra: key });
 							setLoading(false);
 						});
 						handleReset();
