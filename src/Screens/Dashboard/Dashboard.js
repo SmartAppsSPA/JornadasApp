@@ -18,10 +18,12 @@ export default function Dashboard() {
 				tabBarOptions={{
 					inactiveTintColor: "#696969",
 					activeTintColor: "#03255F",
+					
 				}}
 				screenOptions={({ route }) => ({
 					tabBarIcon: ({ color }) => screenOptions(route, color),
 				})}
+				
 			>
 				<Tab.Screen
 					name="MisAlcancias"
