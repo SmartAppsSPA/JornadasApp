@@ -49,17 +49,17 @@ export default function HomeUser(props) {
 					>
 						<View style={styles.buttonsContainer1}>
 							<TouchableOpacity
-								onPress={() =>
-									navigation.navigate("Donar", {
-										userData: userFbData,
-									})
-								}
+								// onPress={() =>
+								// 	navigation.navigate("Donar", {
+								// 		userData: userFbData,
+								// 	})
+								// }
 								style={styles.buttonYellow}
 							>
-								<Text style={styles.textYellow}>
+								{/* <Text style={styles.textYellow}>
 									<Icon name="donate" size={20} color="#03255F" />
 									{`\nAlcancía\nDigital`}
-								</Text>
+								</Text> */}
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => navigation.navigate("Bingo")}
