@@ -71,13 +71,13 @@ export default function HomeUser(props) {
 								</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
-								onPress={() => navigation.navigate("Bono")}
+								// onPress={() => navigation.navigate("Bono")}
 								style={styles.buttonYellow}
 							>
-								<Text style={styles.textYellow}>
+								{/* <Text style={styles.textYellow}>
 									<Icon name="edit" size={20} color="#03255F" />
 									{`\nBono\nSorteo`}
-								</Text>
+								</Text> */}
 							</TouchableOpacity>
 						</View>
 						<View style={styles.buttonsContainer2}>

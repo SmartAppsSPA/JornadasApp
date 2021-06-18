@@ -51,13 +51,13 @@ export default function HomeCompany(props) {
 							<Text style={styles.textYellow}></Text>
 						</TouchableOpacity>
 						<TouchableOpacity
-							onPress={() => navigation.navigate("Donar")}
+							// onPress={() => navigation.navigate("Donar")}
 							style={styles.buttonBlue}
 						>
-							<Text style={styles.textBlue}>
+							{/* <Text style={styles.textBlue}>
 								<Icon name="donate" size={20} color="#F5C300" />
 								{`\nAlcancía\nDigital`}
-							</Text>
+							</Text> */}
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.buttonYellow}
