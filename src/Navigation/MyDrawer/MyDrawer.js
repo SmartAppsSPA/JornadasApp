@@ -73,16 +73,16 @@ function Menu(props) {
 						titleName="Inicio"
 						navigation={() => props.navigation.navigate("Home")}
 					/>
-					<DrawerMenu
+					{/* <DrawerMenu
 						iconName="donate"
 						titleName="Alcancía Digital"
 						navigation={() => props.navigation.navigate("Donar")}
-					/>
-					<DrawerMenu
+					/> */}
+					{/* <DrawerMenu
 						iconName="hand-holding-usd"
 						titleName="Mis Donaciones"
 						navigation={() => props.navigation.navigate("Mis Donaciones")}
-					/>
+					/> */}
 					{userFbData.tipo === "User" ? (
 						<DrawerMenu
 							iconName="edit"

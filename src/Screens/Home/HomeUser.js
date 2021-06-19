@@ -82,13 +82,13 @@ export default function HomeUser(props) {
 						</View>
 						<View style={styles.buttonsContainer2}>
 							<TouchableOpacity
-								onPress={() => navigation.navigate("Mis Donaciones")}
+								// onPress={() => navigation.navigate("Mis Donaciones")}
 								style={styles.buttonBlue}
 							>
-								<Text style={styles.textBlue}>
+								{/* <Text style={styles.textBlue}>
 									<Icon name="hand-holding-usd" size={20} color="#F5C300" />
 									{`\n\Mis\nDonaciones`}
-								</Text>
+								</Text> */}
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => setModalVisible(true)}
