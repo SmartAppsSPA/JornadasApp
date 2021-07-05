@@ -29,7 +29,7 @@
     "git": "^0.1.5",
     "google-auth-library": "^6.0.2",
     "intl": "^1.2.5",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "native-base": "^2.13.12",
     "npm": "^6.14.6",
