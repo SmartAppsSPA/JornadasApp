@@ -56,10 +56,10 @@ export default function HomeUser(props) {
 								// }
 								style={styles.buttonYellow}
 							>
-								{/* <Text style={styles.textYellow}>
-									<Icon name="donate" size={20} color="#03255F" />
-									{`\nAlcancía\nDigital`}
-								</Text> */}
+								<Text style={styles.textYellow}>
+									<Icon name="globe" size={20} color="#03255F" />
+									{`\nVisitar\nWeb`}
+								</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => navigation.navigate("Bingo")}
@@ -71,13 +71,13 @@ export default function HomeUser(props) {
 								</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
-								// onPress={() => navigation.navigate("Bono")}
+								onPress={() => navigation.navigate("Bono")}
 								style={styles.buttonYellow}
 							>
-								{/* <Text style={styles.textYellow}>
+								<Text style={styles.textYellow}>
 									<Icon name="edit" size={20} color="#03255F" />
 									{`\nBono\nSorteo`}
-								</Text> */}
+								</Text>
 							</TouchableOpacity>
 						</View>
 						<View style={styles.buttonsContainer2}>
@@ -217,7 +217,7 @@ export default function HomeUser(props) {
 									Jornadas Magallanicas App.
 								</Text>
 								<Text style={styles.modalText2}>
-									© Copyrights 2020 Leones Cruz
+									© Copyrights {(new Date().getFullYear())} Leones Cruz
 								</Text>
 								<Text style={styles.modalText25}>Sur all rights reserved.</Text>
 								<Text style={styles.modalText3}>
