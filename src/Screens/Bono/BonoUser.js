@@ -32,7 +32,7 @@ export default function BonoUser(props) {
 	const [telefono, setTelefono] = useState(userFbData.telefono);
 	const [transbank, setTransbank] = useState(null);
 	const [numeroOrden, setNumeroOrden] = useState();
-	const precio = 500;
+	const precio = 1000;
 	const precioTotal = precio * cantidad;
 
 	useEffect(() => {

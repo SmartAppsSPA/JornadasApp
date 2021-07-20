@@ -55,6 +55,7 @@ export default function HomeUser(props) {
 								// 	})
 								// }
 								style={styles.buttonYellow}
+								onPress={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/")}
 							>
 								<Text style={styles.textYellow}>
 									<Icon name="globe" size={20} color="#03255F" />
