@@ -18,6 +18,7 @@ import { Input, Icon } from "react-native-elements";
 import BonoImage from "../../components/Layouts/BonoImage";
 import Loading from "../../Utils/Loading";
 import axios from "axios";
+import {validarRUT} from "validar-rut"
 
 export default function BonoUser(props) {
 	const { toastRef } = props;
@@ -30,6 +31,7 @@ export default function BonoUser(props) {
 	const [apellido, setApellido] = useState(userFbData.apellido);
 	const [email, setEmail] = useState(userFbData.email);
 	const [telefono, setTelefono] = useState(userFbData.telefono);
+	const [rut, setRut] = useState(undefined);
 	const [transbank, setTransbank] = useState(null);
 	const [numeroOrden, setNumeroOrden] = useState();
 	const precio = 1000;
@@ -62,16 +64,22 @@ export default function BonoUser(props) {
 	const comprar = () => {
 		let orderToArray = [];
 		let errors = {};
-		if (!nombre || !apellido || !email.trim() || !telefono) {
+		if (!nombre || !apellido || !email.trim() || !telefono || !rut) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
 			if (!nombre) errors.nombre = true;
 			if (!apellido) errors.apellido = true;
 			if (!email.trim()) errors.email = true;
 			if (!telefono) errors.telefono = true;
+			if (!rut) errors.rut = true;
+			console.log(validarRUT("log de rut",rut))
 		} else if (!validateEmail(email.trim())) {
 			toastRef.current.show("Correo electrónico incorrecto.");
 			errors.email = true;
-		} else {
+		}else if (validarRUT(rut) === false){
+			console.log(validarRUT(rut))
+			toastRef.current.show("Formato de Rut incorrecto.");
+			errors.rut = true;
+		}else {
 			setLoading(true);
 			firebase
 				.database()
@@ -99,6 +107,7 @@ export default function BonoUser(props) {
 						precio: precioTotal,
 						nombre: nombre,
 						apellido: apellido,
+						rut: rut,
 						telefono: telefono,
 						email: email,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
@@ -116,6 +125,7 @@ export default function BonoUser(props) {
 						total: precioTotal,
 						nombre: nombre,
 						apellido: apellido,
+						rut: rut,
 						email: email,
 						telefono: telefono,
 						cantidad: cantidad,
@@ -134,6 +144,7 @@ export default function BonoUser(props) {
 						total: precioTotal,
 						nombre: nombre,
 						apellido: apellido,
+						rut: rut,
 						email: email,
 						telefono: telefono,
 						cantidad: cantidad,
@@ -229,7 +240,7 @@ export default function BonoUser(props) {
 						}
 						onChange={(e) => setNombre(e.nativeEvent.text)}
 					/>
-					<Text style={styles.inputTitle}>apellido(s)</Text>
+					<Text style={styles.inputTitle}>Apellido(s)</Text>
 					<Input
 						name="apellido"
 						containerStyle={styles.input}
@@ -255,6 +266,33 @@ export default function BonoUser(props) {
 							)
 						}
 						onChange={(e) => setApellido(e.nativeEvent.text)}
+					/>
+					<Text style={styles.inputTitle}>Rut(s)</Text>
+					<Input
+						name="apellido"
+						containerStyle={styles.input}
+						inputStyle={styles.inputText}
+						inputContainerStyle={styles.inputUnderContainer}
+						autoCapitalize="none"
+						textContentType="postalCode"
+						placeholder="11.111.111-1 "
+						defaultValue={rut}
+						rightIcon={
+							formError.rut ? (
+								<Icon
+									type="font-awesome"
+									name="exclamation-circle"
+									color="red"
+								/>
+							) : (
+								<Icon
+									type="font-awesome-5"
+									name="edit"
+									iconStyle={styles.iconRight}
+								/>
+							)
+						}
+						onChange={(e) => setRut(e.nativeEvent.text)}
 					/>
 					<Text style={styles.inputTitle}>Correo electrónico</Text>
 					<Input
