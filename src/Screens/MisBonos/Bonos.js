@@ -29,6 +29,7 @@ export default function Bonos(props) {
       .ref(`Users/${userFbData.uid}/bonos`)
       .on("value", (snapshot) => {
         setBonos(snapshot.val());
+        console.log(bonos)
       });
   }, []);
 
