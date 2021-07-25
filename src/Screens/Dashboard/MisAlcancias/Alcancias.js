@@ -25,6 +25,7 @@ export default function Alcancias() {
       .ref(`Users/${userFbData.uid}/alcancias`)
       .on("value", (snapshot) => {
         setAlcancias(snapshot.val());
+        console.log(alcancias)
       });
   }, []);
 
