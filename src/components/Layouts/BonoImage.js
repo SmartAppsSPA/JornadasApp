@@ -8,7 +8,7 @@ export default function BonoImage() {
 				<Image
 					source={{
 						uri:
-							"https://firebasestorage.googleapis.com/v0/b/jornadas2020.appspot.com/o/Sources%2FBonoRifa%20600x300.png?alt=media&token=63bd664e-f42f-4805-bf91-3d2ef6fa2609",
+							"https://firebasestorage.googleapis.com/v0/b/jornadas2020.appspot.com/o/Sources%2FBono_Sorteo_600x300.png?alt=media&token=b56c1b69-eede-40ed-b75b-65a1c4bdfaf0",
 					}}
 					style={styles.image}
 				/>

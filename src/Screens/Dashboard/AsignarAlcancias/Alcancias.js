@@ -43,6 +43,28 @@ export default function Alcancias() {
         </View>
         <View style={styles.box3}>
           <ScrollView>
+          <View style={styles.infoView}>
+              <View style={styles.textBox}>
+                <Text style={styles.textKey}>Asignar varias alcancias</Text>
+                </View>
+                <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Asignar", {
+
+                      })
+                    }
+                    style={styles.backButton}
+                  >
+                    <Icon
+                      type="FontAwesome5"
+                      name="plus-circle"
+                      size={30}
+                      color="green"
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
+          </View>
+            <Text ></Text>
             {alcanciasToArray.map((alcancia, i) => {
               return !alcancia.asignada_tercero ? (
                 <View key={i} style={styles.infoView}>

@@ -29,7 +29,6 @@ export default function BonoUser(props) {
 	const [cantidad, setCantidad] = useState(1);
 	const [nombre, setNombre] = useState(userFbData.nombre);
 	const [apellido, setApellido] = useState(userFbData.apellido);
-	const [email, setEmail] = useState(userFbData.email);
 	const [telefono, setTelefono] = useState(userFbData.telefono);
 	const [rut, setRut] = useState(undefined);
 	const [transbank, setTransbank] = useState(null);
@@ -64,17 +63,12 @@ export default function BonoUser(props) {
 	const comprar = () => {
 		let orderToArray = [];
 		let errors = {};
-		if (!nombre || !apellido || !email.trim() || !telefono || !rut) {
+		if (!nombre || !apellido || !telefono || !rut) {
 			toastRef.current.show("Todos Los Campos Son Obligatorios.");
 			if (!nombre) errors.nombre = true;
 			if (!apellido) errors.apellido = true;
-			if (!email.trim()) errors.email = true;
 			if (!telefono) errors.telefono = true;
 			if (!rut) errors.rut = true;
-			console.log(validarRUT("log de rut",rut))
-		} else if (!validateEmail(email.trim())) {
-			toastRef.current.show("Correo electrónico incorrecto.");
-			errors.email = true;
 		}else if (validarRUT(rut) === false){
 			console.log(validarRUT(rut))
 			toastRef.current.show("Formato de Rut incorrecto.");
@@ -109,7 +103,6 @@ export default function BonoUser(props) {
 						apellido: apellido,
 						rut: rut,
 						telefono: telefono,
-						email: email,
 						fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
 						numero_orden:  'JMAGALLANICAS-' + key,
 						numero: key,
@@ -126,7 +119,6 @@ export default function BonoUser(props) {
 						nombre: nombre,
 						apellido: apellido,
 						rut: rut,
-						email: email,
 						telefono: telefono,
 						cantidad: cantidad,
 						numero_orden:  'JMAGALLANICAS-' + key,
@@ -145,7 +137,6 @@ export default function BonoUser(props) {
 						nombre: nombre,
 						apellido: apellido,
 						rut: rut,
-						email: email,
 						telefono: telefono,
 						cantidad: cantidad,
 						numero_orden:  'JMAGALLANICAS-' + key,
@@ -166,7 +157,6 @@ export default function BonoUser(props) {
 								cantidad: cantidad,
 								nombre: nombre,
 								apellido: apellido,
-								email: email,
 								uid: userFbData.uid,
 								telefono: telefono,
 							},
@@ -293,33 +283,6 @@ export default function BonoUser(props) {
 							)
 						}
 						onChange={(e) => setRut(e.nativeEvent.text)}
-					/>
-					<Text style={styles.inputTitle}>Correo electrónico</Text>
-					<Input
-						name="email"
-						textContentType="emailAddress"
-						containerStyle={styles.input}
-						inputStyle={styles.inputText}
-						inputContainerStyle={styles.inputUnderContainer}
-						autoCapitalize="none"
-						placeholder="ejemplo@gmail.com"
-						defaultValue={email}
-						rightIcon={
-							formError.email ? (
-								<Icon
-									type="font-awesome"
-									name="exclamation-circle"
-									color="red"
-								/>
-							) : (
-								<Icon
-									type="Fontawesome5"
-									name="edit"
-									iconStyle={styles.iconRight}
-								/>
-							)
-						}
-						onChange={(e) => setEmail(e.nativeEvent.text)}
 					/>
 					<Text style={styles.inputTitle}>Teléfono de Contacto</Text>
 					<Input
