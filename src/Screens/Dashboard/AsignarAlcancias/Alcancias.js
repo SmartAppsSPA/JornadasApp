@@ -32,39 +32,33 @@ export default function Alcancias() {
     Object.keys(alcancias).forEach((key, i) => {
       alcanciasToArray[i] = alcancias[key];
     });
-
     return (
       <>
         <View style={styles.box1}>
           <Header />
         </View>
         <View style={styles.box2}>
-          <Text style={styles.infoTitle}>Asignar Alcancias</Text>
+          <Text style={styles.infoTitle}>Asignar alcancías</Text>
         </View>
         <View style={styles.box3}>
-          <ScrollView>
           <View style={styles.infoView}>
-              <View style={styles.textBox}>
-                <Text style={styles.textKey}>Asignar varias alcancias</Text>
-                </View>
-                <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("Asignar", {
-
-                      })
-                    }
-                    style={styles.backButton}
-                  >
-                    <Icon
-                      type="FontAwesome5"
-                      name="plus-circle"
-                      size={30}
-                      color="green"
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
+            <View style={styles.textBox, {height:35}}>
+              <Text style={styles.textKeyV}>Asignar varias alcancías</Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("AsignarVarias", {})}
+              style={styles.backButton}
+            >
+ <Icon
+                        type="FontAwesome5"
+                        name="arrow-circle-right"
+                        size={50}
+                        color="#34495E"
+                        style={styles.icon}
+                      />
+            </TouchableOpacity>
           </View>
-            <Text ></Text>
+          <ScrollView>
             {alcanciasToArray.map((alcancia, i) => {
               return !alcancia.asignada_tercero ? (
                 <View key={i} style={styles.infoView}>
@@ -110,13 +104,13 @@ export default function Alcancias() {
     return (
       <SafeAreaView style={styles.mainView}>
         <Header />
-        <Text style={styles.infoTitle}>Asignar Alcancias</Text>
+        <Text style={styles.infoTitle}>Asignar alcancías</Text>
         <ScrollView>
           <View style={{ alignItems: "center", marginTop: 30 }}>
             <Text
               style={{ fontWeight: "bold", color: "#03255F", fontSize: 15 }}
             >
-              No tiene alcancias asignadas.
+              No tiene alcancías asignadas.
             </Text>
           </View>
         </ScrollView>
@@ -160,6 +154,14 @@ const styles = StyleSheet.create({
   textKey: {
     flex: 1,
     marginLeft: 3,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#03255f",
+  },
+  textKeyV: {
+    flex: 1,
+    marginLeft: 20,
+    paddingTop:8,
     fontSize: 15,
     fontWeight: "bold",
     color: "#03255f",

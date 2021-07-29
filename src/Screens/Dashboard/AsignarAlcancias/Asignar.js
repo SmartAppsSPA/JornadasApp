@@ -217,7 +217,7 @@ export default function InformacionAlcancia(props) {
 			<SafeAreaView style={styles.container}>
 				<Header />
 				<ScrollView>
-					<Text style={styles.title}>La Alcancía ya fue asignada.</Text>
+					<Text style={styles.title}>La alcancía ya fue asignada.</Text>
 					<TouchableOpacity
 						onPress={() => navigation.navigate("Alcancias")}
 						style={styles.backButton}

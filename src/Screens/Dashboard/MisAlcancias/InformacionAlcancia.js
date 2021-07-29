@@ -68,7 +68,7 @@ export default function InformacionAlcancia(props) {
 					recuperada: false,
 					reset: true,
 					fecha_reinicio: moment().format("DD-MM-YYYY h:mm:ss a"),
-					asignada_tercero: true,
+					asignada_tercero: false,
 					tercero: {
 						nombre: null,
 						correo: null,
@@ -91,7 +91,7 @@ export default function InformacionAlcancia(props) {
 				<Text style={styles.infoTitle}>Información Alcancía</Text>
 				<View style={styles.infoView}>
 					<View style={styles.textBox}>
-						<Text style={styles.textKey}>Numero De Alcancia:</Text>
+						<Text style={styles.textKey}>Numero De Alcancía:</Text>
 						<Text style={styles.textValue}> {content.alcancia_numero}</Text>
 					</View>
 					{content.asiganda_externo ? (
