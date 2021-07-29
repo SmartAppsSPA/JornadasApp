@@ -257,7 +257,7 @@ export default function BonoUser(props) {
 						}
 						onChange={(e) => setApellido(e.nativeEvent.text)}
 					/>
-					<Text style={styles.inputTitle}>Rut(s)</Text>
+					<Text style={styles.inputTitle}>Rut</Text>
 					<Input
 						name="apellido"
 						containerStyle={styles.input}
