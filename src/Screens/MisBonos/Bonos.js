@@ -52,7 +52,7 @@ export default function Bonos(props) {
         <View style={styles.detailContainer}>
           <ScrollView style={styles.scroll}>
             {bonosToArray.map((bono, i) => {
-              return (
+              return bono.estado_de_pago == "Aprobado" || bono.estado_de_pago == "Rechazado"?(
                 <View key={i} style={styles.detailBox}>
                   <View style={styles.infoView}>
                     <View style={styles.textBox}>
@@ -112,7 +112,7 @@ export default function Bonos(props) {
                     </TouchableOpacity>
                   </View>
                 </View>
-              );
+              ):null
             })}
           </ScrollView>
         </View>
