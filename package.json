@@ -17,7 +17,7 @@
     "@react-navigation/stack": "^5.5.1",
     "adb": "^0.2.0",
     "android-platform-tools": "^3.0.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^6.11.0",
     "expo": "^42.0.3",
