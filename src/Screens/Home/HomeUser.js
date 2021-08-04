@@ -201,7 +201,7 @@ export default function HomeUser(props) {
 						<View style={styles.modalView}>
 							<View style={styles.modalContent}>
 								<ImageBackground
-									source={require("../../../assets/banner-01.jpg")}
+									source={require("../../../assets/banner-01.png")}
 									onPress={() => Linking.openURL("http://jornadas.cl")}
 									style={{
 										resizeMode: "stretch",

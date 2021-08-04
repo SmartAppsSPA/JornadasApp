@@ -32,7 +32,7 @@ export default function SplashScreen(props){
       <View style={[styles.containerStatus, styles.horizontal]}>
         <ActivityIndicator size="large" color="#F5C300" />
       </View>
-      <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
+      <Text style={styles.smartApps}>©{(new Date().getFullYear())} Powered by Smartapps</Text>
     </View>
   );
 };
