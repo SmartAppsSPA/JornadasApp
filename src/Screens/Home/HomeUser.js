@@ -55,7 +55,7 @@ export default function HomeUser(props) {
 								// 	})
 								// }
 								style={styles.buttonYellow}
-								onPress={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/")}
+								onPress={() => Linking.openURL("https://www.webpay.cl/portalpagodirecto/pages/institucion.jsf?idEstablecimiento=744755")}
 							>
 								<Text style={styles.textYellow}>
 									<Icon name="globe" size={20} color="#03255F" />
