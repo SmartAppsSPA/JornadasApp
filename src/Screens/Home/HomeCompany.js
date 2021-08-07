@@ -51,30 +51,19 @@ export default function HomeCompany(props) {
 							<Text style={styles.textYellow}></Text>
 						</TouchableOpacity>
 						<TouchableOpacity
-							// onPress={() => navigation.navigate("Donar")}
 							style={styles.buttonBlue}
 						>
-							{/* <Text style={styles.textBlue}>
-								<Icon name="donate" size={20} color="#F5C300" />
-								{`\nAlcancía\nDigital`}
-							</Text> */}
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.buttonYellow}
-							//onPress={() => navigation.navigate("Bono")}
 						>
 							<Text style={styles.textYellow}></Text>
 						</TouchableOpacity>
 					</View>
 					<View style={styles.buttonsContainer2}>
 						<TouchableOpacity
-							onPress={() => navigation.navigate("Mis Donaciones")}
 							style={styles.buttonBlue}
 						>
-							<Text style={styles.textBlue}>
-								<Icon name="hand-holding-usd" size={20} color="#F5C300" />
-								{`\nMis\nDonaciones`}
-							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() => setModalVisible(true)}
@@ -127,7 +116,6 @@ export default function HomeCompany(props) {
 					</View>
 				</ImageBackground>
 				<View style={styles.redesContainer}>
-					{/* <Text style={styles.titleRedes}>Nuestras Redes Sociales</Text> */}
 					<Icon
 						name="facebook"
 						size={35}

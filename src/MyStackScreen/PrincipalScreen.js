@@ -144,7 +144,7 @@ export default function PrincipalScreen(props) {
 				<Text style={styles.text}>Registrarse</Text>
 			</TouchableOpacity>
 			<Text onPress={recuperarPassword} style={styles.recuperar}>¿Olvidaste tu contraseña? </Text>
-			<Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
+			<Text style={styles.smartApps}>©{(new Date().getFullYear())} Powered by Smartapps</Text>
 			<Loading isVisible={loading} text="Iniciando Sesión" />
 			<Loading isVisible={loadingR} text="Pocesando Solicitud..." />
 			

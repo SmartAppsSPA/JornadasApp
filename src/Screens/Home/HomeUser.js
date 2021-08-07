@@ -49,13 +49,8 @@ export default function HomeUser(props) {
 					>
 						<View style={styles.buttonsContainer1}>
 							<TouchableOpacity
-								// onPress={() =>
-								// 	navigation.navigate("Donar", {
-								// 		userData: userFbData,
-								// 	})
-								// }
 								style={styles.buttonYellow}
-								onPress={() => Linking.openURL("https://www.webpay.cl/portalpagodirecto/pages/institucion.jsf?idEstablecimiento=744755")}
+								onPress={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/")}
 							>
 								<Text style={styles.textYellow}>
 									<Icon name="globe" size={20} color="#03255F" />
@@ -83,13 +78,8 @@ export default function HomeUser(props) {
 						</View>
 						<View style={styles.buttonsContainer2}>
 							<TouchableOpacity
-								// onPress={() => navigation.navigate("Mis Donaciones")}
 								style={styles.buttonBlue}
 							>
-								{/* <Text style={styles.textBlue}>
-									<Icon name="hand-holding-usd" size={20} color="#F5C300" />
-									{`\n\Mis\nDonaciones`}
-								</Text> */}
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => setModalVisible(true)}
@@ -149,7 +139,6 @@ export default function HomeUser(props) {
 					</ImageBackground>
 				</View>
 				<View style={styles.redesContainer}>
-					{/* <Text style={styles.titleRedes}>Nuestras Redes Sociales</Text> */}
 					<Icon
 						name="facebook"
 						size={35}

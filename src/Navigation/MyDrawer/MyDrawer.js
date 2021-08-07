@@ -16,19 +16,14 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/FontAwesome5";
 //Screens
 import HomeScreen from '../../Screens/Home/HomeScreen';
-import DonarScreen from "../../Screens/Donar/DonarScreen";
 import BingosScreen from "../../Screens/Bingo/BingosScreen";
 import BonoScreen from "../../Screens/Bono/BonoScreen";
 import MisBonosScreen from "../../Screens/MisBonos/MisBonosScreen";
-import MisDonacionesScreen from "../../Screens/MisDonaciones/MisDonacionesScreen";
 import PerfilScreen from "../../Screens/Perfil/PerfilScreen";
 import firebase from "../../../Firebase/Firebase";
 import Dashboard from "../../Screens/Dashboard/Dashboard";
 import MisBingos from "../../Screens/MisBingos/MisBingos";
-import PagoAporte from "../../Sources/PagoEnLinea/PagoAporte";
 import PagoBono from '../../Sources/PagoEnLinea/PagoBono';
-import Exito from '../../Sources/PagoEnLinea/Exito';
-import Fallo from "../../Sources/PagoEnLinea/Fallo";
 import ExitoBono from "../../Sources/PagoEnLinea/ExitoBono";
 import FalloBono from "../../Sources/PagoEnLinea/FalloBono";
 
@@ -73,16 +68,6 @@ function Menu(props) {
 						titleName="Inicio"
 						navigation={() => props.navigation.navigate("Home")}
 					/>
-					{/* <DrawerMenu
-						iconName="donate"
-						titleName="Alcancía Digital"
-						navigation={() => props.navigation.navigate("Donar")}
-					/> */}
-					{/* <DrawerMenu
-						iconName="hand-holding-usd"
-						titleName="Mis Donaciones"
-						navigation={() => props.navigation.navigate("Mis Donaciones")}
-					/> */}
 					{userFbData.tipo === "User" ? (
 						<DrawerMenu
 							iconName="edit"
@@ -146,18 +131,13 @@ function MyDrawer(props) {
 			<StatusBar />
 			<Drawer.Navigator drawerContent={(props) => <Menu {...props}  />} drawerStyle={styles.drawer}>
 				<Drawer.Screen name="Home" component={HomeScreen} />
-				<Drawer.Screen name="Donar" component={DonarScreen} />
 				<Drawer.Screen name="Bono" component={BonoScreen} />
 				<Drawer.Screen name="Bingo" component={BingosScreen} />
-				<Drawer.Screen name="Mis Donaciones" component={MisDonacionesScreen} />
 				<Drawer.Screen name="Mis Bonos" component={MisBonosScreen} />
 				<Drawer.Screen name="Mis Bingos" component={MisBingos} />
 				<Drawer.Screen name="Panel De Control" component={Dashboard} />
 				<Drawer.Screen name="Perfil" component={PerfilScreen} />
-				<Drawer.Screen name='Pago Aporte' component={PagoAporte}/>
 				<Drawer.Screen name='Pago Bono' component={PagoBono}/>
-				<Drawer.Screen name="Exito" component={Exito}/> 
-				<Drawer.Screen name="Fallo" component={Fallo}/> 
 				<Drawer.Screen name="Exito Bono" component={ExitoBono}/> 
 				<Drawer.Screen name="Fallo Bono" component={FalloBono}/> 
 
