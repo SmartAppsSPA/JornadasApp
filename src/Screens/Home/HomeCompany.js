@@ -47,9 +47,15 @@ export default function HomeCompany(props) {
 					style={{ width: width, height: height * 0.6 }}
 				>
 					<View style={styles.buttonsContainer1}>
-						<TouchableOpacity style={styles.buttonYellow}>
-							<Text style={styles.textYellow}></Text>
-						</TouchableOpacity>
+					<TouchableOpacity
+								style={styles.buttonYellow}
+								onPress={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/")}
+							>
+								<Text style={styles.textYellow}>
+									<Icon name="globe" size={20} color="#03255F" />
+									{`\nVisitar\nWeb`}
+								</Text>
+							</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.buttonBlue}
 						>

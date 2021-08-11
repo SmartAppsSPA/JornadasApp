@@ -9,23 +9,18 @@ import {
 	StatusBar,
 	StyleSheet,
 	Dimensions,
-	SafeAreaView
+	SafeAreaView,
+	Linking,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/FontAwesome5";
 //Screens
 import HomeScreen from '../../Screens/Home/HomeScreen';
-import BingosScreen from "../../Screens/Bingo/BingosScreen";
-import BonoScreen from "../../Screens/Bono/BonoScreen";
-import MisBonosScreen from "../../Screens/MisBonos/MisBonosScreen";
 import PerfilScreen from "../../Screens/Perfil/PerfilScreen";
 import firebase from "../../../Firebase/Firebase";
 import Dashboard from "../../Screens/Dashboard/Dashboard";
-import MisBingos from "../../Screens/MisBingos/MisBingos";
-import PagoBono from '../../Sources/PagoEnLinea/PagoBono';
-import ExitoBono from "../../Sources/PagoEnLinea/ExitoBono";
-import FalloBono from "../../Sources/PagoEnLinea/FalloBono";
+
 
 function DrawerMenu(props) {
 	return (
@@ -61,6 +56,7 @@ function Menu(props) {
 							style={styles.userImagen}
 						/>
 					</View>
+					
 				</View>
 				<ScrollView>
 					<DrawerMenu
@@ -70,30 +66,10 @@ function Menu(props) {
 					/>
 					{userFbData.tipo === "User" ? (
 						<DrawerMenu
-							iconName="edit"
-							titleName="Bono Sorteo"
-							navigation={() => props.navigation.navigate("Bono")}
-						/>
-					) : null}
-					{userFbData.tipo === "User" ? (
-						<DrawerMenu
 							iconName="receipt"
 							titleName="Mis Bonos"
-							navigation={() => props.navigation.navigate("Mis Bonos")}
-						/>
-					) : null}
-					{userFbData.tipo === "User" ? (
-						<DrawerMenu
-							iconName="delicious"
-							titleName="Bingo"
-							navigation={() => props.navigation.navigate("Bingo")}
-						/>
-					) : null}
-					{userFbData.tipo === "User" ? (
-						<DrawerMenu
-							iconName="table"
-							titleName="Mis Bingos"
-							navigation={() => props.navigation.navigate("Mis Bingos")}
+							navigation={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/DescargaBonos")}
+							
 						/>
 					) : null}
 					{userFbData.subtipo ? (
@@ -131,17 +107,8 @@ function MyDrawer(props) {
 			<StatusBar />
 			<Drawer.Navigator drawerContent={(props) => <Menu {...props}  />} drawerStyle={styles.drawer}>
 				<Drawer.Screen name="Home" component={HomeScreen} />
-				<Drawer.Screen name="Bono" component={BonoScreen} />
-				<Drawer.Screen name="Bingo" component={BingosScreen} />
-				<Drawer.Screen name="Mis Bonos" component={MisBonosScreen} />
-				<Drawer.Screen name="Mis Bingos" component={MisBingos} />
 				<Drawer.Screen name="Panel De Control" component={Dashboard} />
 				<Drawer.Screen name="Perfil" component={PerfilScreen} />
-				<Drawer.Screen name='Pago Bono' component={PagoBono}/>
-				<Drawer.Screen name="Exito Bono" component={ExitoBono}/> 
-				<Drawer.Screen name="Fallo Bono" component={FalloBono}/> 
-
-				
 			</Drawer.Navigator>
 		</NavigationContainer>
 	);
