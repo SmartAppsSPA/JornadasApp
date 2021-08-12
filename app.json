@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "cl.SmartApps.AppJornadasMagallanicas",
-      "buildNumber": "1.9.0"
+      "buildNumber": "1.9.1"
     },
     "android": {
       "package": "cl.SmartApps.AppJornadasMagallanicas",
