@@ -48,73 +48,20 @@ export default function HomeUser(props) {
 						style={{ width: width, height: height * 0.6 }}
 					>
 						<View style={styles.buttonsContainer1}>
+							
 							<TouchableOpacity
-								style={styles.buttonYellow}
-								onPress={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/")}
+							onPress={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/")}
+								style={styles.buttonBlue}
 							>
-								<Text style={styles.textYellow}>
-									<Icon name="globe" size={20} color="#03255F" />
+								<Text style={styles.textBlue}>
+									<Icon name="globe" size={20} color="#F5C300" />
 									{`\nVisitar\nWeb`}
 								</Text>
 							</TouchableOpacity>
-							<TouchableOpacity
-								onPress={() => navigation.navigate("Bingo")}
-								style={styles.buttonBlue}
-							>
-								<Text style={styles.textBlue}>
-									<Icon name="delicious" size={20} color="#F5C300" />
-									{`\nBingo`}
-								</Text>
-							</TouchableOpacity>
-							<TouchableOpacity
-								onPress={() => navigation.navigate("Bono")}
-								style={styles.buttonYellow}
-							>
-								<Text style={styles.textYellow}>
-									<Icon name="edit" size={20} color="#03255F" />
-									{`\nBono\nSorteo`}
-								</Text>
-							</TouchableOpacity>
+
 						</View>
 						<View style={styles.buttonsContainer2}>
-							<TouchableOpacity
-								style={styles.buttonBlue}
-							>
-							</TouchableOpacity>
-							<TouchableOpacity
-								onPress={() => setModalVisible(true)}
-								style={styles.buttonBlue}
-							>
-								<Image
-									source={require("../../../assets/Cruz_de_malta.png")}
-									style={{
-										resizeMode: "stretch",
-										width: width * 0.2,
-										height: height * 0.106,
-									}}
-								/>
-							</TouchableOpacity>
-							<TouchableOpacity
-								onPress={() => navigation.navigate("Mis Bonos")}
-								style={styles.buttonBlue}
-							>
-								<Text style={styles.textBlue}>
-									<Icon name="receipt" size={20} color="#F5C300" />
-									{`\nMis\nBonos`}
-								</Text>
-							</TouchableOpacity>
-						</View>
-						<View style={styles.buttonsContainer3}>
-							<TouchableOpacity
-								onPress={() => navigation.navigate("Mis Bingos")}
-								style={styles.buttonYellow}
-							>
-								<Text style={styles.textYellow}>
-									<Icon name="table" size={20} color="#03255f" />
-									{`\nMis\nBingos`}
-								</Text>
-							</TouchableOpacity>
-							{userFbData.subtipo ? (
+						{userFbData.subtipo ? (
 								<TouchableOpacity
 									onPress={() => navigation.navigate("Panel De Control")}
 									style={styles.buttonBlue}
@@ -129,9 +76,33 @@ export default function HomeUser(props) {
 									<Text></Text>
 								</TouchableOpacity>
 							)}
-							<TouchableOpacity onPress={Logout} style={styles.buttonYellow}>
-								<Text style={styles.textYellow}>
-									<Icon name="door-open" size={20} color="#03255F" />
+							<TouchableOpacity
+								onPress={() => setModalVisible(true)}
+								style={styles.buttonYellow}
+							>
+								<Image
+									source={require("../../../assets/Cruz_de_malta.png")}
+									style={{
+										resizeMode: "stretch",
+										width: width * 0.2,
+										height: height * 0.106,
+									}}
+								/>
+							</TouchableOpacity>
+							<TouchableOpacity
+								onPress={() => Linking.openURL("https://www.appjornadasmagallanicas.cl/DescargaBonos")}
+								style={styles.buttonBlue}
+							>
+								<Text style={styles.textBlue}>
+									<Icon name="receipt" size={20} color="#F5C300" />
+									{`\nMis\nBonos`}
+								</Text>
+							</TouchableOpacity>
+						</View>
+						<View style={styles.buttonsContainer3}>
+							<TouchableOpacity onPress={Logout} style={styles.buttonBlue}>
+								<Text style={styles.textBlue}>
+									<Icon name="door-open" size={20} color="#F5C300" />
 									{`\nCerrar\nSesión`}
 								</Text>
 							</TouchableOpacity>
