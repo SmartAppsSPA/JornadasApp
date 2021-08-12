@@ -35,10 +35,10 @@ export default function AsignarVarias(props) {
   let arrayAlcancias = [];
 
   useEffect(() => {
-    firebase
+    const fbData = firebase
       .database()
       .ref(`Users/${userFbData.uid}/alcancias/`)
-      .on("value", (snapshot) => {
+      .once("value", snapshot => {
         snapshot.val().forEach((element) => {
           if (element.asignada_tercero == false) {
             arrayAlcancias.push(element);
@@ -46,6 +46,8 @@ export default function AsignarVarias(props) {
         });
         setAlcancias(arrayAlcancias);
       });
+
+    return () => fbData;
   }, []);
 
   useEffect(() => {
@@ -91,7 +93,9 @@ export default function AsignarVarias(props) {
       setLoading(true);
       for (let i = 0; i < cantidad; i++) {
         let key = alcancias[i].alcancia_numero - 1;
-        let indice = alcancias[i].alcancia_numero + 1;
+        let indice = alcancias[i].alcancia_numero;
+        // console.log('key',key)
+        // console.log('indice',indice)
         asignarAlcancias(userFbData.uid, key, indice);
       }
     }
@@ -99,27 +103,35 @@ export default function AsignarVarias(props) {
   };
 
   const asignarAlcancias = (uid, key, indice_alcancia) => {
-    console.log("los de asignarAlcancias", uid, key, indice_alcancia);
+    let alcancias_aux;
     firebase
       .database()
-      .ref()
-      .child(`Users/${uid}/alcancias/${key}/`)
-      .update({
-        reset: false,
-        asignada_tercero: true,
-        fecha_asignacion: moment().format("DD-MM-YYYY h:mm:ss a"),
-        tercero: {
-          nombre: nombre,
-          correo: correo,
-          direccion: direccion,
-          telefono: telefono,
-          rut: rut,
-        },
+      .ref(`Users/${uid}/alcancias`)
+      .orderByChild('alcancia_numero')
+      .equalTo(indice_alcancia)
+      .once("value", snapshot => {
+        alcancias_aux = Object.keys(snapshot.val())
+        firebase
+          .database()
+          .ref()
+          .child(`Users/${uid}/alcancias/${alcancias_aux[0]}/`)
+          .update({
+            reset: false,
+            asignada_tercero: true,
+            fecha_asignacion: moment().format("DD-MM-YYYY h:mm:ss a"),
+            tercero: {
+              nombre: nombre,
+              correo: correo,
+              direccion: direccion,
+              telefono: telefono,
+              rut: rut,
+            },
+          });
       });
     firebase
       .database()
       .ref()
-      .child(`Alcancias/${indice_alcancia}/`)
+      .child(`Alcancias/${key}/`)
       .update({
         reset: false,
         asignada_tercero: true,
@@ -131,8 +143,7 @@ export default function AsignarVarias(props) {
           telefono: telefono,
           rut: rut,
         },
-      })
-      .then((response) => {
+      }).then((response) => {
         console.log(response);
         setLoading(false);
         toastRef.current.show("Éxito al asignar ");

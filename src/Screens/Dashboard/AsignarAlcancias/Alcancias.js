@@ -20,12 +20,15 @@ export default function Alcancias() {
   let alcanciasToArray = [];
 
   useEffect(() => {
-    firebase
+    const fbData = firebase
       .database()
       .ref(`Users/${userFbData.uid}/alcancias/`)
       .on("value", (snapshot) => {
+        console.log(snapshot.val())
         setAlcancias(snapshot.val());
       });
+
+    return () => fbData;
   }, []);
 
   if (alcancias && userFbData) {
@@ -42,20 +45,20 @@ export default function Alcancias() {
         </View>
         <View style={styles.box3}>
           <View style={styles.infoView}>
-            <View style={styles.textBox, {height:35}}>
+            <View style={(styles.textBox, { height: 35 })}>
               <Text style={styles.textKeyV}>Asignar varias alcancías</Text>
             </View>
             <TouchableOpacity
               onPress={() => navigation.navigate("AsignarVarias", {})}
               style={styles.backButton}
             >
- <Icon
-                        type="FontAwesome5"
-                        name="arrow-circle-right"
-                        size={50}
-                        color="#34495E"
-                        style={styles.icon}
-                      />
+              <Icon
+                type="FontAwesome5"
+                name="arrow-circle-right"
+                size={50}
+                color="#34495E"
+                style={styles.icon}
+              />
             </TouchableOpacity>
           </View>
           <ScrollView>
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
   textKeyV: {
     flex: 1,
     marginLeft: 20,
-    paddingTop:8,
+    paddingTop: 8,
     fontSize: 15,
     fontWeight: "bold",
     color: "#03255f",
