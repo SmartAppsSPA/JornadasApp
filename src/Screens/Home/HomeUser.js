@@ -95,7 +95,8 @@ export default function HomeUser(props) {
 								/>
 							</TouchableOpacity>
 							<TouchableOpacity
-								onPress={() => navigation.navigate("Mis Bonos")}
+								// onPress={() => navigation.navigate("Mis Bonos")}
+								onPress={() => Linking.openURL("https://appjornadasmagallanicas.cl/DescargaBonos")}
 								style={styles.buttonBlue}
 							>
 								<Text style={styles.textBlue}>

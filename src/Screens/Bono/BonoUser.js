@@ -31,22 +31,11 @@ export default function BonoUser(props) {
   const [apellido, setApellido] = useState(userFbData.apellido);
   const [telefono, setTelefono] = useState(userFbData.telefono);
   const [rut, setRut] = useState(undefined);
+  const [email, setEmail] = useState(userFbData.email);
   const [transbank, setTransbank] = useState(null);
-  const [numeroOrden, setNumeroOrden] = useState();
   const precio = 1000;
   const precioTotal = precio * cantidad;
 
-  useEffect(() => {
-    firebase
-      .database()
-      .ref("Transbank")
-      .orderByChild("numero")
-      .limitToLast(1)
-      .on("value", (snapshot) => {
-        setNumeroOrden(snapshot.val());
-        console.log(numeroOrden);
-      });
-  }, []);
 
   const handleCantidad = (cantidad, max) => {
     if (cantidad >= 1) {
@@ -60,12 +49,9 @@ export default function BonoUser(props) {
     }
   };
 
-
-  
   const comprar = () => {
-    let orderToArray = [];
     let errors = {};
-    if (!nombre || !apellido || !telefono || !rut) {
+    if (!nombre || !apellido || !telefono || !rut || !email.trim()) {
       toastRef.current.show("Todos Los Campos Son Obligatorios.");
       if (!nombre) errors.nombre = true;
       if (!apellido) errors.apellido = true;
@@ -75,114 +61,41 @@ export default function BonoUser(props) {
       console.log(validarRUT(rut));
       toastRef.current.show("Formato de Rut incorrecto.");
       errors.rut = true;
+    } else if (!validateEmail(email.trim())) {
+      toastRef.current.show("Correo electrónico incorrecto.");
+      errors.email = true;
     } else {
       setLoading(true);
-      firebase
-        .database()
-        .ref("Transbank")
-        .orderByChild("numero")
-        .limitToLast(1)
-        .on("value", (snapshot) => {
-          setNumeroOrden(snapshot.val());
+      axios({
+        method: "post",
+        url: "https://appjornadasmagallanicas.cl/api/api/transactions",
+        data: {
+          sessionID: "BonoSorteoApp",
+          monto: precioTotal,
+          cantidad: cantidad,
+          nombre: nombre,
+          rut: rut,
+          apellido: apellido,
+          item: "Bono Sorteo",
+          email: email,
+          uid: userFbData.uid,
+          telefono: telefono,
+        },
+      }).then((response) => {
+        setTransbank(response.data);
+        console.log("LOG de transbank::::", transbank);
+        navigation.navigate("Pago Bono", {
+          transbank: response.data
         });
-      if (numeroOrden) {
-        console.log(numeroOrden);
-        Object.keys(numeroOrden).forEach((key, i) => {
-          orderToArray[i] = numeroOrden[key];
-        });
-        let key = parseInt(orderToArray[0].numero_orden.split("-")[1]) + 1;
-        console.log(key);
-        firebase
-          .database()
-          .ref()
-          .child(`Transbank/orden_${key}`)
-          .set({
-            item: "Bono",
-            cantidad: cantidad,
-            tipo: "Usuario",
-            precio: precioTotal,
-            nombre: nombre,
-            apellido: apellido,
-            rut: rut,
-            telefono: telefono,
-            fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-            numero_orden: "JMAGALLANICAS-" + key,
-            numero: key,
-            estado_de_pago: "Pendiente",
-            uid: userFbData.uid,
-            plataforma: "App",
-          });
-        firebase
-          .database()
-          .ref()
-          .child(`Users/${userFbData.uid}/bonos/${key}/`)
-          .set({
-            total: precioTotal,
-            nombre: nombre,
-            apellido: apellido,
-            rut: rut,
-            telefono: telefono,
-            cantidad: cantidad,
-            numero_orden: "JMAGALLANICAS-" + key,
-            fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-            id: key,
-            estado_de_pago: "Pendiente",
-            uid: userFbData.uid,
-          });
-        firebase
-          .database()
-          .ref()
-          .child(`Bono_digital/${key}/`)
-          .set({
-            tipo: "Usuario",
-            total: precioTotal,
-            nombre: nombre,
-            apellido: apellido,
-            rut: rut,
-            telefono: telefono,
-            cantidad: cantidad,
-            numero_orden: "JMAGALLANICAS-" + key,
-            fecha: moment().format("DD-MM-YYYY h:mm:ss a"),
-            id: key,
-            estado_de_pago: "Pendiente",
-            uid: userFbData.uid,
-            plataforma: "App",
-          })
-          .then((res) => {
-            axios({
-              method: "post",
-              url: "https://appjornadasmagallanicas.cl/api/api/transactions",
-              data: {
-                orden_compra: "JMAGALLANICAS-" + key,
-                sessionID: "BonoSorteoApp",
-                monto: precioTotal,
-                cantidad: cantidad,
-                nombre: nombre,
-                apellido: apellido,
-                uid: userFbData.uid,
-                telefono: telefono,
-              },
-            }).then((response) => {
-              setTransbank(response.data);
-              console.log(transbank);
-              navigation.navigate("Pago Bono", {
-                transbank: response.data,
-                orden_de_compra: key,
-              });
-              setLoading(false);
-            });
-            handleReset();
-          })
-          .catch((err) => {
-            setLoading(false);
-            toastRef.current.show(
-              "Ha ocurrido un problema, intente nuevamente."
-            );
-          });
-      } else {
         setLoading(false);
-        toastRef.current.show("Ha ocurrido un problema, intente nuevamente.");
-      }
+      }).catch((err) => {
+        console.log("eerrr::", err)
+        setLoading(false);
+        toastRef.current.show(
+          "Ha ocurrido un problema, intente nuevamente."
+        );
+      handleReset();
+    });
     }
     setFormError(errors);
   };
@@ -264,13 +177,13 @@ export default function BonoUser(props) {
           />
           <Text style={styles.inputTitle}>Rut</Text>
           <Input
-            name="apellido"
+            name="rut"
             containerStyle={styles.input}
             inputStyle={styles.inputText}
             inputContainerStyle={styles.inputUnderContainer}
             autoCapitalize="none"
             textContentType="postalCode"
-            placeholder="11.111.111-1 "
+            placeholder="11111111-1 Sin puntos y con guion."
             defaultValue={rut}
             rightIcon={
               formError.rut ? (
@@ -288,6 +201,33 @@ export default function BonoUser(props) {
               )
             }
             onChange={(e) => setRut(e.nativeEvent.text)}
+          />
+          <Text style={styles.inputTitle}>Correo electrónico</Text>
+          <Input
+            name="email"
+            textContentType="emailAddress"
+            containerStyle={styles.input}
+            inputStyle={styles.inputText}
+            inputContainerStyle={styles.inputUnderContainer}
+            autoCapitalize="none"
+            placeholder="ejemplo@gmail.com"
+            defaultValue={email}
+            rightIcon={
+              formError.email ? (
+                <Icon
+                  type="font-awesome"
+                  name="exclamation-circle"
+                  color="red"
+                />
+              ) : (
+                <Icon
+                  type="Fontawesome5"
+                  name="edit"
+                  iconStyle={styles.iconRight}
+                />
+              )
+            }
+            onChange={(e) => setEmail(e.nativeEvent.text)}
           />
           <Text style={styles.inputTitle}>Teléfono de Contacto</Text>
           <Input

@@ -5,6 +5,7 @@ import {
 	Text,
 	TouchableOpacity,
 	Image,
+	Linking,
 	ScrollView,
 	StatusBar,
 	StyleSheet,
@@ -79,7 +80,7 @@ function Menu(props) {
 						<DrawerMenu
 							iconName="receipt"
 							titleName="Mis Bonos"
-							navigation={() => props.navigation.navigate("Mis Bonos")}
+							onPress={() => Linking.openURL("https://appjornadasmagallanicas.cl/DescargaBonos")}
 						/>
 					) : null}
 					{userFbData.tipo === "User" ? (

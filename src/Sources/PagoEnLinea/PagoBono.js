@@ -9,25 +9,23 @@ import Loading from "../../Utils/Loading";
 export default function PagoBono(props) {
   const navigation = useNavigation();
   const transbank = props.route.params.transbank;
-  const orden_de_compra = props.route.params.orden_de_compra;
   const [loading, setLoading] = useState(false);
 
-  console.log(orden_de_compra)
   const handleWebViewNavigationStateChange = (newNavState) => {
     const { url } = newNavState;
     if (!url) return;
 
-    if (url.includes("voucher")) {
+    if (url.includes("pago-exito")) {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        navigation.navigate("Exito Bono", {orden_de_compra: orden_de_compra});
+        navigation.navigate("Exito Bono");
       }, 10000);
-    } else if (url.includes("fallido")) {
+    } else if (url.includes("pago-fallido")) {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        navigation.navigate("Fallo Bono", {orden_de_compra: orden_de_compra});
+        navigation.navigate("Fallo Bono");
       }, 3000);
     }
   };

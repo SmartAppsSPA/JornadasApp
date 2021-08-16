@@ -14,55 +14,17 @@ import * as firebase from "firebase";
 export default (props) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const [payInfo, setPayInfo] = useState(null);
-  const orden_de_compra = props.route.params.orden_de_compra;
 
-  useEffect(() => {
-    firebase
-      .database()
-      .ref(`Transbank/orden_${orden_de_compra}`)
-      .on("value", (snapshot) => {
-        setPayInfo(snapshot.val());
-      });
-  }, [orden_de_compra]);
 
-  console.log(orden_de_compra);
 
   const time = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       navigation.navigate("Home");
-    }, 10000);
+    }, 5000);
   };
-console.log(payInfo)
-  if (payInfo) {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={require("../../../assets/logo_jornadas.png")}
-          style={{
-            height: 100,
-            resizeMode: "contain",
-            marginBottom: 20,
-          }}
-        />
-        <Text style={styles.exito}>Su compra de {payInfo.cantidad} bono(s)</Text>
-        <Text style={styles.exito}>ha sido Aprobada con exito</Text>
-        <FontAwesome name="check-square" size={50} color="green" style={{margin: 10}}/>
-		<Text style={styles.exito}>Gracias</Text>
-        <Text style={styles.exito}>
-          {payInfo.nombre} {payInfo.apellido}
-        </Text>
-        <Text style={styles.exito}>por colaborar con esta noble causa.</Text>
-        <TouchableHighlight onPress={() => time()} style={styles.button}>
-          <Text style={styles.textButton}>Volver al Inicio</Text>
-        </TouchableHighlight>
-        <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
-        <Loading isVisible={loading} text="Guardando información, no cierre la aplicación..." />
-      </View>
-    );
-  } else {
+
     return (
       <View style={styles.container}>
         <Image
@@ -81,12 +43,11 @@ console.log(payInfo)
         <TouchableHighlight onPress={() => time()} style={styles.button}>
           <Text style={styles.textButton}>Volver al Inicio</Text>
         </TouchableHighlight>
-        <Text style={styles.smartApps}>©2020 Powered by Smartapps</Text>
+        <Text style={styles.smartApps}>©{(new Date().getFullYear())} Powered by Smartapps</Text>
         <Loading isVisible={loading} text="Guardando información, no cierre la aplicación..." />
       </View>
     );
-  }
-};
+  };
 
 const styles = StyleSheet.create({
   container: {
