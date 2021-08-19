@@ -10,10 +10,7 @@ export default function ProfileImage(){
 			style={styles.imageWrapper}
 		  >
 			<Image
-			source={{
-				uri:
-					"https://firebasestorage.googleapis.com/v0/b/jornadas2020.appspot.com/o/Sources%2Fperfil.png?alt=media&token=b19e7276-50d6-44f6-a7d3-cb6a990cc40b",
-			}}
+			source={require("../../../assets/sorteo_app-02.jpg")}
 			style={styles.image}
 		/>
 		  </View>
