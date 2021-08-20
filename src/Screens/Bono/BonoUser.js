@@ -35,21 +35,30 @@ export default function BonoUser(props) {
   const [transbank, setTransbank] = useState(null);
   const precio = 1000;
   const precioTotal = precio * cantidad;
+  const maxBonos = 50;
 
 
   const handleCantidad = (cantidad, max) => {
-    if (cantidad >= 1) {
-      setCantidad(cantidad);
-    } else if (cantidad < 0) {
-      cantidad = 1;
-      setCantidad(cantidad);
-    } else if (cantidad >= max) {
-      cantidad = max;
-      setCantidad(cantidad);
+    if(cantidad < 50){
+      if (cantidad >= 1) {
+        setCantidad(cantidad);
+      } else if (cantidad < 0) {
+        cantidad = 1;
+        setCantidad(cantidad);
+      } else if (cantidad >= max) {
+        cantidad = max;
+        setCantidad(cantidad);
+      }
+    }else{
+      toastRef.current.show(
+        "La cantidad maxima de bonos por transaccion es de 50."
+      );               
+      return setCantidad(50);      
     }
   };
 
   const comprar = () => {
+    console.log(cantidad);      
     let errors = {};
     if (!nombre || !apellido || !telefono || !rut || !email.trim()) {
       toastRef.current.show("Todos Los Campos Son Obligatorios.");
