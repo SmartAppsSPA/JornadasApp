@@ -39,7 +39,7 @@ export default function BonoUser(props) {
 
 
   const handleCantidad = (cantidad, max) => {
-    if(cantidad < 50){
+    if(cantidad < 100){
       if (cantidad >= 1) {
         setCantidad(cantidad);
       } else if (cantidad < 0) {
@@ -53,7 +53,7 @@ export default function BonoUser(props) {
       toastRef.current.show(
         "La cantidad maxima de bonos por transaccion es de 50."
       );               
-      return setCantidad(50);      
+      return setCantidad(100);      
     }
   };
 
